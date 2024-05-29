@@ -1,0 +1,4 @@
+name;email;area;departament;registration;password
+User 1;user.one@avantti.app;AVANTTI;DESENVOLVIMENTO;;
+User 2;;AVANTTI;MARKETING;1234;avantti123
+User 3;user.three@avantti.app;AVANTTI;RH;4352;avantti123
