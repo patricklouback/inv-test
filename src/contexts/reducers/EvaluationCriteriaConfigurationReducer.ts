@@ -7,7 +7,7 @@ interface EvaluationCriteriaProps {
 
 export const EvaluationCriteriaDefaultValues = {
   loading: true,
-  evaluationCriteriasConfig: []
+  evaluationCriteriasConfig: [],
 };
 
 type EvaluationCriteriaAction =

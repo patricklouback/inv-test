@@ -79,11 +79,14 @@ export const CampaignUsersProvider: React.FC = ({ children }): JSX.Element => {
   const getCampaignUsersSigned = useCallback(
     async (campaignId: string, type: CampaignUserType) => {
       try {
-        const { data } = await api.get(`/campaigns/campaign-users/${campaignId}`, {
-          params: {
-            type,
-          },
-        });
+        const { data } = await api.get(
+          `/campaigns/campaign-users/${campaignId}`,
+          {
+            params: {
+              type,
+            },
+          }
+        );
         return data.campaignUsers;
       } catch (err) {
         toast.error('Erro ao buscar campanhas associadas aos usuários');

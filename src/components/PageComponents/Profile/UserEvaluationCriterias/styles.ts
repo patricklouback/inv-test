@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   width: 100%;
@@ -126,8 +127,8 @@ export const TableContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -146,7 +147,7 @@ export const Drop = styled.ul<{ open: boolean }>`
   right: 62px;
   width: 170px;
 
-  ::after {
+  &::after {
     content: '';
     background: ${({ theme }) => theme.colors.greyLight};
     width: 10px;

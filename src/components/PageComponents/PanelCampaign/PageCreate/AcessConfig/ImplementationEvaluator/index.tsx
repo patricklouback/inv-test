@@ -19,7 +19,7 @@ export const ImplementationEvaluator: React.FC = (): JSX.Element => {
     getCampaignUsersSigned,
     signNewCampaignUser,
     searchCampaignUsers,
-    campaign
+    campaign,
   } = useContext(CampaignContext);
 
   const [selectedSuports, setSelectedSuports] = useState<CampaignUser[]>([]);
@@ -88,7 +88,7 @@ export const ImplementationEvaluator: React.FC = (): JSX.Element => {
     <Draft size={size}>
       <ContentSimpleComponent
         title="Avaliador - Em Implemenação"
-        tooltipMessage='Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Em Implementação.'
+        tooltipMessage="Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Em Implementação."
       >
         <ContentItem>
           <Select

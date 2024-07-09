@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Content, TextBox, Title } from './styles';
 
 interface VideoTextInfo {
@@ -16,16 +16,17 @@ export const TextExplanation: React.FC<VideoTextInfo> = ({
   videoInfo,
 }): JSX.Element => {
   const [atentionPoints, setAtentionPoints] = useState([]);
-  function show(): boolean {
-    return videoInfo.title !== null && videoInfo.title !== undefined;
-  }
 
-  function showAllFields(): boolean {
+  const show = useCallback((): boolean => {
+    return videoInfo.title !== null && videoInfo.title !== undefined;
+  }, [videoInfo.title]);
+
+  const showAllFields = useCallback((): boolean => {
     return (
       videoInfo.mandatoryDiscussion !== undefined &&
       videoInfo.mandatoryDiscussion !== null
     );
-  }
+  }, [videoInfo.mandatoryDiscussion]);
 
   function showTime(): boolean {
     return videoInfo.time !== null && videoInfo.time !== undefined;
@@ -41,10 +42,11 @@ export const TextExplanation: React.FC<VideoTextInfo> = ({
     }
     if (videoInfo.atentionPoints !== undefined) {
       setAtentionPoints(
+        // @ts-ignore
         videoInfo.atentionPoints.sort((a, b) => b.key.length - a.key.length)
       );
     }
-  });
+  }, [showAllFields, show, videoInfo.atentionPoints]);
 
   return (
     <div>

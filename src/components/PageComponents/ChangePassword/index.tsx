@@ -60,31 +60,31 @@ export default function ChangePasswordPage(): JSX.Element {
           <Input
             name="currentPassword"
             id="currentPassword"
-            register={register}
             placeholder="Senha Atual"
             errors={errors}
             Icon={RiUserLine}
             isPassword
+            {...register('currentPassword')}
           />
 
           <InputDescription>Informe sua nova senha:</InputDescription>
           <Input
             name="newPassword"
-            register={register}
             placeholder="Nova Senha"
             errors={errors}
             Icon={RiUserLine}
             isPassword
+            {...register('newPassword')}
           />
 
           <InputDescription>Confirme sua nova senha:</InputDescription>
           <Input
             name="confirmPassword"
-            register={register}
             placeholder="Confirme a Nova Senha"
             errors={errors}
             Icon={RiUserLine}
             isPassword
+            {...register('confirmPassword')}
           />
 
           <Button name="login" icon={<FiLogIn />}>
@@ -94,7 +94,7 @@ export default function ChangePasswordPage(): JSX.Element {
       </LoginContent>
       <div className="fade-line" />
       <LoginBackground>
-        <Image src={LogoImage} width="300px" objectFit="contain" />
+        <Image src={LogoImage} width={300} objectFit="contain" alt="Logo" />
       </LoginBackground>
     </LoginWrapper>
   );

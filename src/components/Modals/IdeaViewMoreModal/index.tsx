@@ -219,22 +219,6 @@ export function IdeaViewMoreModal({
     setCommentMessageUpdated(message);
   };
 
-  const getFieldValue = (field: IdeaField): string => {
-    let options = JSON.parse(field.options);
-
-    if (!Array.isArray(options)) {
-      options = [];
-    }
-    if (options.length === 0) {
-      return field.ideaFieldValues[0].value;
-    }
-    return Array.isArray(options)
-      ? options?.find(
-          option => option.value === field?.ideaFieldValues[0]?.value
-        )?.name
-      : null;
-  };
-
   const handleMouseEnter = (event): void => {
     setTooltipPosition({
       top: event.clientY - modalPosition.top,
@@ -315,26 +299,24 @@ export function IdeaViewMoreModal({
           <CampaingStatusActived>Aceitando iniciativas</CampaingStatusActived>
         )}
         <FadeLine />
-        <div 
+        <div
           style={{
             display: 'flex',
             flexDirection: 'row',
             gap: '1rem',
             flexWrap: 'wrap',
           }}
-          >
-        {idea?.ideaFiles.map((ideaFile, i) => (
-          <ButtonFiles key={i}
-            onClick={() => execOpenModal(ideaFile)}
-          >
-            <a target="_blank" rel="noreferrer">
-              Arquivo {i + 1}
-            </a>
-          </ButtonFiles>
-        ))}
-        {modalPreviewFile && (
-          <FilesDetails file={previewFile} close={setModalPreviewFile} />
-        )}
+        >
+          {idea?.ideaFiles.map((ideaFile, i) => (
+            <ButtonFiles key={i} onClick={() => execOpenModal(ideaFile)}>
+              <a target="_blank" rel="noreferrer">
+                Arquivo {i + 1}
+              </a>
+            </ButtonFiles>
+          ))}
+          {modalPreviewFile && (
+            <FilesDetails file={previewFile} close={setModalPreviewFile} />
+          )}
         </div>
 
         <Subtitle>DESCRIÇÃO DA INICIATIVA</Subtitle>
@@ -346,7 +328,15 @@ export function IdeaViewMoreModal({
           <div>
             <Subtitle>{field.title}</Subtitle>
             <Description>
-              {getFieldValue(field) || `Este campo não tem uma descrição`}
+              {
+                field.type === 'SELECT' && field.options !== 'null' ? (               
+                   field.options.find(
+                  i => i.value === field?.ideaFieldValues[0]?.value
+                )?.name
+                ) : (
+                  field?.ideaFieldValues[0]?.value
+                )
+              }
             </Description>
             <Line />
           </div>
@@ -370,7 +360,7 @@ export function IdeaViewMoreModal({
           <Message
             placeholder="Digite sua mensagem... "
             {...register('message')}
-            error={errors.message}
+            error={!!errors.message}
           />
           <Buttons>
             <SendButton type="submit">

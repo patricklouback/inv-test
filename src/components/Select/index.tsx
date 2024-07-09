@@ -8,6 +8,7 @@ import {
   BoxInput,
   Clean,
   IconArrowRight,
+  Label,
 } from './styles';
 
 interface SelectProps {
@@ -25,6 +26,7 @@ interface SelectProps {
   disable?: boolean;
   arrowDown?: JSX.Element;
   onClickSelect?: () => void;
+  label?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -38,6 +40,7 @@ export const Select: React.FC<SelectProps> = ({
   disable,
   arrowDown,
   onClickSelect,
+  label,
 }): JSX.Element => {
   // const SelectRef = useRef(null);
 
@@ -46,6 +49,7 @@ export const Select: React.FC<SelectProps> = ({
   return (
     <Container>
       <BoxInput disable={disable} onClick={onClickSelect && onClickSelect}>
+        <Label>{label}</Label>
         <Input
           disabled={disable}
           autoComplete="off"

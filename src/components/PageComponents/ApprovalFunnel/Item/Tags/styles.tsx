@@ -1,8 +1,12 @@
 import styled, { keyframes } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
-export const TicketsAvailable = styled.div<{ width: string, overflow: boolean}>`
+export const TicketsAvailable = styled.div<{
+  width: string;
+  overflow: boolean;
+}>`
   z-index: 11;
-  width: ${props => props.width ? props.width : '187px'};
+  width: ${props => (props.width ? props.width : '187px')};
   height: 196px;
 
   background: ${({ theme }) => theme.colors.fontWhite};
@@ -10,15 +14,15 @@ export const TicketsAvailable = styled.div<{ width: string, overflow: boolean}>`
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 
-  overflow-y: ${props => props.overflow ? 'scroll' : 'hidden'};
+  overflow-y: ${props => (props.overflow ? 'scroll' : 'hidden')};
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 5px;
     height: 59px;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.primary};  
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 10px;
   }
 
@@ -46,9 +50,9 @@ export const Tag = styled.div`
 export const TagAndCheckbox = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
-export const CheckboxTag = styled.input.attrs({type: 'checkbox'})`
+export const CheckboxTag = styled.input.attrs({ type: 'checkbox' })`
   position: relative;
   width: 16px;
   height: 16px;
@@ -61,7 +65,7 @@ export const CheckboxTag = styled.input.attrs({type: 'checkbox'})`
   cursor: pointer;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 29%;
     transform: rotateZ(45deg);
@@ -79,25 +83,18 @@ export const CheckboxTag = styled.input.attrs({type: 'checkbox'})`
   }
 `;
 
-export const TagName = styled.div.attrs<
-{ 
-  textColor: string,
+export const TagName = styled.div.attrs<{
+  textColor: string;
   backgroundColor: string;
-},
-{ 
-  textColor: string,
-  backgroundColor: string;
-}>(
-props => {
+}>(props => {
   return {
     textColor: props.textColor,
-    backgroundColor: props.backgroundColor
+    backgroundColor: props.backgroundColor,
   };
-}
-)`
+})`
   display: block;
-  white-space: nowrap; /* Impede quebrar a linha */
-  overflow: hidden; /* Esconde qualquer texto adicional que exceda o tamanho */
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100px;
   margin-left: 10px;
@@ -116,7 +113,7 @@ props => {
   color: ${props => props.textColor};
 `;
 
-export const EditTagName = styled.div<{top: number}>`
+export const EditTagName = styled.div<{ top: number }>`
   position: absolute;
   width: 123px;
   height: 62px;
@@ -134,8 +131,8 @@ export const EditTagNameTextArea = styled.input`
   width: 107px;
   height: 22px;
   background: ${({ theme }) => theme.colors.fontWhite};
-  border: 1.4px solid #5192FF;
-  box-shadow: 0px 0px 3px #5192FF;
+  border: 1.4px solid #5192ff;
+  box-shadow: 0px 0px 3px #5192ff;
   border-radius: 4px;
   padding-left: 4px;
   margin-top: 8px;
@@ -146,11 +143,11 @@ export const EditTagNameTextArea = styled.input`
 
 export const Edit = styled.div`
   cursor: pointer;
-`
+`;
 
 export const EditWrapper = styled.div`
   /* position: relative; */
-`
+`;
 const spin = keyframes`
   0% {
     transform: rotate(0deg);
@@ -165,7 +162,7 @@ export const Loading = styled.div`
   height: 18px;
   border-radius: 50%;
   border: 2px solid transparent;
-  border-top-color: ${({ theme }) => theme.colors.primaryLight};
+  border-top-color: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   border-bottom-color: ${({ theme }) => theme.colors.backgroundGrey};
   border-left-color: ${({ theme }) => theme.colors.backgroundGrey};
   border-right-color: ${({ theme }) => theme.colors.backgroundGrey};

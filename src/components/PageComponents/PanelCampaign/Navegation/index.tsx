@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import { RiTrophyLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 import {
   Active,
   Container,
@@ -30,7 +31,7 @@ export const Navegation: React.FC<NavigationParams> = (): JSX.Element => {
             link="/campaign/new-campaign"
             center={false}
             max={250}
-            background={colors.primary}
+            background={colors.primary[styleSlug]}
             color={colors.background}
             Icon={<RiTrophyLine color={colors.background} size={20} />}
           />

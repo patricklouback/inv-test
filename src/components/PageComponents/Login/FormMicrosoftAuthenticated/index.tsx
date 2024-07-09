@@ -3,13 +3,15 @@ import { useTheme } from 'styled-components';
 import { AuthenticatedTemplate, useMsal } from '@azure/msal-react';
 import React from 'react';
 
+import { styleSlug } from 'utils/constants';
+import { getSsoClients } from 'utils/get-sso-clients';
 import FormLoginMicrosoft from '../FormLoginMicrosoft';
 import {
   Container,
   LeftSideTitle,
   LeftSideText,
   LeftSideQuestion,
-  ButtonContainer
+  ButtonContainer,
 } from './styles';
 
 const SignOutButton = (): JSX.Element => {
@@ -25,28 +27,32 @@ const SignOutButton = (): JSX.Element => {
     max_width: 190,
     center: true,
   };
-  
+
   const handleLogout = async (): Promise<void> => {
     localStorage.removeItem('emailLogin');
+    const slug = localStorage.getItem('slug');
+    const { redirect } = getSsoClients(slug);
 
     await instance.handleRedirectPromise();
 
     const logoutRequest = {
-      account: instance.getAccountByHomeId(localStorage.getItem('@microsoft:homeAccountId')),
-      mainWindowRedirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URL}`,
+      account: instance.getAccountByHomeId(
+        localStorage.getItem('@microsoft:homeAccountId')
+      ),
+      mainWindowRedirectUri: redirect,
     };
 
     localStorage.removeItem('@microsoft:homeAccountId');
-    
-    await instance.logoutPopup(logoutRequest);
 
+    await instance.logoutPopup(logoutRequest);
   };
 
-  return(
-    <Button onClick={() => handleLogout()} {...propsLogin}>Sair</Button>
-  )
-}
-
+  return (
+    <Button onClick={() => handleLogout()} {...propsLogin}>
+      Sair
+    </Button>
+  );
+};
 
 export default function FormMicrosoftAuthenticated(): JSX.Element {
   const { colors } = useTheme();
@@ -54,9 +60,9 @@ export default function FormMicrosoftAuthenticated(): JSX.Element {
   const { accounts } = useMsal();
 
   const propsLogin = {
-    hover: colors.primaryLight,
+    hover: colors.primaryLight[styleSlug],
     color: colors.fontWhite,
-    background: colors.primary,
+    background: colors.primary[styleSlug],
     margin_vertical: 20,
     max_width: 310,
     center: true,
@@ -78,7 +84,8 @@ export default function FormMicrosoftAuthenticated(): JSX.Element {
           Olá, {accounts[0] ? accounts[0].name : 'Usuário não encontrado'}
         </LeftSideTitle>
         <LeftSideText>
-          É um prazer ter você na nossa plataforma! Aqui é o lugar certo para contribuir com a inovação na empresa.
+          É um prazer ter você na nossa plataforma! Aqui é o lugar certo para
+          contribuir com a inovação na empresa.
         </LeftSideText>
         <LeftSideQuestion> O que você deseja fazer agora? </LeftSideQuestion>
         <ButtonContainer>

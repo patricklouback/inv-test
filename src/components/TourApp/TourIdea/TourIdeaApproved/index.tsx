@@ -26,7 +26,7 @@ export function TourIdeaApproved(): JSX.Element {
           >
             <StepsButton
               aria-label="next"
-              variant="primary"
+              $variant="primary"
               style={{ alignSelf: 'center', marginTop: '5%' }}
               onClick={async () => {
                 await viewedTour(TourId.IDEAS_APPROVED);

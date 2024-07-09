@@ -22,7 +22,7 @@ const stepsDefault: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),
@@ -44,12 +44,12 @@ const stepsDefault: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),
       close: (
-        <StepsButton aria-label="close" variant="primary">
+        <StepsButton aria-label="close" $variant="primary">
           Close
         </StepsButton>
       ),
@@ -74,7 +74,7 @@ const stepsAdmin: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),
@@ -97,7 +97,7 @@ const stepsAdmin: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),
@@ -130,7 +130,7 @@ export function TourMenuList(): JSX.Element {
         ),
         locale: {
           next: (
-            <StepsButton aria-label="next" variant="primary">
+            <StepsButton aria-label="next" $variant="primary">
               Entendi
             </StepsButton>
           ),

@@ -15,7 +15,10 @@ export const ProcessActivityDefaultValues = {
 type ProcessActivityAction =
   | { type: 'SET_LOADING'; loading: boolean }
   | { type: 'SET_PROCESS_ACTIVITIES'; processActivities: ProcessActivity[] }
-  | { type: 'SET_PROCESS_ACTIVITIES_CAMPAIGN'; processActivitiesCampaign: ProcessActivity[] };;
+  | {
+      type: 'SET_PROCESS_ACTIVITIES_CAMPAIGN';
+      processActivitiesCampaign: ProcessActivity[];
+    };
 
 export const ProcessActivityReducer = (
   state: ProcessActivityProps,

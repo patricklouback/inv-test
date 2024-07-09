@@ -33,7 +33,6 @@ export const WarningIconWrapper = styled.div`
   height: 15px;
 `;
 
-
 const loading = keyframes`
   0% {
     background-position: 100% 50%;

@@ -6,7 +6,6 @@ import { IdeaContext } from 'contexts/Idea';
 import { IdeaViewMore } from '@components/Modals/IdeaViewMoreModal';
 import { Container, ListCampaing, Item } from './styles';
 
-
 const responsive = {
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
@@ -51,15 +50,14 @@ export function Footer({ campaignId }: FooterProps): JSX.Element {
   }, []);
 
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      if(window.innerWidth < 510) {
-        setIsMobile(true)
+      if (window.innerWidth < 510) {
+        setIsMobile(true);
       }
     }
-
-  }, [])
+  }, []);
 
   useEffect(() => {
     async function getData(): Promise<void> {

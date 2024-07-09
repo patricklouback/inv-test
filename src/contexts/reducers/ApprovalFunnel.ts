@@ -1,6 +1,10 @@
 import { Paginate } from '@default-types';
 import { Idea, KanbanObject, KanbanStep } from 'interfaces/idea';
 
+
+
+
+
 interface ApprovalFunnelProps {
   loading: boolean;
   paginate: Paginate | null;
@@ -9,7 +13,9 @@ interface ApprovalFunnelProps {
   ideasForLink: Idea[];
   linkedIdeas: Idea[];
   allLinkedIdeas: Idea[];
-}
+  selectedCampaignsIds: string[];
+  selectedIdeaTypes: string[];
+  }
 
 export const ApprovalFunnelDefaultValues = {
   loading: false,
@@ -18,7 +24,9 @@ export const ApprovalFunnelDefaultValues = {
   kanbanSteps: [],
   ideasForLink: [],
   linkedIdeas: [],
-  allLinkedIdeas: []
+  allLinkedIdeas: [],
+  selectedCampaignsIds: [],
+  selectedIdeaTypes: [],
 };
 
 type ApprovalFunnelAction =
@@ -27,7 +35,9 @@ type ApprovalFunnelAction =
   | { type: 'SET_KANBAN_STEPS'; kanbanSteps: KanbanStep[] }
   | { type: 'SET_IDEAS_LINK'; ideasForLink: Idea[] }
   | { type: 'SET_ALL_LINKED_IDEAS'; allLinkedIdeas: Idea[] }
-  | { type: 'SET_LINKED_IDEAS'; linkedIdeas: Idea[] };
+  | { type: 'SET_LINKED_IDEAS'; linkedIdeas: Idea[] }
+  | { type: 'SET_SELECTED_CAMPAIGNS_IDS'; selectedCampaignsIds: string[] }
+  | { type: 'SET_SELECTED_IDEA_TYPES'; selectedIdeaTypes: string[] }
 
 export const ApprovalFunnelReducer = (
   state: ApprovalFunnelProps,
@@ -53,6 +63,12 @@ export const ApprovalFunnelReducer = (
       break;
     case 'SET_ALL_LINKED_IDEAS':
       nextState.allLinkedIdeas = action.allLinkedIdeas;
+      break;
+    case 'SET_SELECTED_CAMPAIGNS_IDS':
+      nextState.selectedCampaignsIds = action.selectedCampaignsIds;
+      break;
+    case 'SET_SELECTED_IDEA_TYPES':
+      nextState.selectedIdeaTypes = action.selectedIdeaTypes;
       break;
     default:
       return nextState;

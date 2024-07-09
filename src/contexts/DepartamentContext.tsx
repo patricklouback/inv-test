@@ -10,7 +10,7 @@ import {
 interface DepartamentPropsData {
   // userRouter.post('/csv', multer().single('file'), userController.importCsvUsers);
   getDepartaments?: () => Promise<void>;
-  createDepartament?: (name: string) => Promise<void>
+  createDepartament?: (name: string) => Promise<void>;
   departaments: Departament[];
   departament: Departament;
 }
@@ -35,26 +35,33 @@ export const DepartamentProvider: React.FC = ({ children }): JSX.Element => {
     }
   }, [dispatch]);
 
-  const createDepartament = useCallback(async name => {
-    try {
-      if(name.length > 0) {
-        const { data } = await api.post('/departments/department', { name });
-  
-        dispatch({ type: 'SET_DEPARTAMENT', departament: data.departament });
-        
-        toast.success('Departamento criado com sucesso!');
-      } else {
-        toast.info('Favor preencher o nome do Departamento que deseja criar')
+  const createDepartament = useCallback(
+    async name => {
+      try {
+        if (name.length > 0) {
+          const { data } = await api.post('/departments/department', { name });
+
+          dispatch({ type: 'SET_DEPARTAMENT', departament: data.departament });
+
+          toast.success('Departamento criado com sucesso!');
+        } else {
+          toast.info('Favor preencher o nome do Departamento que deseja criar');
+        }
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          // Acessa a mensagem de erro enviada pelo back-end
+          toast.error(error.response.data.error.message);
+        } else {
+          toast.error('Error ao criar o departamento');
+        }
       }
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        // Acessa a mensagem de erro enviada pelo back-end
-        toast.error(error.response.data.error.message);
-      } else {
-        toast.error('Error ao criar o departamento');
-      }
-    }
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   const AuthDataValue = useMemo(() => {
     return {

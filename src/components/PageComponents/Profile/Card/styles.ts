@@ -12,14 +12,14 @@ export const Container = styled.div`
   justify-content: space-between;
   flex-direction: column;
 
-  :nth-child(1) {
+  &:nth-child(1) {
     background: linear-gradient(
       58.21deg,
       rgba(223, 0, 117, 0.62) 14.44%,
       rgba(254, 193, 75, 0.74) 90.96%
     );
   }
-  :nth-child(2) {
+  &:nth-child(2) {
     background: linear-gradient(
       58.21deg,
       rgba(22, 180, 169, 0.77) 14.44%,
@@ -27,11 +27,11 @@ export const Container = styled.div`
     );
   }
 
-  :nth-child(3) {
+  &:nth-child(3) {
     background: linear-gradient(58.21deg, #a3b2cd 14.44%, #7ed1ff 90.96%);
   }
 
-  :nth-child(4) {
+  &:nth-child(4) {
     background: linear-gradient(
       58.21deg,
       rgba(180, 83, 239, 0.77) 14.44%,

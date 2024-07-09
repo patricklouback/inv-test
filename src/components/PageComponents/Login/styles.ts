@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const LoginContent = styled.section`
   flex: 1;
@@ -26,9 +27,9 @@ export const LoginContent = styled.section`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 `;
@@ -36,15 +37,16 @@ export const LoginContent = styled.section`
 export const LoginBackground = styled.section`
   height: 100%;
   width: 300px;
-  background-image: url('/background_login.jpg');
+  background-image: url(${({ theme }) => theme.images.login[styleSlug]});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   flex: 1;
 
   display: flex;
-  justify-content: center;
+  justify-content: ${({ theme }) => theme.slug.login[styleSlug]};
   align-items: center;
+  flex-direction: column;
   @media screen and (max-width: 890px) {
     display: none;
   }
@@ -66,13 +68,34 @@ export const LoginWrapper = styled.div`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
   @media screen and (max-width: 890px) {
     width: 100%;
     position: fixed;
   }
+`;
+
+export const PoweredBy = styled.div`
+  height: 24px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+`;
+
+export const ImageContainer = styled.div`
+  margin-top: 30vh;
+`;
+
+export const FooterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5vh;
 `;

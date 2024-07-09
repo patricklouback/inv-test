@@ -1,12 +1,13 @@
 import styled, { keyframes } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ButtonWrapperParams {
   max_width: number;
-  center: boolean;
+  $center: boolean;
   margin_horizontal: number;
-  background: string;
+  $background: string;
   color: string;
-  hover: string;
+  $hover: string;
   margin_vertical: number;
   right?: boolean;
 }
@@ -18,16 +19,16 @@ const spin = keyframes`
 `;
 
 export const ButtonWrapper = styled.button<ButtonWrapperParams>`
-  background: ${({ theme, background }) =>
-    !background ? theme.colors.primary : background};
+  background: ${({ theme, $background }) =>
+    !$background ? theme.colors.primary[styleSlug] : $background};
   color: ${({ theme, color }) => (!color ? theme.colors.background : color)};
   height: 56px;
   border-radius: 12px;
   display: flex;
   align-items: center;
 
-  margin: ${({ center, right }) =>
-    (center && `0 auto`) || (right && `0 0 0 auto`)};
+  margin: ${({ $center, right }) =>
+    ($center && `0 auto`) || (right && `0 0 0 auto`)};
 
   margin-top: ${({ margin_vertical }) => `${margin_vertical}px`};
   margin-bottom: ${({ margin_vertical }) => `${margin_vertical}px`};
@@ -42,8 +43,8 @@ export const ButtonWrapper = styled.button<ButtonWrapperParams>`
   font-weight: 400;
   transition: background-color 0.2s;
   &:hover {
-    background: ${({ theme, hover }) =>
-      !hover ? theme.colors.primaryLight : hover};
+    background: ${({ theme, $hover }) =>
+      !$hover ? theme.colors.primaryLight[styleSlug] : $hover};
   }
 
   .donut {

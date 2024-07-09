@@ -52,7 +52,7 @@ export const status_campaign = [
     name: 'FINISHED',
     value: 'Finalizadas',
   },
-]
+];
 
 interface StatusIdeaOption {
   name: string;

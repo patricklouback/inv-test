@@ -53,7 +53,9 @@ ChartJS.register(
   Legend
 );
 
-export function HistoryIdea({ campaignIds }: GlobalIndicatorsProps): JSX.Element {
+export function HistoryIdea({
+  campaignIds,
+}: GlobalIndicatorsProps): JSX.Element {
   const { getHistoricIdeas } = useContext(CampaignContext);
   const [ideaHistoric, setIdeaHistoric] = useState<IdeasHistory[]>([]);
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   width: 353px;
@@ -6,7 +7,7 @@ export const Container = styled.div`
   border-radius: 16px;
   position: relative;
 
-  ::before {
+  &::before {
     content: '';
     position: absolute;
     bottom: -12px;
@@ -52,8 +53,8 @@ export const Scroll = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 4px;
   }
 

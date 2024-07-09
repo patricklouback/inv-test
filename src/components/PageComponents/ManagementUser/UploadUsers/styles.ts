@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ModalRegister = styled.div`
   position: fixed;
@@ -32,10 +33,10 @@ export const ModalRegister = styled.div`
 `;
 
 export const ButtonAction = styled.button`
-  :nth-child(3) {
+  &:nth-child(3) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
-  :nth-child(4) {
+  &:nth-child(4) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
   max-width: 426px;
@@ -44,10 +45,10 @@ export const ButtonAction = styled.button`
   border: none;
   border-radius: 8px;
   outline: none;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   display: flex;
@@ -83,7 +84,7 @@ export const ButtonAction = styled.button`
     right: 10px;
   }
   transition: transform 0.3s ease;
-  :hover {
+  &:hover {
     transform: scale(1.02);
   }
 `;
@@ -111,7 +112,7 @@ export const Loadiing = styled.div`
       width: 1rem;
       height: 1rem;
       margin: 2rem 0.3rem;
-      background: ${({ theme }) => theme.colors.primaryLight};
+      background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
       border-radius: 50%;
       animation: 0.9s ${bounce} infinite alternate;
 

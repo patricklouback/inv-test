@@ -29,7 +29,7 @@ export const DropMenuList: React.FC<DropMenuProps> = ({
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const [unviewedTourMenuList, setUnviewedTourMenuList] = useState(
-    user?.tours[TourId.MENU_LIST] === TourStatus.UNVIEWED
+    user?.tours?.[TourId.MENU_LIST] === TourStatus.UNVIEWED
   );
 
   const handleToggleDropList = useCallback(() => {
@@ -48,10 +48,10 @@ export const DropMenuList: React.FC<DropMenuProps> = ({
 
   useEffect(() => {
     setUnviewedTourMenuList(
-      user?.tours[TourId.MENU_LIST] === TourStatus.UNVIEWED
+      user?.tours?.[TourId.MENU_LIST] === TourStatus.UNVIEWED
     );
 
-    if (user?.tours[TourId.MENU_LIST] === TourStatus.VIEWED) {
+    if (user?.tours?.[TourId.MENU_LIST] === TourStatus.VIEWED) {
       setOpen(false);
     }
   }, [handleToggleDropList, user]);

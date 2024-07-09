@@ -86,13 +86,17 @@ export function RequestRepresentativeAnalysisModal({
     formData.append('message', reason);
     formData.append('type', 'EVALUATION');
     formData.append('notificationType', 'AGENT_REVIEW');
-    formData.append('targetUserId', selectedAreaRepresentativeUser?.id)
+    formData.append('targetUserId', selectedAreaRepresentativeUser?.id);
 
     const toastMessage = false;
     await createIdeaComment(formData, toastMessage);
     await reviewAgentIdea(idea?.id, {
       notification: {
-        title: `${user.name} solicitou sua avaliação na iniciativa #${getSequenceNumber(idea.sequence)}. Clique aqui para acessar.`,
+        title: `${
+          user.name
+        } solicitou sua avaliação na iniciativa #${getSequenceNumber(
+          idea.sequence
+        )}. Clique aqui para acessar.`,
         description: reason,
         userId: selectedAreaRepresentativeUser?.id,
         originUserId: user.id,
@@ -111,7 +115,7 @@ export function RequestRepresentativeAnalysisModal({
     selectedAreaRepresentativeUser?.id,
     onSubmitReview,
     user,
-    getSequenceNumber
+    getSequenceNumber,
   ]);
 
   const handleRemoveAreaRepresentativeUser = useCallback(() => {

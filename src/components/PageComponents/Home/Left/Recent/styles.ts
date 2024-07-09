@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContainerProp {
-  img: string;
+  $img: string;
 }
 
 export const Container = styled.div`
@@ -49,7 +50,7 @@ export const RecentCampaignCard = styled.li`
   border-radius: 0.25rem;
   background: ${({ theme }) => theme.colors.greyLight};
   cursor: pointer;
-  :hover .hover {
+  &:hover .hover {
     transition: 0.4s ease;
     background: #dfdfdf;
   }
@@ -64,7 +65,7 @@ export const CampaignCardImg = styled.div<ContainerProp>`
   width: 100%;
   height: 120px;
   border-radius: 0.5rem 0.5rem 0rem 0rem;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -169,7 +170,7 @@ export const ContentCampaingRankImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -185,7 +186,7 @@ export const ContentCampaingRankDownQnt = styled.span`
   height: 22px;
   left: 46px;
   top: 8px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   background: #ffffff;
   border-radius: 6px;
 

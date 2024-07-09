@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const IndicatorCards = styled.div`
   display: grid;
@@ -64,7 +64,7 @@ export const RowOneLeft = styled.div`
 
 export const RowOneRight = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;
 
 export const RowTwo = styled.div`
@@ -80,7 +80,7 @@ export const RowTwoLeft = styled.div`
 
 export const RowTwoMid = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;
 
 export const EngagementInfoCardsContainer = styled.div`
@@ -105,7 +105,7 @@ export const RowThreeLeft = styled.div`
 
 export const RowThreeRight = styled.div`
   display: flex;
-  width: 50%
+  width: 50%;
 `;
 
 export const RowFour = styled.div`
@@ -121,7 +121,7 @@ export const RowFourLeft = styled.div`
 
 export const RowFourRight = styled.div`
   display: flex;
-  width: 50%
+  width: 50%;
 `;
 
 export const RowFive = styled.div`
@@ -136,14 +136,14 @@ export const RowFiveLeft = styled.div`
 
 export const RowFiveMid = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;
 
 export const RowFiveRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%
+  width: 20%;
 `;
 
 export const RowSix = styled.div`

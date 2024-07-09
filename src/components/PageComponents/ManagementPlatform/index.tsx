@@ -25,6 +25,7 @@ import { FeatureActiveProvider } from 'contexts/FeatureActive';
 import { EvaluationCriteriaConfigurationProvider } from 'contexts/EvaluationCriteriaConfiguration';
 import { TourId, TourStatus } from 'interfaces/tour';
 
+import { slug, styleSlug } from 'utils/constants';
 import { SectionAreasAndDepts } from './AreasAndDepts';
 import { SectionCustomizeInterface } from './CustomizeInterface';
 import { SectionFormCampaign } from './FormCampaign';
@@ -71,7 +72,7 @@ export const ManagementPlatformPage: React.FC = (): JSX.Element => {
   const [section, setSection] = useState<TSection>('general');
   const [reRenderComponent, setReRenderComponent] = useState<boolean>(false);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
 
   function closeBanner(): void {
     setIsBannerActive(false);
@@ -117,7 +118,7 @@ export const ManagementPlatformPage: React.FC = (): JSX.Element => {
         >
           <>
             {isTrial ? (
-              <SectionBanner isOpen={isBannerActive}>
+              <SectionBanner $isOpen={isBannerActive}>
                 {bannersList && bannersList.length > 0 && (
                   <BannerComponent banner={bannersList[0]}>
                     <TopAllContent>
@@ -139,7 +140,11 @@ export const ManagementPlatformPage: React.FC = (): JSX.Element => {
                       <CloseButtonWrapper onClick={() => closeBanner()}>
                         <IoMdClose
                           size={25}
-                          color={isHovered ? colors.primaryLight : colors.font}
+                          color={
+                            isHovered
+                              ? colors.primaryLight[styleSlug]
+                              : colors.font
+                          }
                           onMouseEnter={() => setIsHovered(true)}
                           onMouseLeave={() => setIsHovered(false)}
                         />
@@ -219,7 +224,7 @@ export const ManagementPlatformPage: React.FC = (): JSX.Element => {
                   </CampaignProvider>
                 </ProcessActivityProvider>
                 {!isTrial && (
-                  <SectionBanner isOpen={isBannerActive}>
+                  <SectionBanner $isOpen={isBannerActive}>
                     {bannersList && bannersList.length > 0 && (
                       <BannerComponent banner={bannersList[0]}>
                         <BottomAllContent>

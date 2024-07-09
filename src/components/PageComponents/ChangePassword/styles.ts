@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const LoginContent = styled.section`
   flex: 1;
@@ -29,9 +30,9 @@ export const LoginContent = styled.section`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 `;
@@ -39,7 +40,7 @@ export const LoginContent = styled.section`
 export const LoginBackground = styled.section`
   height: 100%;
   width: 300px;
-  background-image: url('/background_login.jpg');
+  background-image: url(${({ theme }) => theme.images.login[styleSlug]});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -68,9 +69,9 @@ export const LoginWrapper = styled.div`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
   @media screen and (max-width: 890px) {

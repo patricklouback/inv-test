@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { api } from 'services/api';
 import {
   ProcessActivityDefaultValues,
-  ProcessActivityReducer
+  ProcessActivityReducer,
 } from './reducers/ProcessActivityReducer';
 
 interface ProcessActivityPropsData {
@@ -27,10 +27,12 @@ interface ProcessActivityPropsData {
   ) => Promise<void>;
   getProcessActivities: (campaignId?: string) => Promise<ProcessActivity[]>;
   getAllProcessActivitiesName: () => Promise<ProcessActivity[]>;
-  getTotalIdeasByProcess: (processActivityId?: string) => Promise<{
-    title: string;
-    ideasCount: string;
-  }[]>;
+  getTotalIdeasByProcess: (processActivityId?: string) => Promise<
+    {
+      title: string;
+      ideasCount: string;
+    }[]
+  >;
 }
 
 export const ProcessActivityContext = createContext<ProcessActivityPropsData>(
@@ -38,7 +40,7 @@ export const ProcessActivityContext = createContext<ProcessActivityPropsData>(
 );
 
 export const ProcessActivityProvider: React.FC = ({
-  children
+  children,
 }): JSX.Element => {
   const [dataReducer, dispatch] = useReducer(
     ProcessActivityReducer,
@@ -53,12 +55,12 @@ export const ProcessActivityProvider: React.FC = ({
       if (campaignId === undefined || campaignId === null) {
         dispatch({
           type: 'SET_PROCESS_ACTIVITIES',
-          processActivities: data.processActivityList
+          processActivities: data.processActivityList,
         });
       } else {
         dispatch({
           type: 'SET_PROCESS_ACTIVITIES_CAMPAIGN',
-          processActivitiesCampaign: data.processActivityList
+          processActivitiesCampaign: data.processActivityList,
         });
       }
       return data.processActivityList;
@@ -68,16 +70,20 @@ export const ProcessActivityProvider: React.FC = ({
     }
   }, []);
 
-  const getTotalIdeasByProcess = useCallback(async (processActivityId?: string) => {
-    try {
-      const { data } = await api.get(`/processActivity/total-ideas/${processActivityId}`);
-      console.log(data)
-      return data;
-    } catch (error) {
-      toast.error('Erro ao buscar o total de ideias por rota');
-      return [];
-    }
-  }, []);
+  const getTotalIdeasByProcess = useCallback(
+    async (processActivityId?: string) => {
+      try {
+        const { data } = await api.get(
+          `/processActivity/total-ideas/${processActivityId}`
+        );
+        return data;
+      } catch (error) {
+        toast.error('Erro ao buscar o total de ideias por rota');
+        return [];
+      }
+    },
+    []
+  );
 
   const getAllProcessActivitiesName = useCallback(async () => {
     try {
@@ -93,15 +99,15 @@ export const ProcessActivityProvider: React.FC = ({
     async (name: string, campaignId: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.post(`/processActivity/process`, { name, campaignId: campaignId || null });
+        const { data } = await api.post(`/processActivity/process`, {
+          name,
+          campaignId: campaignId || null,
+        });
         await getProcessActivities(campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Nova rota criada');
       } catch (err) {
-        toast.error(
-          err?.response?.data?.message ||
-            'Erro ao criar nova rota!'
-        );
+        toast.error(err?.response?.data?.message || 'Erro ao criar nova rota!');
       }
     },
     [dispatch]
@@ -111,15 +117,15 @@ export const ProcessActivityProvider: React.FC = ({
     async (name: string, id: string, campaignId) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.put(`/processActivity/process`, { name, id });
+        const { data } = await api.put(`/processActivity/process`, {
+          name,
+          id,
+        });
         await getProcessActivities(campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Nome da rota atualizado');
       } catch (err) {
-        toast.error(
-          err?.response?.data?.message ||
-            'Erro ao criar nova rota!'
-        );
+        toast.error(err?.response?.data?.message || 'Erro ao criar nova rota!');
       }
     },
     [dispatch]
@@ -129,14 +135,15 @@ export const ProcessActivityProvider: React.FC = ({
     async (campaignId: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.get(`/processActivity/import-template/${ campaignId }`);
+        const { data } = await api.get(
+          `/processActivity/import-template/${campaignId}`
+        );
         await getProcessActivities(campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Template de rotas importado');
       } catch (err) {
         toast.error(
-          err?.response?.data?.message ||
-            'Erro ao importar template de rotas!'
+          err?.response?.data?.message || 'Erro ao importar template de rotas!'
         );
       }
     },
@@ -147,7 +154,9 @@ export const ProcessActivityProvider: React.FC = ({
     async (ideaId: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.put(`/processActivity/import-for-idea/${ ideaId }`);
+        const { data } = await api.put(
+          `/processActivity/import-for-idea/${ideaId}`
+        );
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Rotas do direcional incorporados');
       } catch (err) {
@@ -170,8 +179,7 @@ export const ProcessActivityProvider: React.FC = ({
         toast.success('Rota excluída');
       } catch (err) {
         toast.error(
-          err?.response?.data?.message ||
-            'Erro ao deletar nova rota!'
+          err?.response?.data?.message || 'Erro ao deletar nova rota!'
         );
       }
     },

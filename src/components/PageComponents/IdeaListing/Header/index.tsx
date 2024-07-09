@@ -18,7 +18,7 @@ import {
   VisibleCheckbox,
   WapperButtonsActions,
   WapperHeader,
-  WapperTitleFilter
+  WapperTitleFilter,
 } from './styles';
 import { step_idea, update_idea } from './data/filters';
 
@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
   handleSelectCampaign,
   handleSelectKanbanStep,
   handleSelectType,
-  handleSelectIdeasUpdateStatus
+  handleSelectIdeasUpdateStatus,
 }): JSX.Element => {
   const { colors } = useTheme();
   const { getKanbanSteps, kanbanSteps } = useContext(ApprovalFunnelContext);
@@ -153,11 +153,15 @@ export const Header: React.FC<HeaderProps> = ({
                     onClick={() => handleSelectKanbanStep(step.name)}
                   >
                     <HiddenCheckbox
-                      checked={selectedKanbanStepsIds.some(e => e === step.name)}
+                      checked={selectedKanbanStepsIds.some(
+                        e => e === step.name
+                      )}
                       onChange={() => handleSelectKanbanStep(step.name)}
                     />
                     <VisibleCheckbox
-                      checked={selectedKanbanStepsIds.some(e => e === step.name)}
+                      checked={selectedKanbanStepsIds.some(
+                        e => e === step.name
+                      )}
                     >
                       <ImCheckmark size={12} />
                     </VisibleCheckbox>

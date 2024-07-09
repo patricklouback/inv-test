@@ -1,6 +1,7 @@
 import React from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 import { Container, ItemStep, Row, Draft, Relative } from './styles';
 
 interface StepProps {
@@ -12,13 +13,13 @@ export const Step: React.FC<StepProps> = ({ active, value }): JSX.Element => {
   const { colors } = useTheme();
   return (
     <Relative>
-      <Container active={active}>
-        <ItemStep active={active}>{value}</ItemStep>
-        <Row active={active} background={colors.primaryLight}>
+      <Container $active={active}>
+        <ItemStep $active={active}>{value}</ItemStep>
+        <Row $active={active} $background={colors.primaryLight[styleSlug]}>
           <IoIosArrowDown color="#fff" />
         </Row>
       </Container>
-      <Draft active={active} />
+      <Draft $active={active} />
     </Relative>
   );
 };

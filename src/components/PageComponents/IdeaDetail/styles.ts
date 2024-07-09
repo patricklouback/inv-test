@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-
-
+import { styleSlug } from 'utils/constants';
 
 export const Modal = styled.div`
   position: fixed;
@@ -13,7 +12,6 @@ export const Modal = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
-
 
   .fade-line {
     &:first-child {
@@ -28,13 +26,12 @@ export const Modal = styled.div`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 `;
-
 
 export const HeaderModal = styled.div`
   display: flex;
@@ -55,8 +52,6 @@ export const HeaderModal = styled.div`
     cursor: pointer;
   }
 `;
-
-
 
 export const ModalContent = styled.div`
   background: ${({ theme }) => theme.colors.greyLight};
@@ -79,7 +74,7 @@ export const FooterModal = styled.div`
   margin-top: 20px;
 
   a {
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.primary[styleSlug]};
     color: #fff;
     padding: 10px 20px;
     border-radius: 24px;
@@ -164,11 +159,11 @@ export const ItemImage = styled.li<{ image?: string }>`
 
   margin: 0 calc(11.83 / 2);
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 `;
@@ -200,9 +195,9 @@ export const Line = styled.div`
 
   background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
 `;
 

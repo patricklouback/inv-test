@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
-export const Container = styled.div<{ background?: string; width?: number }>`
+export const Container = styled.div<{ $background?: string; $width?: number }>`
   display: flex;
-  background: ${({ theme, background }) =>
-    background || theme.colors.background};
+  background: ${({ theme, $background }) =>
+    $background || theme.colors.background};
   height: 58px;
   align-items: center;
   padding: 7px;
@@ -45,7 +46,7 @@ export const EditableValue = styled.input<{ useMargin?: boolean }>`
   }
   &:focus {
     min-width: 20rem;
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     background-color: white;
   }
 `;

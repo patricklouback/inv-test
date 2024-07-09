@@ -31,7 +31,7 @@ export const DropdownTagFilter: React.FC<DropdownProps> = ({
   const MAX_TAG_WIDTH = 100;
   const buildTagName = (name: string): string => {
     return getTextWidth(name, '400 12px bold Montserrat') > MAX_TAG_WIDTH
-      ? getStringWith3Dots(name, MAX_TAG_WIDTH,'400 12px bold Montserrat')
+      ? getStringWith3Dots(name, MAX_TAG_WIDTH, '400 12px bold Montserrat')
       : name;
   };
   return (
@@ -53,8 +53,9 @@ export const DropdownTagFilter: React.FC<DropdownProps> = ({
             <Line />
           </DropdownTop>
           <DropdownItemsContainer>
-            {itemsList?.length === 0 ? 
-              <EmptyTags>Não há etiquetas selecionadas</EmptyTags> :
+            {itemsList?.length === 0 ? (
+              <EmptyTags>Não há etiquetas selecionadas</EmptyTags>
+            ) : (
               itemsList.map(item => {
                 return (
                   <DropdownItem>
@@ -70,12 +71,16 @@ export const DropdownTagFilter: React.FC<DropdownProps> = ({
                       <ImCheckmark size={16} color="#000" />
                     </VisibleCheckbox>
 
-                      <TagName backgroundColor={item.color} textColor={item.textColor}>
-                        {buildTagName(item.name)}
-                      </TagName>
+                    <TagName
+                      backgroundColor={item.color}
+                      textColor={item.textColor}
+                    >
+                      {buildTagName(item.name)}
+                    </TagName>
                   </DropdownItem>
                 );
-              })}
+              })
+            )}
           </DropdownItemsContainer>
         </DropdownContentMenu>
       </DropdownContent>

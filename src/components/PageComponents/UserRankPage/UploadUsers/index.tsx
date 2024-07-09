@@ -15,11 +15,11 @@ export function UploadUsers({
 }: UploadUsersProps): JSX.Element {
   const { importCSV } = useContext(AdmContext);
 
-  const [file, setFile] = useState();
+  const [file, setFile] = useState<File | null>(null);
   const onSubmitRegister = async (e): Promise<void> => {
     e.preventDefault();
 
-    if (file?.type === 'text/csv') {
+    if (file && file.type === 'text/csv') {
       const formData = new FormData();
       formData.append('file', file);
 
@@ -58,8 +58,9 @@ export function UploadUsers({
             <DropFileComponent
               text_content="Arraste o arquivo CSV com os usuários para cadastro aqui."
               name="files"
-              setValue={(name, fileUploaded) => setFile(fileUploaded)}
               accept=".csv"
+              onFilesChange={files => setFile(files[0])}
+              maxFiles={1}
             />
             <ButtonAction id="green" type="submit">
               <RiUploadCloudLine size={30} />

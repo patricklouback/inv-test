@@ -18,13 +18,16 @@ export const PointsResult = styled.strong`
   text-align: left;
 `;
 
-export const EvaluationResultContainer = styled.div<{isForCardIdea?: boolean}>`
+export const EvaluationResultContainer = styled.div<{
+  isForCardIdea?: boolean;
+}>`
   height: 45px;
   width: 100%;
   display: flex;
   background: ${({ theme }) => theme.colors.background};
   flex-direction: row-reverse;
-  border: ${({isForCardIdea}) => isForCardIdea ? 'none':'1px solid #e7e7e7'};
+  border: ${({ isForCardIdea }) =>
+    isForCardIdea ? 'none' : '1px solid #e7e7e7'};
   border-radius: 0 0 8px 8px;
 `;
 

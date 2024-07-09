@@ -38,7 +38,7 @@ export const ArticlesCampaingsRankorRecentComponent: React.FC<
   return (
     <ContainerCampaingRank onClick={handleNewIdea}>
       <ContentCampaingRank>
-        <ContentCampaingRankImage img={image} />
+        <ContentCampaingRankImage $img={image} />
         <ContentCampaingRankText>
           <span>#{sequence}</span>
           <h2>{title}</h2>

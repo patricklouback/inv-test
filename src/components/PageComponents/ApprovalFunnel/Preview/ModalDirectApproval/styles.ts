@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Draft = styled.div`
   /* margin-left: 10px; */
@@ -12,7 +13,7 @@ export const Text = styled.p`
   margin-bottom: 4px;
 `;
 
-export const CustomInput = styled.input<{height: string}>`
+export const CustomInput = styled.input<{ height: string }>`
   font-weight: 500;
   color: ${props => props.theme.colors.font};
   display: flex;
@@ -40,7 +41,7 @@ export const CustomInput = styled.input<{height: string}>`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
   }
   &::placeholder {
     color: #2d374899;

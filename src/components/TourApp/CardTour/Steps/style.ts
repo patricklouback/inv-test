@@ -1,5 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SpanSteps = styled.span`
-    color: #849398;
+  color: #849398;
 `;

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const C = styled.div`
   margin: 60px 0;
@@ -49,14 +50,14 @@ export const InputSearch = styled.input`
   &:disabled {
     color: ${({ theme }) => theme.colors.borders};
   }
-  ::placeholder {
+  &::placeholder {
     font-size: 14px;
     letter-spacing: 0.4px;
     color: ${({ theme }) => theme.colors.fontLight};
     font-weight: normal;
   }
   &:focus {
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -87,7 +88,7 @@ export const OthersActions = styled.div`
   gap: 1rem;
 `;
 
-export const ButtonAction = styled.button<{ backgr?: string; size?: number }>`
+export const ButtonAction = styled.button<{ $backgr?: string; size?: number }>`
   width: 100%;
   height: 56px;
   border: none;
@@ -98,7 +99,7 @@ export const ButtonAction = styled.button<{ backgr?: string; size?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${({ backgr }) => backgr};
+  background: ${({ $backgr }) => $backgr};
   color: ${({ theme }) => theme.colors.background};
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -106,7 +107,7 @@ export const ButtonAction = styled.button<{ backgr?: string; size?: number }>`
   span {
     text-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.25);
   }
-  :hover {
+  &:hover {
     filter: brightness(0.95);
   }
 `;
@@ -159,10 +160,10 @@ export const ToggleFilters = styled.div`
   }
 `;
 
-export const ButtonDownload = styled.button<{disabled?: boolean}>`
+export const ButtonDownload = styled.button<{ disabled?: boolean }>`
   background: white;
   display: flex;
-  color: #47009a;
+  color: ${({theme}) => theme.colors.primary[styleSlug]};
   height: 56px;
   border-color: #b5b5b5;
   border-radius: 10px;
@@ -171,7 +172,7 @@ export const ButtonDownload = styled.button<{disabled?: boolean}>`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  opacity: ${({ disabled }) => disabled ? 0.5 : 1};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export const ButtonDownloadText = styled.div`
@@ -186,7 +187,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {
@@ -217,8 +218,8 @@ export const TableContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 4px;
   }
 `;
@@ -365,10 +366,10 @@ export const ModalEditUser = styled.div<{ img?: string }>`
           margin: 6px 0;
           display: flex;
           flex-direction: column;
-          :first-child {
+          &:first-child {
             margin-top: 0;
           }
-          :last-child {
+          &:last-child {
             margin-bottom: 0;
           }
           span {
@@ -390,14 +391,14 @@ export const ModalEditUser = styled.div<{ img?: string }>`
             &:disabled {
               color: ${({ theme }) => theme.colors.borders};
             }
-            ::placeholder {
+            &::placeholder {
               font-size: 14px;
               letter-spacing: 0.4px;
               color: ${({ theme }) => theme.colors.fontLight};
               font-weight: normal;
             }
             &:focus {
-              border: 2px solid ${({ theme }) => theme.colors.primary};
+              border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
             }
           }
         }

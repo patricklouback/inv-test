@@ -45,9 +45,11 @@ export const RefuseIdeaModal: React.FC<RefuseIdeaModalProps> = ({
       event.preventDefault();
       await declineIdea(idea.id, {
         notification: {
-          title: `Sua iniciativa #${getSequenceNumber(idea.sequence)} não seguirá adiante. Clique aqui para ver o comentário do avaliador.`,
+          title: `Sua iniciativa #${getSequenceNumber(
+            idea.sequence
+          )} não seguirá adiante. Clique aqui para ver o comentário do avaliador.`,
           description: reason,
-          // originUserId: user.id,
+          originUserId: user.id,
         },
       });
       setPreview(undefined);

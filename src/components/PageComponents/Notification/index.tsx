@@ -18,6 +18,8 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { FiBell } from 'react-icons/fi';
 import Skeleton from 'react-loading-skeleton';
 import { useTheme } from 'styled-components';
+import { InviteUsersModal } from '@components/Modals/InviteUsersModal';
+import { NotifyInviteUsersModal } from '@components/Modals/NotifyInviteUsersModal';
 import {
   BadgeNotification,
   Container as C,
@@ -126,6 +128,18 @@ export const NotificationPage: React.FC = (): JSX.Element => {
 
         <EvaluationCriteriaNotificationModal
           isOpen={modalType === 'EVALUATION_CRITERIA'}
+          onRequestClose={() => setModalType(undefined)}
+        />
+
+        <InviteUsersModal
+          notification={currentNotification}
+          isOpen={modalType === 'REPLY_INVITE_IDEA'}
+          onRequestClose={() => setModalType(undefined)}
+        />
+
+        <NotifyInviteUsersModal
+          notification={currentNotification}
+          isOpen={modalType === 'NOTIFY_INVITE_IDEA'}
           onRequestClose={() => setModalType(undefined)}
         />
 

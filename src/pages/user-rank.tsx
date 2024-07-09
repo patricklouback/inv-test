@@ -4,7 +4,7 @@ import { AreaProvider } from 'contexts/AreaContext';
 import { DepartamentProvider } from 'contexts/DepartamentContext';
 import { ProviderRankUsers } from 'contexts/RankUser';
 
-export default function UserRank(): JSX.Element {
+export default function UserRank(){
   return (
     <AreaProvider>
       <DepartamentProvider>

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const GraphContainer = styled.div`
   width: 100%;
@@ -119,7 +120,7 @@ export const TitleFilterBar = styled.div`
 `;
 
 export const Balloon = styled.div`
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     left: 20%;
@@ -157,7 +158,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {
@@ -183,8 +184,8 @@ export const RankingContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 4px;
   }
 `;
@@ -271,7 +272,7 @@ export const ItemImageUser = styled.div<{ images_users: string }>`
   height: 40px;
   border: 1px solid ${({ theme }) => theme.colors.background};
 
-  :first-child {
+  &:first-child {
     margin-left: 0px;
   }
 
@@ -287,4 +288,3 @@ export const UserPoints = styled.div`
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.fontGrey};
 `;
-

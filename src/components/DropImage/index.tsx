@@ -41,10 +41,9 @@ export const DropImageComponent = ({
     if (acceptedFiles.length > 0) {
       const file = URL.createObjectURL(acceptedFiles[0]);
       return setPreview(file);
-    } 
-      return setPreview(defaultValue);
-    
-  }, [acceptedFiles, defaultValue])
+    }
+    return setPreview(defaultValue);
+  }, [acceptedFiles, defaultValue]);
 
   return (
     <Container datatype="image">

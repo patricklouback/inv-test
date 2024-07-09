@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface IBannerProps {
   index: number;
   isTrial?: boolean;
-};
+}
 
 export const Container = styled.div`
   padding-top: 20px;
@@ -23,7 +24,6 @@ export const Title = styled.h2`
     font-size: 16px;
     margin-bottom: 10px;
   }
-
 `;
 
 export const BannerContent = styled.div<React.FC>``;
@@ -32,7 +32,7 @@ export const CustomArrowLeft = styled.div`
   cursor: pointer;
   position: absolute;
   background: ${({ theme }) => theme.colors.secondary};
-  :hover {
+  &:hover {
     opacity: 1;
   }
   transition: 0.4s ease;
@@ -46,12 +46,12 @@ export const CustomArrowLeft = styled.div`
   border-radius: 0px 4px 4px 0px;
 
   svg path {
-    color: ${({ theme }) => theme.colors.terceary};
+    color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   }
 `;
 
 export const CustomArrowRight = styled.div`
-  :hover {
+  &:hover {
     opacity: 1;
   }
   transition: 0.4s ease;
@@ -69,7 +69,7 @@ export const CustomArrowRight = styled.div`
   right: 0;
 
   svg path {
-    color: ${({ theme }) => theme.colors.terceary};
+    color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   }
 `;
 
@@ -107,7 +107,7 @@ export const TopBannerContentWrapper = styled.div<IBannerProps>`
 
 export const TopAllContent = styled.div<IBannerProps>`
   display: flex;
-  justify-content: ${({ index }) => index === 0 ? 'end' : 'start'};
+  justify-content: ${({ index }) => (index === 0 ? 'end' : 'start')};
   width: 100%;
   height: 100%;
   padding-left: 5%;
@@ -126,7 +126,8 @@ export const BannerTitle = styled.div`
 `;
 
 export const BannerSubtitle = styled.div<IBannerProps>`
-  display: ${({ index, isTrial }) => index === 0 && isTrial ? 'none' : 'flex'};
+  display: ${({ index, isTrial }) =>
+    index === 0 && isTrial ? 'none' : 'flex'};
   color: ${({ theme }) => theme.colors.background};
   width: 99%;
 
@@ -143,12 +144,17 @@ export const ActionButtonWrapper = styled.div<IBannerProps>`
   height: 37px;
   font-weight: 600;
   border-radius: 8px;
-  background-color: 
-    ${({ theme, index }) => index === 0 ? theme.colors.bannerButtonPurple : theme.colors.bannerButtonGreen};
+  background-color: ${({ theme, index }) =>
+    index === 0
+      ? theme.colors.bannerButtonPurple
+      : theme.colors.bannerButtonGreen};
   /* color: ${({ theme }) => theme.colors.fontWhite}; */
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme, index }) => index === 0 ? theme.colors.bannerButtonPurpleHover : theme.colors.bannerButtonGreenHover};
+    background-color: ${({ theme, index }) =>
+      index === 0
+        ? theme.colors.bannerButtonPurpleHover
+        : theme.colors.bannerButtonGreenHover};
   }
 
   @media screen and (max-width: 520px) {
@@ -156,4 +162,3 @@ export const ActionButtonWrapper = styled.div<IBannerProps>`
     height: 30px;
   }
 `;
-

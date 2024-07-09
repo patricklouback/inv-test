@@ -1,9 +1,9 @@
 import styled, { css, keyframes } from 'styled-components';
 
-export const Container = styled.div<{ active: boolean }>`
+export const Container = styled.div<{ $active: boolean }>`
   position: fixed;
-  right: ${({ active }) => (active ? '0px' : '-100%')};
-  opacity: ${({ active }) => (active ? 1 : 0)};
+  right: ${({ $active }) => ($active ? '0px' : '-100%')};
+  opacity: ${({ $active }) => ($active ? 1 : 0)};
 
   transition: 0.6s ease;
   top: 0;
@@ -65,7 +65,7 @@ const collapseFrame = keyframes`
   }
 `;
 
-export const ListItems = styled.ul<{ activeCollapse: boolean }>`
+export const ListItems = styled.ul<{ $activeCollapse: boolean }>`
   list-style: none;
   width: 100%;
   height: 93%;
@@ -76,7 +76,7 @@ export const ListItems = styled.ul<{ activeCollapse: boolean }>`
 
   .collapse {
     transform: translateY(-30px);
-    display: ${({ activeCollapse }) => (activeCollapse ? 'block' : 'none')};
+    display: ${({ $activeCollapse }) => ($activeCollapse ? 'block' : 'none')};
 
     opacity: 0;
     animation: ${collapseFrame} 0.4s ease forwards;
@@ -91,14 +91,14 @@ export const ListItems = styled.ul<{ activeCollapse: boolean }>`
       top: 6px;
 
       transform: rotateZ(
-        ${({ activeCollapse }) => (activeCollapse ? '180deg' : '0deg')}
+        ${({ $activeCollapse }) => ($activeCollapse ? '180deg' : '0deg')}
       );
       transition: 0.5s ease;
     }
   }
 
-  ${({ activeCollapse }) =>
-    activeCollapse &&
+  ${({ $activeCollapse }) =>
+    $activeCollapse &&
     css`
       .item-collapse {
         margin-top 40px;
@@ -109,13 +109,13 @@ export const ListItems = styled.ul<{ activeCollapse: boolean }>`
       }
 
       .handle {
-        :nth-child(2) {
+        &:nth-child(2) {
           display: none;
         }
-        :nth-child(4) {
+        &:nth-child(4) {
           display: none;
         }
-        :nth-child(5) {
+        &:nth-child(5) {
           display: none;
         }
       }
@@ -134,12 +134,12 @@ export const SideItem = styled.li`
     align-items: center;
   }
 
-  :first-child {
+  &:first-child {
     margin-top: 4px;
   }
 
   span {
-    :first-child {
+    &:first-child {
       font-size: 16px;
     }
 
@@ -150,7 +150,7 @@ export const SideItem = styled.li`
   }
 `;
 
-export const User = styled.div<{ url: string }>`
+export const User = styled.div<{ $url: string }>`
   height: 70px;
   display: flex;
   align-items: center;
@@ -158,7 +158,7 @@ export const User = styled.div<{ url: string }>`
   #image {
     width: 70px;
     height: 70px;
-    background-image: url(${({ url }) => url || ''});
+    background-image: url(${({ $url }) => $url || ''});
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

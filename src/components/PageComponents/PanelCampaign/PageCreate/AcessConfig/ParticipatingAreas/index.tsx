@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-restricted-syntax */
 import { toast } from 'react-toastify';
 import { api } from 'services/api';
@@ -5,12 +6,29 @@ import { ContentSimpleComponent } from '@components/ContainerTitleSimple';
 import { CampaignContext } from 'contexts/Campaign';
 import { ListenSizeContext } from 'contexts/ListenSize';
 import { AreaCampaignSigned } from 'interfaces/areas';
-import { useCallback, useContext, useEffect, useState, useReducer, useRef, useMemo, useLayoutEffect } from 'react';
-import SelectDropdown from "react-select";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useReducer,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+} from 'react';
+import SelectDropdown from 'react-select';
 import { AreaContext } from 'contexts/AreaContext';
-import { AreaDefaultValues, AreaReducer } from '../../../../../../contexts/reducers/AreaReducer';
+import {
+  AreaDefaultValues,
+  AreaReducer,
+} from '../../../../../../contexts/reducers/AreaReducer';
 import { PreviewUserAddsComponent } from '../PreviewUser';
-import { ContainerPreview, ContentItem, Draft, IncludeAreaButton } from '../styles';
+import {
+  ContainerPreview,
+  ContentItem,
+  Draft,
+  IncludeAreaButton,
+} from '../styles';
 
 export const ParticipatingAreas: React.FC = (): JSX.Element => {
   const { areas } = useContext(AreaContext);
@@ -30,7 +48,7 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
   const { size } = useContext(ListenSizeContext);
 
   const areasDropdown = useRef([]);
-  
+
   const optionsForDropdown = useRef([]);
   const arrValidationOptionForDropdown = useRef([]);
 
@@ -40,13 +58,13 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
   }, [getAreaCampaignSigned, setSelectedArea, campaign]);
 
   const onSetSelectedAreasIdsOnCampaign = async (): Promise<void> => {
-    const data = await getAreaCampaignSigned(campaign.id)
+    const data = await getAreaCampaignSigned(campaign.id);
     const arrOfIdsSignedOnCampaign = [];
 
-    for await (const areaObject of data){
-      arrOfIdsSignedOnCampaign.push(areaObject.areaId)
+    for await (const areaObject of data) {
+      arrOfIdsSignedOnCampaign.push(areaObject.areaId);
     }
-    
+
     for await (const selectedAreaId of selectedAreasIds) {
       if (!arrOfIdsSignedOnCampaign.includes(selectedAreaId)) {
         await signNewAreaCampaign(campaign.id, selectedAreaId);
@@ -54,10 +72,10 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
     }
 
     setValues();
-  }
+  };
 
-  const setHandleDropdown = async (e:any): Promise<void> => {
-    setSelectedAreasIds(Array.isArray(e) ? e.map((area) => area.value) : []);
+  const setHandleDropdown = async (e: any): Promise<void> => {
+    setSelectedAreasIds(Array.isArray(e) ? e.map(area => area.value) : []);
   };
 
   useEffect(() => {
@@ -70,7 +88,6 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
     async (id: string) => {
       optionsForDropdown.current = [];
 
-      const removedArea = await removeAreaCampaignSigned(id);
       const data = await getAreaCampaignSigned(campaign.id);
       setSelectedArea(data);
 
@@ -79,13 +96,13 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
         label: removedArea.data.campaignArea.area.name
       }) */
 
-      setAreaSelectComponent(Math.random() + 1)
+      setAreaSelectComponent(Math.random() + 1);
       window.location.reload();
       // return optionsForDropdown;
     },
-    [removeAreaCampaignSigned, getAreaCampaignSigned, campaign]
+    [getAreaCampaignSigned, campaign]
   );
-  
+
   useEffect(() => {
     async function getAreas(): Promise<any> {
       try {
@@ -94,15 +111,17 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
         areasDropdown.current = data.areas;
 
         for (const selArea of selectedArea) {
-          arrValidationOptionForDropdown.current.push(selArea.areaId)
+          arrValidationOptionForDropdown.current.push(selArea.areaId);
         }
 
         for (const areaDropdown of areasDropdown.current) {
-          if(!arrValidationOptionForDropdown.current.includes(areaDropdown.id)) {
+          if (
+            !arrValidationOptionForDropdown.current.includes(areaDropdown.id)
+          ) {
             optionsForDropdown.current.push({
               value: areaDropdown.id,
-              label: areaDropdown.name
-            })       
+              label: areaDropdown.name,
+            });
           }
         }
         return optionsForDropdown;
@@ -121,17 +140,23 @@ export const ParticipatingAreas: React.FC = (): JSX.Element => {
         styles={{ max_width: 450 }}
       >
         <ContentItem>
-          <SelectDropdown 
-            options={optionsForDropdown.current} 
-            onChange={setHandleDropdown} 
+          <SelectDropdown
+            options={optionsForDropdown.current}
+            onChange={setHandleDropdown}
             isMulti
-            placeholder = 'Selecione as áreas do Direcional'
+            placeholder="Selecione as áreas do Direcional"
             // defaultValue={arrDefaultOptionsDropdown}
             key={areaSelectComponent}
           />
           <IncludeAreaButton />
-          <button className='area-btn' type='button' onClick={onSetSelectedAreasIdsOnCampaign}>Incluir áreas selecionadas</button> 
-          <ContainerPreview height={380}>
+          <button
+            className="area-btn"
+            type="button"
+            onClick={onSetSelectedAreasIdsOnCampaign}
+          >
+            Incluir áreas selecionadas
+          </button>
+          <ContainerPreview>
             {selectedArea.map(e => (
               <PreviewUserAddsComponent
                 key={e.area.id}

@@ -19,7 +19,7 @@ export const AnalyzeEvaluator: React.FC = (): JSX.Element => {
     getCampaignUsersSigned,
     signNewCampaignUser,
     searchCampaignUsers,
-    campaign
+    campaign,
   } = useContext(CampaignContext);
 
   const [selectedSuports, setSelectedSuports] = useState<CampaignUser[]>([]);
@@ -84,7 +84,7 @@ export const AnalyzeEvaluator: React.FC = (): JSX.Element => {
     <Draft size={size}>
       <ContentSimpleComponent
         title="Avaliador - Análise"
-        tooltipMessage='Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Análise.'
+        tooltipMessage="Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Análise."
       >
         <ContentItem>
           <Select

@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContainerProp {
-  img?: string;
+  $img?: string;
   description?: boolean;
   size?: number;
   imgFilter?: boolean;
@@ -18,7 +19,7 @@ export const Container = styled.div<ContainerProp>`
   overflow: hidden;
   background: ${({ theme }) => theme.colors.greyLight};
   border-radius: 1rem;
-  :hover {
+  &:hover {
     transition: 0.4s ease;
     background: ${({ theme }) => theme.colors.grey_hover};
   }
@@ -29,7 +30,7 @@ export const CampaingImage = styled.div<ContainerProp>`
   width: 100%;
   height: 248px;
   margin-bottom: 0;
-  ::before {
+  &::before {
     filter: ${({ imgFilter }) => (imgFilter ? 'grayscale(100%)' : 'none')};
     content: '';
     position: absolute;
@@ -37,7 +38,7 @@ export const CampaingImage = styled.div<ContainerProp>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${({ img }) => `${img}`});
+    background-image: url(${({ $img }) => $img});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -49,9 +50,9 @@ export const Line = styled.div`
   height: 4px;
   background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.primaryLight} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.primaryLight[styleSlug]} 83.37%
     );`};
 `;
 
@@ -60,7 +61,7 @@ export const ButtonLink = styled.button`
   top: 43%;
   left: 50%;
   border: 0;
-  background: ${({ theme }) => theme.colors.primaryLight};
+  background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   color: #fff;
   display: flex;
   width: 160px;
@@ -74,8 +75,8 @@ export const ButtonLink = styled.button`
   transition: ease-in-out 0.6s;
   cursor: pointer;
   transform: translateX(-50%);
-  :hover {
-    background: ${({ theme }) => theme.colors.primary};
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 

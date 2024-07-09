@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { api } from 'services/api';
 import {
   FeatureActiveDefaultValues,
-  FeatureActiveReducer
+  FeatureActiveReducer,
 } from './reducers/FeatureActiveReducer';
 
 interface FeatureActivePropsData {
@@ -37,16 +37,16 @@ export const FeatureActiveProvider: React.FC = ({ children }): JSX.Element => {
     try {
       dispatch({
         type: 'SET_LOADING',
-        loading: true
+        loading: true,
       });
       const { data } = await api.get('/feature-active');
       dispatch({
         type: 'SET_FEATURE_ACTIVES',
-        featureActives: data
+        featureActives: data,
       });
       dispatch({
         type: 'SET_LOADING',
-        loading: false
+        loading: false,
       });
       return data;
     } catch (error) {
@@ -77,7 +77,7 @@ export const FeatureActiveProvider: React.FC = ({ children }): JSX.Element => {
       ...dataReducer,
       editFeatureActive,
       getFeatureByKey,
-      getFeatureActives
+      getFeatureActives,
     };
   }, [dataReducer, editFeatureActive, getFeatureByKey, getFeatureActives]);
 

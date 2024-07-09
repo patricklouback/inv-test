@@ -49,7 +49,7 @@ export function TourFunnelStepThree(): JSX.Element {
           next: (
             <StepsButton
               aria-label="next"
-              variant="primary"
+              $variant="primary"
               onClick={() => {
                 setState(prevState => ({
                   ...prevState,
@@ -76,7 +76,7 @@ export function TourFunnelStepThree(): JSX.Element {
           >
             <StepsButton
               aria-label="next"
-              variant="primary"
+              $variant="primary"
               style={{ alignSelf: 'center', marginTop: '5%' }}
               onClick={async () => {
                 await viewedTour(TourId.FUNNEL_STEP_THREE);

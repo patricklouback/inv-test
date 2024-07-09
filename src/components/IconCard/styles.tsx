@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 interface ContainerProps {
-  shadow?: boolean;
-  background?: string;
+  $shadow?: boolean;
+  $background?: string;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -16,10 +16,10 @@ export const Container = styled.div<ContainerProps>`
     width: 36px;
     display: flex;
     justify-content: center;
-    background-color: ${({ background, theme }) =>
-      background || theme.colors.greyLight};
+    background-color: ${({ $background, theme }) =>
+      $background || theme.colors.greyLight};
     align-items: center;
     border-radius: 0.5rem;
-    box-shadow: ${({ shadow }) => !!shadow && `0 2px 5px -3px #00000061`};
+    box-shadow: ${({ $shadow }) => !!$shadow && `0 2px 5px -3px #00000061`};
   }
 `;

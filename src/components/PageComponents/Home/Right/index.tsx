@@ -7,10 +7,10 @@ import { IdeaContext } from 'contexts/Idea';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { RiLightbulbFlashLine } from 'react-icons/ri';
 import Skeleton from 'react-loading-skeleton';
-import { Base, NoneIdeas, Scroll } from './styles';
+import { NoneIdeas, Base, Scroll } from './styles';
 
 export default function IdeasSentComponent(): JSX.Element {
-  const { getIdeasForUserArea, loading, ideas, idea, viewIdea, getIdeas } =
+  const { getIdeasForUserArea, loading, ideas, idea, viewIdea } =
     useContext(IdeaContext);
   const { token } = useContext(AuthContext);
 

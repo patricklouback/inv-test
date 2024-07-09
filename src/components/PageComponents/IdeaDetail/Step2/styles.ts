@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { MentionsInput } from 'react-mentions';
+import { styleSlug } from 'utils/constants';
 
 interface CommentInputProps {
   error: boolean;
@@ -28,7 +29,7 @@ export const WapperTitleActiv = styled.div`
     margin-right: 5px;
     text-transform: uppercase;
   }
-  background: ${({ theme }) => theme.colors.primaryLight};
+  background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -126,10 +127,10 @@ export const StyledMentionsInput = styled(MentionsInput)<CommentInputProps>`
     padding: 24px 1rem;
     border: 0;
     outline: 0;
-  
+
     -moz-box-shadow: none;
     box-shadow: none;
-  
+
     max-width: 100%;
   }
 

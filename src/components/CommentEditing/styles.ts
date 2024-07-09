@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ChipProps {
   isInternalComment: boolean;
@@ -81,11 +82,11 @@ export const Input = styled.input`
 
   margin-top: 8px;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -96,6 +97,6 @@ export const Input = styled.input`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
   }
 `;

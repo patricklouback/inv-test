@@ -1,3 +1,3 @@
-export default function Redirect(): JSX.Element {
-  return <p>Carregando Microsoft</p>
+export default function Redirect() {
+  return <p>Carregando Microsoft</p>;
 }

@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   position: relative;
 
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -17,9 +17,11 @@ export const Container = styled.div`
     bottom: 0;
     background: ${({ theme }) => theme.colors.greenHipeLight};
     border-radius: 0 0 8px 8px;
+    z-index: -1;
   }
 
   margin-bottom: 35px;
+  z-index: 1;
 `;
 
 export const Description = styled.div`
@@ -29,7 +31,7 @@ export const Description = styled.div`
   line-height: 28px;
   letter-spacing: 0px;
   text-align: left;
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid #d9d9d9;
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;

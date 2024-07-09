@@ -14,12 +14,12 @@ export const Items = styled.button`
     background: ${({ theme }) => theme.colors.greyLight};
   }
 
-  :last-child {
+  &:last-child {
     border-bottom: 0;
     border-radius: 0 0 7px 7px;
   }
 
-  :nth-child(1) {
+  &:nth-child(1) {
     border-radius: 7px 7px 0 0;
   }
 `;

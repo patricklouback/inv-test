@@ -1,6 +1,7 @@
 import { Campaign } from '@default-types';
 import React from 'react';
 import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 import {
   Container,
   Top,
@@ -16,10 +17,10 @@ interface ItemProps {
 }
 
 export const Item: React.FC<ItemProps> = ({ item }): JSX.Element => {
-  const { status, title, sequence, description, campaignAreas } = item;
+  const { status, title, sequence, campaignAreas } = item;
   const { colors } = useTheme();
   const backgroundStatus =
-    (status === 'PUBLISHED' && colors.terceary) ||
+    (status === 'PUBLISHED' && colors.terceary[styleSlug]) ||
     (status === 'WAITING' && colors.blue) ||
     (status === 'INACTIVE' && colors.grey);
 
@@ -45,7 +46,7 @@ export const Item: React.FC<ItemProps> = ({ item }): JSX.Element => {
       </div>
       <ListTag>
         {campaignAreas.map(area => (
-          <ItemTag background={area.color}>{area.name}</ItemTag>
+          <ItemTag $background={area.color}>{area.name}</ItemTag>
         ))}
       </ListTag>
     </Container>

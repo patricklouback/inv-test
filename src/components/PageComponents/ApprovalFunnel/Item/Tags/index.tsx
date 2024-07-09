@@ -102,14 +102,6 @@ export const TagList: React.FC<ItemProps> = ({
   }, [handleMouseMove]);
 
   useEffect(() => {
-    (async (): Promise<void> => {
-      if (allIdeaTags.length === 0) {
-        await getIdeaTags(filteredIdeaTags);
-      }
-    })();
-  }, [getIdeaTags, ideaId]);
-
-  useEffect(() => {
     if (allIdeaTags) {
       buildShowEditAndChecked();
     }

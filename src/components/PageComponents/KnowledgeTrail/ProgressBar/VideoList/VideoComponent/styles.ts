@@ -1,19 +1,17 @@
 /* eslint-disable no-nested-ternary */
 
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
-export const BigLoading = styled.div.attrs<
-  {
-    myText: number;
-    marginTop: number;
-  },
-  {
-    myText: number;
-    marginTop: number;
-  }
->(props => {
-  return { myText: props.myText, marginTop: props.marginTop || 0 };
-})`
+interface BigLoadingProps {
+  myText: number;
+  marginTop?: number;
+}
+
+export const BigLoading = styled.div.attrs<BigLoadingProps>(props => ({
+  myText: props.myText,
+  marginTop: props.marginTop || 0
+}))`
   background: linear-gradient(
       to ${props => (props.myText < 51 ? 'right' : 'left')},
       ${props => (props.myText < 51 ? '#e0e0e0' : '#68D2C5')} 50%,
@@ -25,7 +23,7 @@ export const BigLoading = styled.div.attrs<
       #e0e0e0 50%
     );
   &::before {
-    content: '${props => props.myText !== null ? `${props.myText}%` : ''}';
+    content: '${props => (props.myText !== null ? `${props.myText}%` : '')}';
   }
 
   border-radius: 50%;
@@ -60,15 +58,16 @@ export const BigLoading = styled.div.attrs<
   animation: 1s ease-out 0s 1 load;
 `;
 
-export const BigLoaded = styled.div.attrs<
-  { marginTop: number },
-  { marginTop: number }
->(props => {
+interface BigLoadedProps {
+  marginTop?: number;
+}
+
+export const BigLoaded = styled.div.attrs<BigLoadedProps>(props => {
   return { marginTop: props.marginTop || 0 };
 })`
   background: linear-gradient(to left, #68d2c5 50%, transparent 50%),
     linear-gradient(
-      ${props => `${90 + 3.6 * 100}deg`},
+      ${() => `${90 + 3.6 * 100}deg`},
       #68d2c5 50%,
       #e0e0e0 50%
     );
@@ -124,7 +123,7 @@ export const BigLoaded = styled.div.attrs<
 export const SmallLoaded = styled.div`
   background: linear-gradient(to left, #68d2c5 50%, transparent 50%),
     linear-gradient(
-      ${props => `${90 + 3.6 * 100}deg`},
+      ${() => `${90 + 3.6 * 100}deg`},
       #68d2c5 50%,
       #e0e0e0 50%
     );
@@ -185,11 +184,11 @@ export const SmallLoaded = styled.div`
 
 export const BigToLoading = styled.div`
   background: linear-gradient(
-      to ${props => (0 < 51 ? 'right' : 'left')},
-      ${props => (0 < 51 ? '#e0e0e0' : '#68D2C5')} 50%,
+      to right,
+      ${() => '#e0e0e0'} 50%,
       transparent 50%
     ),
-    linear-gradient(${props => `${90 + 3.6 * 0}deg`}, #68d2c5 50%, #e0e0e0 50%);
+    linear-gradient(${() => `${90 + 3.6 * 0}deg`}, #68d2c5 50%, #e0e0e0 50%);
   &::before {
     content: '';
   }
@@ -216,11 +215,11 @@ export const BigToLoading = styled.div`
 
 export const SmallToLoading = styled.div`
   background: linear-gradient(
-      to ${props => (0 < 51 ? 'right' : 'left')},
-      ${props => (0 < 51 ? '#e0e0e0' : '#68D2C5')} 50%,
+      to right,
+      ${() => '#e0e0e0'} 50%,
       transparent 50%
     ),
-    linear-gradient(${props => `${90 + 3.6 * 0}deg`}, #68d2c5 50%, #e0e0e0 50%);
+    linear-gradient(${() => `${90 + 3.6 * 0}deg`}, #68d2c5 50%, #e0e0e0 50%);
   &::before {
     content: '';
   }
@@ -246,10 +245,13 @@ export const SmallToLoading = styled.div`
   }
 `;
 
-export const Line = styled.div.attrs<
-  { repeat: boolean; height: number; invert: boolean },
-  { repeat: boolean; height: number; invert: boolean }
->(props => {
+interface LineProps {
+  repeat?: boolean;
+  height?: number;
+  invert?: boolean;
+}
+
+export const Line = styled.div.attrs<LineProps>(props => {
   return {
     repeat: props.repeat || false,
     height: props.height || 51,
@@ -264,7 +266,7 @@ export const Line = styled.div.attrs<
       ? props.invert
         ? 'repeating-linear-gradient(#FFFFFF, #FFFFFF 6px, #B5B5B5 6px, #B5B5B5 10px)'
         : 'repeating-linear-gradient(#B5B5B5, #B5B5B5 6px, #FFFFFF 6px, #FFFFFF 8px)'
-      : '#9D28F0'};
+      : props.theme.colors.primary[styleSlug]};
   line-height: 1px;
   left: 40px;
   top: 40px;
@@ -273,6 +275,7 @@ export const Line = styled.div.attrs<
   transition: 1s;
   transform: translateY(0);
 `;
+
 export const LoadingDescription = styled.div`
   display: flex;
   align-items: center;
@@ -282,36 +285,24 @@ export const LoadingDescription = styled.div`
   }
 `;
 
-export const VideoDescription = styled.div.attrs<
-  {
-    fontSize: number;
-    marginTop: number;
-    marginLeft: number;
-    width: number;
-    marginRigth: number;
-    isBold: boolean;
-  },
-  {
-    fontSize: number;
-    marginTop: number;
-    marginLeft: number;
-    width: number;
-    marginRigth: number;
-    isBold: boolean;
-  }
->(props => {
-  return {
-    fontSize: props.fontSize || 14,
-    marginTop: props.marginTop || 0,
-    marginLeft: props.marginLeft || 14,
-    width: props.width || 166,
-    marginRigth: props.marginRigth || 22,
-    isBold: props.isBold || false,
-  };
-})`
+export const VideoDescription = styled.div.attrs<{
+  fontSize?: number;
+  marginTop?: number;
+  marginLeft?: number;
+  width?: number;
+  marginRight?: number;
+  isBold?: boolean;
+}>(props => ({
+  fontSize: props.fontSize || 14,
+  marginTop: props.marginTop || 0,
+  marginLeft: props.marginLeft || 14,
+  width: props.width || 166,
+  marginRight: props.marginRight || 22,
+  isBold: props.isBold || false,
+}))`
   margin-left: ${props => props.marginLeft}px;
   width: ${props => props.width}px;
-  margin-right: ${props => props.marginRigth}%;
+  margin-right: ${props => props.marginRight}%;
   font-size: ${props => props.fontSize}px;
   margin-top: ${props => props.marginTop}px;
   font-weight: ${props => (props.isBold ? 'bold' : 'normal')};

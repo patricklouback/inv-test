@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface SubtitleProps {
   color: string;
@@ -25,8 +26,8 @@ export const EngagementSubtitleBar = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 1px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 1px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 export const EngagementSubtitle = styled.div<SubtitleProps>`
@@ -135,7 +136,7 @@ export const TitleFilterBar = styled.div`
 `;
 
 export const Balloon = styled.div`
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     left: 20%;
@@ -207,7 +208,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {

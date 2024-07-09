@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const UserContent = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ export const UserArea = styled.div`
   line-height: 21px;
   letter-spacing: 0em;
   text-align: left;
-  color: '#47009A';
+  color: ${({theme}) => theme.colors.primary[styleSlug]};
 `;
 
 export const ImgUser = styled.img`

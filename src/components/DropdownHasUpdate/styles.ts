@@ -1,17 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const DropdownContainer = styled.div`
   position: relative;
   display: block;
-
-  z-index: 100;
 
   #arrow-icon {
     transition: 0.4s ease;
     transform: rotateZ(0deg);
   }
 
-  :hover {
+  &:hover {
     #content {
       display: flex;
     }
@@ -27,6 +26,7 @@ export const DropdownContent = styled.div`
   position: absolute;
   top: 100%;
   right: 0;
+  z-index: 50;
 `;
 
 export const DropdownContentMenu = styled.div`
@@ -50,7 +50,7 @@ export const DropdownContentMenu = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-  ::before {
+  &::before {
     content: '';
     position: absolute;
     top: -11px;
@@ -102,14 +102,14 @@ export const DropdownButton = styled.button`
   min-width: 90px;
   min-height: 36px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   border: #525556 2px solid;
   color: #525556;
   font-weight: 500;
 `;
 
-export const DropdownItemsContainer = styled.div`
+export const DropdownItemsContainer = styled.div<{ maxHeight?: string }>`
   position: relative;
 
   display: flex;
@@ -117,6 +117,8 @@ export const DropdownItemsContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   gap: 16px;
+
+  height: ${({ maxHeight }) => maxHeight || 'auto'};
 
   overflow-y: auto;
 
@@ -146,8 +148,8 @@ export const Arrow = styled.div`
 `;
 
 export const Line = styled.hr`
-  border-top: 2px solid #9d28f0;
-  background: #9d28f0;
+  border-top: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
+  background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
 `;
 
 export const Checkbox = styled.input`
@@ -165,11 +167,10 @@ export const VisibleCheckbox = styled.label<{ checked?: boolean }>`
   height: 21px;
   width: 21px;
   background-color: #fff;
-  border: 1px solid #9d28f0;
+  border: 1px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   border-radius: 4px;
 
   svg {
     display: ${({ checked }) => (checked ? 'flex' : 'none')};
   }
 `;
-

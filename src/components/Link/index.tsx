@@ -5,7 +5,7 @@ import { ButtonContainer } from './styles';
 
 type ButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   link?: string;
-  Icon?: any;
+  Icon?: React.ReactNode;
   value: string;
   background?: string;
   color?: string;
@@ -56,14 +56,14 @@ export default function ButtonLink({
         onClick={null}
         className={idt}
         marginTop={marginTop}
-        hover={hover}
+        $hover={hover}
         hoverWeigth={hoverWeigth}
         hoverColor={hoverColor}
         height={height}
         max={max}
         color={color}
-        background={background}
-        center={center}
+        $background={background}
+        $center={center}
         isSelected={isSelected}
         disabled
         borderRadius={borderRadius}
@@ -85,14 +85,14 @@ export default function ButtonLink({
           onClick={onClick}
           className={idt}
           marginTop={marginTop}
-          hover={hover}
+          $hover={hover}
           hoverWeigth={hoverWeigth}
           hoverColor={hoverColor}
           height={height}
           max={max}
           color={color}
-          background={background}
-          center={center}
+          $background={background}
+          $center={center}
           isSelected={isSelected}
           borderRadius={borderRadius}
           borderStyle={borderStyle}
@@ -111,14 +111,14 @@ export default function ButtonLink({
     <ButtonContainer
       className={idt}
       marginTop={marginTop}
-      hover={hover}
+      $hover={hover}
       hoverWeigth={hoverWeigth}
       hoverColor={hoverColor}
       height={height}
       max={max}
       color={color}
-      background={background}
-      center={center}
+      $background={background}
+      $center={center}
       onClick={onClick}
       isSelected={isSelected}
       borderRadius={borderRadius}

@@ -1,4 +1,4 @@
-import { ITour } from "./tour";
+import { ITour } from './tour';
 
 export interface ChangePassword {
   oldPassword: string;
@@ -15,7 +15,7 @@ export interface SendCodeForm {
 
 export interface LoginWithoutAuthForm {
   email: string;
-} 
+}
 
 export interface UserDepartament {
   id: string;
@@ -53,7 +53,7 @@ export interface User {
   firstAccess?: Date;
   registration?: string;
   password?: string;
-  tours: ITour
+  tours: ITour;
 }
 
 export interface UserRanked {

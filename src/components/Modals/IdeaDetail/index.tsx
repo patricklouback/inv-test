@@ -187,6 +187,26 @@ export function IdeaDetailModal({
             <h2>Descrição da iniciativa</h2>
             <ReactMarkdown>{idea.description}</ReactMarkdown>
           </Article>
+            {idea.status === 'INACTIVE' && (
+              <Article
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px !important'
+              }}>
+                <h2>Motivo da inativação</h2>
+                <ReactMarkdown>{idea.historyItem.description}</ReactMarkdown>
+                <Article
+                style={{
+                  border: 'none'
+                }}>
+                <h2>Quem rejeitou</h2>
+                <p>Nome:{idea.historyItem.user.name}</p>
+                <p>Email: {idea.historyItem.user.email}</p>
+                </Article>
+              </Article>
+            )}
+
             {idea.ideaFiles.length > 0 && (
               <Article>
               <h2>Arquivos</h2>
@@ -279,7 +299,6 @@ export function IdeaDetailModal({
               />
             </NameArchive>
           )}
-
           <CommentSent>
             <CommentSectionPlusCounter>
               <span>Comentários</span>

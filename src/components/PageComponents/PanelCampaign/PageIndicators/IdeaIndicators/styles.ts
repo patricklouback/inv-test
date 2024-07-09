@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Graphs = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ export const RowFourLeft = styled.div`
 
 export const RowFourRight = styled.div`
   display: flex;
-  width: 50%
+  width: 50%;
 `;
 
 export const RowFive = styled.div`
@@ -60,14 +60,14 @@ export const RowFiveLeft = styled.div`
 
 export const RowFiveMid = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;
 
 export const RowFiveRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%
+  width: 20%;
 `;
 
 export const RowSix = styled.div`

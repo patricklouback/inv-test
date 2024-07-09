@@ -18,7 +18,7 @@ interface AreaPropsData {
     params?: GraphParams
   ) => Promise<EngagementAreaPoints[]>;
   createArea?: (name: string, color: string) => Promise<void>;
-  getAreasContribution: ( params?: GraphParams ) => Promise<any>;
+  getAreasContribution: (params?: GraphParams) => Promise<any>;
 }
 
 export const AreaContext = createContext<AreaPropsData>({} as AreaPropsData);
@@ -47,37 +47,47 @@ export const AreaProvider: React.FC = ({ children }): JSX.Element => {
     }
   }, []);
 
-  const createArea = useCallback(async (name, color) => {
-    try {
-      if(name.length > 0) {
-        const {
-          data: { area },
-        } = await api.post('/areas/area', { name, color } );
-        dispatch({ type: 'SET_AREA', area });
-        toast.success('Área criada com sucesso!')
-      } else {
-        toast.info('Favor preencher o nome da Área que deseja criar')
+  const createArea = useCallback(
+    async (name, color) => {
+      try {
+        if (name.length > 0) {
+          const {
+            data: { area },
+          } = await api.post('/areas/area', { name, color });
+          dispatch({ type: 'SET_AREA', area });
+          toast.success('Área criada com sucesso!');
+        } else {
+          toast.info('Favor preencher o nome da Área que deseja criar');
+        }
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          // Acessa a mensagem de erro enviada pelo back-end
+          toast.error(error.response.data.error.message);
+        } else {
+          toast.error('Error ao criar a área');
+        }
       }
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        // Acessa a mensagem de erro enviada pelo back-end
-        toast.error(error.response.data.error.message);
-      } else {
-        toast.error('Error ao criar a área');
-      }
-    }
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
-  const getAreasContribution = useCallback(async (params = {}) => {
-    try {
-      dispatch({ type: 'SET_LOADING', loading: true })
-      const { data } = await api.get(`/areas/contribution`, { params })
-      dispatch({ type: 'SET_LOADING', loading: false })
-      return data.areasContribution;
-    } catch (error) {
-      toast.error('Erro ao buscar contribuição das áreas');
-    }
-  }, [dispatch])
+  const getAreasContribution = useCallback(
+    async (params = {}) => {
+      try {
+        dispatch({ type: 'SET_LOADING', loading: true });
+        const { data } = await api.get(`/areas/contribution`, { params });
+        dispatch({ type: 'SET_LOADING', loading: false });
+        return data.areasContribution;
+      } catch (error) {
+        toast.error('Erro ao buscar contribuição das áreas');
+      }
+    },
+    [dispatch]
+  );
 
   const AuthDataValue = useMemo(() => {
     return {
@@ -85,9 +95,15 @@ export const AreaProvider: React.FC = ({ children }): JSX.Element => {
       getAreas,
       getEngagementAreaPoints,
       createArea,
-      getAreasContribution
+      getAreasContribution,
     };
-  }, [dataReducer, getAreas, getEngagementAreaPoints, createArea, getAreasContribution]);
+  }, [
+    dataReducer,
+    getAreas,
+    getEngagementAreaPoints,
+    createArea,
+    getAreasContribution,
+  ]);
 
   return (
     <AreaContext.Provider value={AuthDataValue}>

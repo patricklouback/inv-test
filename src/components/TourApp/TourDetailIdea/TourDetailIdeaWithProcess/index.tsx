@@ -36,7 +36,7 @@ export function TourDetailIdeaWithProcess(): JSX.Element {
             <WrapperFotter style={{ width: '350px' }}>
               <Steps current={1} total={2} />
               <StepsButton
-                variant="primary"
+                $variant="primary"
                 onClick={() => {
                   setState(prevState => ({
                     ...prevState,
@@ -74,7 +74,7 @@ export function TourDetailIdeaWithProcess(): JSX.Element {
               <Steps current={2} total={2} />
               <StepsButton
                 aria-label="next"
-                variant="primary"
+                $variant="primary"
                 onClick={async () => {
                   await viewedTour(TourId.DETAIL_IDEAS_WITH_PROCESS);
                   setState(prevState => ({

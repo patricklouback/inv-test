@@ -93,7 +93,7 @@ export const EvaluationCriteriaContent: React.FC<{
   createEvaluationCriteria,
   deleteEvaluationCriteria,
   campaign,
-  hideActions
+  hideActions,
 }): JSX.Element => {
   const [isEditing, setIsEditing] = useState(isCreating);
   const [newName, setNewName] = useState(evaluationCriteriaName);
@@ -224,7 +224,6 @@ export const EvaluationCriteriaContent: React.FC<{
           value={newDescription}
           placeholder="Explicação do critério"
           onChange={handleChangeDescription}
-          type="text"
           disabled={!isEditing}
         />
       </Draft>
@@ -250,20 +249,24 @@ export const EvaluationCriteriaContent: React.FC<{
           value={newWeight}
         />
       </Draft>
-      {!hideActions && <Action>
-        <EditAndCheck
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          handleCheck={handleCheck}
-        />
-      </Action>}
-      {!hideActions && <Action>
-        <DeleteOrCancel
-          handleDeleteItem={handleDelete}
-          handleCancelEdit={handleCancelEdit}
-          isEditing={isEditing}
-        />
-      </Action>}
+      {!hideActions && (
+        <Action>
+          <EditAndCheck
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            handleCheck={handleCheck}
+          />
+        </Action>
+      )}
+      {!hideActions && (
+        <Action>
+          <DeleteOrCancel
+            handleDeleteItem={handleDelete}
+            handleCancelEdit={handleCancelEdit}
+            isEditing={isEditing}
+          />
+        </Action>
+      )}
       {showConfirmationModal && (
         <Modal width="440px" height="auto" hideCloseButton>
           <WarningTitle>Ação não recomendada</WarningTitle>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const SelectOptionWrapper = styled.div<{
   height?: string;
@@ -33,7 +34,7 @@ export const SelectOptionWrapper = styled.div<{
     }
 
     &:focus {
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     }
 
     &::placeholder {

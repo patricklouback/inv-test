@@ -1,13 +1,12 @@
 import styled, { css, createGlobalStyle } from 'styled-components';
 
 export const DragAndDropContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
 `;
 
-export const ItemsContainer = styled.div`
-`;
+export const ItemsContainer = styled.div``;
 
 export const ButtonSave = styled.button`
   border-radius: 12px;

@@ -1,16 +1,17 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface IBotMidIcon {
   backgroundImage: string;
-};
+}
 
 interface IBotMidBoxNoTrialTop {
   backgroundColor: string;
-};
+}
 
 interface IBoxesList {
   index: number;
-};
+}
 
 export const FadeLine = styled.div`
   width: 100%;
@@ -27,13 +28,9 @@ export const TitleAndSubtitle = styled.div`
   margin-bottom: 8px;
 `;
 
-export const Title = styled.h1`
-  
-`;
+export const Title = styled.h1``;
 
-export const Subtitle = styled.div`
-
-`;
+export const Subtitle = styled.div``;
 
 export const MiddleContent = styled.div`
   display: flex;
@@ -64,9 +61,7 @@ export const TopMidContent = styled.div`
   padding: 2% 3%;
 `;
 
-export const TopMidTitle = styled.h4`
-
-`;
+export const TopMidTitle = styled.h4``;
 
 export const TopMidPhrases = styled.div`
   display: flex;
@@ -90,11 +85,11 @@ export const PhrasesList = styled.ul`
 `;
 
 export const BoxesList = styled.div<IBoxesList>`
-  display: flex; 
+  display: flex;
   gap: 20px;
   height: 100%;
-  margin-top: ${({ index }) => index === 0 ? '20px' : '0px'};
-  margin-bottom: ${({ index }) => index === 1 ? '20px' : '0px'};
+  margin-top: ${({ index }) => (index === 0 ? '20px' : '0px')};
+  margin-bottom: ${({ index }) => (index === 1 ? '20px' : '0px')};
   margin-left: 20px;
   margin-right: 20px;
 `;
@@ -114,9 +109,7 @@ export const BotMidContent = styled.div`
   width: 95%;
 `;
 
-export const BotMidTitle = styled.h3`
-
-`;
+export const BotMidTitle = styled.h3``;
 
 export const BotMidBoxes = styled.div`
   display: flex;
@@ -143,7 +136,7 @@ export const BotMidBox = styled.div`
 `;
 
 export const BotMidBoxNoTrial = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -180,7 +173,8 @@ export const BotMidBoxNoTrialBottom = styled.div`
 export const BotMidBoxIcon = styled.div<IBotMidIcon>`
   height: 100%;
   width: 50%;
-  background-image: ${({ backgroundImage }) => (backgroundImage ? `url(/images/banners/${backgroundImage})` : 'none')};
+  background-image: ${({ backgroundImage }) =>
+    backgroundImage ? `url(/images/banners/${backgroundImage})` : 'none'};
   background-size: 100% 100%;
   background-position: 'center';
   background-repeat: 'no-repeat';
@@ -189,7 +183,8 @@ export const BotMidBoxIcon = styled.div<IBotMidIcon>`
 export const BotMidBoxIconNoTrial = styled.div<IBotMidIcon>`
   height: 55%;
   width: 20%;
-  background-image: ${({ backgroundImage }) => (backgroundImage ? `url(/images/banners/${backgroundImage})` : 'none')};
+  background-image: ${({ backgroundImage }) =>
+    backgroundImage ? `url(/images/banners/${backgroundImage})` : 'none'};
   background-size: 100% 100%;
   background-position: 'center';
   background-repeat: 'no-repeat';
@@ -235,11 +230,11 @@ export const ActionButtonWrapper = styled.div`
   height: 60px;
   font-weight: 500;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.fontWhite};
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.primaryLight};
+    background-color: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   }
 `;
 
@@ -254,7 +249,7 @@ export const BotLines = styled.div`
 export const BotLine = styled.div`
   span {
     text-decoration: underline;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary[styleSlug]};
     margin-left: 5px;
   }
 

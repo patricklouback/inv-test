@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { IdeaComment } from 'interfaces/idea';
 import { HTMLAttributes, useEffect } from 'react';
 import { FiDownload } from 'react-icons/fi';
+import Link from 'next/link';
 import {
   ChipCommentType,
   FooterComment,
@@ -25,12 +26,15 @@ export function Comment({
   ...rest
 }: CommentProps): JSX.Element {
   const formattedMessage = (message): any => {
-    const formattedMessage = message.replace(/@\[([^\]]+)\]/g, '<span class="mention">$1</span>');
+    const formattedMessage = message.replace(
+      /@\[([^\]]+)\]/g,
+      '<span class="mention">$1</span>'
+    );
 
-  return (
-    <CommentMessage dangerouslySetInnerHTML={{ __html: formattedMessage }} />
-  );
-  } 
+    return (
+      <CommentMessage dangerouslySetInnerHTML={{ __html: formattedMessage }} />
+    );
+  };
 
   return (
     <ItemComment key={comment.id} {...rest}>
@@ -42,10 +46,13 @@ export function Comment({
               Análise técnica
             </ChipCommentType>
           )} */}
-          {comment.type === 'EVALUATION' 
-            ? <WarningTag text={`Para revisão de: ${comment.targetUser.name}`} size='11px' margin= '0rem 2rem'/>
-            : null
-          }
+          {comment.type === 'EVALUATION' ? (
+            <WarningTag
+              text={`Para revisão de: ${comment.targetUser.name}`}
+              size="11px"
+              margin="0rem 2rem"
+            />
+          ) : null}
           <span className="date">
             {format(new Date(comment.createdAt), 'dd/MM/yyyy')}
           </span>
@@ -54,14 +61,14 @@ export function Comment({
       <CommentMessage>{formattedMessage(comment.message)}</CommentMessage>
       <FooterComment>
         {comment.ideaCommentFiles?.length > 0 && (
-          <a
+          <Link
             href={comment.ideaCommentFiles[0].url}
             target="_blank"
             rel="noreferrer"
           >
             <FiDownload />
             Abrir {comment.ideaCommentFiles[0].originalName}
-          </a>
+          </Link>
         )}
       </FooterComment>
     </ItemComment>

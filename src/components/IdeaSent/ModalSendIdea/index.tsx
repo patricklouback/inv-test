@@ -84,7 +84,8 @@ export function ModalSendIdea({
         clearModal();
         setIsOpen(false);
       } else {
-        toast.error('É necessário indicar usuário de destino')
+        // toast.error('É necessário indicar usuário de destino');
+         
       }
     },
     [createNotification, selectedUsers, idea.id, clearModal, setIsOpen]

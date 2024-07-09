@@ -18,6 +18,7 @@ export interface UserEvaluationCriteriasData {
   criteriaStep: IdeaKanbamStep;
   status: string;
   ideaId: string;
+  sequence: number;
 }
 
 interface UserPropsData {
@@ -89,7 +90,11 @@ export const ProviderUser: React.FC = ({ children }): JSX.Element => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
 
-        await api.put('/users/profile-image', file);
+        await api.put('/users/profile-image', file, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         await getUser();
         dispatch({ type: 'SET_LOADING', loading: false });
       } catch (error) {

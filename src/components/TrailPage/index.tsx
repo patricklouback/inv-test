@@ -1,6 +1,7 @@
 import React from 'react';
 import { BiChevronRight } from 'react-icons/bi';
 import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 import { Container } from './styles';
 
 interface ItemTrailParams {
@@ -17,7 +18,7 @@ export const ItemTrailComponent: React.FC<ItemTrailParams> = ({
       <span>{data[0]}</span>
       {data[1] !== null && (
         <>
-          <BiChevronRight size={22} color={colors.terceary} />
+          <BiChevronRight size={22} color={colors.terceary[styleSlug]} />
           <h1>{data[1]}</h1>
         </>
       )}

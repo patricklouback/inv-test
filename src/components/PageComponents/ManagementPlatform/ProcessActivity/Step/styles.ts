@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ItemStepp = styled.li`
   cursor: pointer;
@@ -6,7 +7,6 @@ export const ItemStepp = styled.li`
   position: relative;
   display: flex;
 `;
-
 
 // export const Value = styled.span`
 //   width: 131px;
@@ -30,7 +30,6 @@ export const Gate = styled.div`
   position: relative;
 `;
 
-
 export const Rotate = styled.div<{ rotate?: boolean }>`
   position: absolute;
   bottom: -5px;
@@ -50,7 +49,7 @@ export const Rotate = styled.div<{ rotate?: boolean }>`
     rotate &&
     css`
       transform: rotateZ(0deg);
-      background: ${({ theme }) => theme.colors.primaryLight};
+      background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
     `}
 `;
 
@@ -92,7 +91,7 @@ export const Circle = styled.div<{ status?: boolean }>`
     !status ? `2px solid ${theme.colors.borders}` : ''};
 `;
 
-export const AddStep = styled.div<{backgroundColor?: string}>`
+export const AddStep = styled.div<{ backgroundColor?: string }>`
   position: absolute;
   left: 96px;
   top: -36px;
@@ -102,10 +101,10 @@ export const AddStep = styled.div<{backgroundColor?: string}>`
   height: 32px;
   padding-top: 4px;
   padding-left: 3px;
-  background: ${({backgroundColor}) => backgroundColor || 'none' };
-`
+  background: ${({ backgroundColor }) => backgroundColor || 'none'};
+`;
 
-export const DeleteStep = styled.div<{backgroundColor?: string}>`
+export const DeleteStep = styled.div<{ backgroundColor?: string }>`
   position: absolute;
   width: 32px;
   height: 32px;
@@ -116,10 +115,10 @@ export const DeleteStep = styled.div<{backgroundColor?: string}>`
   border-radius: 4px;
   padding-top: 4px;
   padding-left: 3px;
-  background: ${({backgroundColor}) => backgroundColor || 'none' };
-`
+  background: ${({ backgroundColor }) => backgroundColor || 'none'};
+`;
 
-export const ValueBox = styled.span<{colorActive?: boolean}>`
+export const ValueBox = styled.span<{ colorActive?: boolean }>`
   width: 11rem;
   height: 88px;
 
@@ -135,13 +134,13 @@ export const ValueBox = styled.span<{colorActive?: boolean}>`
     colorActive ? theme.colors.greenHipeLight : theme.colors.background};
 `;
 
-export const Value = styled.input<{colorActive?: boolean}>`
+export const Value = styled.input<{ colorActive?: boolean }>`
   width: 98%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
-  background-color: #F6F6F8;
+  background-color: #f6f6f8;
   font-weight: 600;
   position: absolute;
   border: 0;
@@ -153,7 +152,7 @@ export const Value = styled.input<{colorActive?: boolean}>`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     background-color: white;
   }
 `;

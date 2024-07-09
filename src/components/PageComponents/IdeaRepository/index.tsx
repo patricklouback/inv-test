@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ApresentationCompany } from '@components/Apresentation';
 import { Container as ContainerPage } from '@components/Container';
 import { ModalSendIdea } from '@components/IdeaSent/ModalSendIdea';
 import ButtonLink from '@components/Link';
@@ -20,6 +19,7 @@ import { ImCheckmark } from 'react-icons/im';
 import { MdFilterListAlt } from 'react-icons/md';
 import { RiFileExcel2Line, RiLightbulbFlashLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 import { ExcelDataReportContext } from '../../../contexts/ExcelDataReport';
 import { ItemRowComponent } from './ItemRowComponent';
 import { status_idea, step_idea } from './data/filters';
@@ -296,7 +296,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                   type="button"
                   onClick={handleClick}
                   value="Download"
-                  background={colors.primary}
+                  background={colors.primary[styleSlug]}
                   color={colors.background}
                   max={300}
                   center={false}
@@ -315,7 +315,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
               <ButtonsActions>
                 <Filter>
                   <ButtonAction
-                    backgr={colors.font}
+                    $backgr={colors.font}
                     onClick={() => handleOpenFilter('CAMPAIGN')}
                   >
                     <MdFilterListAlt />
@@ -355,7 +355,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                 </Filter>
                 <Filter>
                   <ButtonAction
-                    backgr={colors.font}
+                    $backgr={colors.font}
                     onClick={() => handleOpenFilter('AREA')}
                   >
                     <MdFilterListAlt />
@@ -391,7 +391,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                 </Filter>
                 <Filter>
                   <ButtonAction
-                    backgr={colors.font}
+                    $backgr={colors.font}
                     onClick={() => handleOpenFilter('TYPES')}
                   >
                     <MdFilterListAlt />
@@ -428,7 +428,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                 {kanbanSteps.length > 0 && (
                   <Filter>
                     <ButtonAction
-                      backgr={colors.font}
+                      $backgr={colors.font}
                       onClick={() => handleOpenFilter('STEP')}
                     >
                       <MdFilterListAlt />
@@ -469,7 +469,7 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                 )}
                 <Filter>
                   <ButtonAction
-                    backgr={colors.font}
+                    $backgr={colors.font}
                     onClick={() => handleOpenFilter('STATUS')}
                   >
                     <MdFilterListAlt />
@@ -515,7 +515,6 @@ export const IdeaRepositoryPage: React.FC = (): JSX.Element => {
                 <TableInfo>
                   <tr>
                     <ItemHeader className="ideaAppId">ID</ItemHeader>
-                    <ItemHeader className="type" />
                     <ItemHeader className="title">
                       Titulo da Iniciativa
                     </ItemHeader>

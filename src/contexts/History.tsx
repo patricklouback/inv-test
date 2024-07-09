@@ -10,7 +10,7 @@ import {
 
 interface HistoryItensPropsData {
   historyItens: HistoryItem[];
-  getHistoryItens: (ideaId: string) => Promise<HistoryItem[]>;
+  getHistoryItens: (ideaId: string) => Promise<void>;
 }
 
 export const HistoryItensContext = createContext<HistoryItensPropsData>(
@@ -26,7 +26,7 @@ export const HistoryItensProvider: React.FC = ({ children }): JSX.Element => {
   const getHistoryItens = useCallback(async (ideaId: string) => {
     try {
       const { data } = await api.get(`/history/${ideaId}`);
-      
+
       dispatch({
         type: 'SET_HISTORY_ITENS',
         historyItens: data.historyList,

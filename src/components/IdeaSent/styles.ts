@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContainerProps {
   isAlternative?: boolean;
@@ -7,11 +8,9 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   position: relative;
   width: 100%;
-  /* max-width: 536px; */
   margin-right: 20px;
   border-radius: 16px;
   padding: 24px;
-  /* height: 330px; */
   margin: 16px 0;
 
   &:first-child {
@@ -25,6 +24,23 @@ export const Container = styled.div<ContainerProps>`
     max-width: 100%;
   }
 `;
+
+export const IdeaFinished = styled.div`
+  position: absolute;
+  top: 20px; 
+  right: -10px;
+  transform: rotate(45deg);
+
+  background: ${({ theme }) => theme.colors.red};
+  padding: 4px 8px;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+`;
+
 
 export const Header = styled.header`
   display: flex;
@@ -53,7 +69,7 @@ export const BoxPosition = styled.div`
 `;
 
 export const Position = styled.span`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   font-weight: 500;
   line-height: 26px;
   letter-spacing: 0.5px;
@@ -62,7 +78,7 @@ export const Position = styled.span`
 export const Tag = styled.span<{ background?: string }>`
   background: ${({ theme, background }) =>
     !background ? theme.colors.greyLight : theme.colors.background};
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   width: 145px;
   height: 40px;
   display: flex;
@@ -117,7 +133,7 @@ export const ItemImageUser = styled.div<{ images_users: string }>`
   height: 32px;
   border: 1px solid ${({ theme }) => theme.colors.background};
 
-  :first-child {
+  &:first-child {
     margin-left: 0px;
   }
 

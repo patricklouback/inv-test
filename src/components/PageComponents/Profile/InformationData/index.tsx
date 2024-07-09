@@ -10,6 +10,7 @@ import { IoMdClose } from 'react-icons/io';
 import { IoRocketOutline } from 'react-icons/io5';
 import { RiLightbulbFlashLine, RiTrophyLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
+import { slug } from 'utils/constants';
 import { Card } from '../Card';
 import { EditUser } from './EditUser';
 import {
@@ -57,8 +58,7 @@ export function InformationData(): JSX.Element {
 
   const { areas, getAreas } = useContext(AreaContext);
   const { departaments, getDepartaments } = useContext(DepartamentContext);
-  const { getBannersForPage, bannersList, loading } =
-    useContext(BannersContext);
+  const { getBannersForPage, bannersList } = useContext(BannersContext);
 
   function closeBanner(): void {
     setIsBannerActive(false);
@@ -91,7 +91,7 @@ export function InformationData(): JSX.Element {
     setPreview(null);
   }, [editImageProfile, fileUpload]);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
   const isCommonUser = !user?.isAdmin && !user?.isManager;
 
   // EFFECT'S
@@ -131,7 +131,7 @@ export function InformationData(): JSX.Element {
       <WapperDataInfo>
         <WapperImage>
           <UserImage
-            img={preview || user?.image || 'https://via.placeholder.com/255'}
+            $img={preview || user?.image || 'https://via.placeholder.com/255'}
           />
           <InputSendImg
             onChange={handleFile}
@@ -189,7 +189,7 @@ export function InformationData(): JSX.Element {
             <span>Editar Dados</span>
           </ButtonEditData>
           {isTrial && !isCommonUser ? (
-            <SectionBanner isOpen={isBannerActive}>
+            <SectionBanner $isOpen={isBannerActive}>
               {bannersList && bannersList.length > 0 && (
                 <BannerComponent banner={bannersList[0]}>
                   <AllContent>

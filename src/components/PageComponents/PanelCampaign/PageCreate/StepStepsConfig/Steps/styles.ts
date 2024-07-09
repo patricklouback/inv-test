@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ListSteps = styled.ul`
   max-width: 54rem;
@@ -21,8 +22,8 @@ export const ListSteps = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 
@@ -46,11 +47,11 @@ export const Item = styled.li`
   @media screen and (max-width: 980px) {
     margin: 0 10px;
 
-    :first-child {
+    &:first-child {
       margin-left: 0;
     }
 
-    :last-child {
+    &:last-child {
       margin-right: 0;
     }
   }

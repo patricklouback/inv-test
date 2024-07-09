@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 `;
 
 interface InputProps {
@@ -32,12 +35,18 @@ export const Input = styled.input<InputProps>`
 
 export const Icon = styled.div`
   position: absolute;
-  height: 100%;
   display: flex;
   justify-content: flex-end;
   width: 45px;
-  top: 0;
+  top: 50%;
   left: 0;
+  transform: translateY(-50%);
+`;
+
+
+export const Label = styled.p`
+  font-family: ${({ theme }) => theme.font.primary};
+  font-size: 1rem;
 `;
 
 export const Clean = styled.div`

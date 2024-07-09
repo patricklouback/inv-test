@@ -110,7 +110,7 @@ export const EvaluationModal: React.FC<{
       {!showConfirmationModal && (
         <Modal
           handle={() => setShowModal(false)}
-          width="600px"
+          width="650px"
           height="auto"
           title="Avaliar iniciativa"
         >

@@ -54,7 +54,7 @@ export const DefaultSection: React.FC<SectionParam> = ({
           </ReturnButton>
         )}
 
-        <HeaderSectionDefault small={header.small_header} type={type}>
+        <HeaderSectionDefault $small={header.small_header} type={type}>
           <div>
             {header.Icon}
             {header.box_icon && <HeaderIcon>{header.box_icon}</HeaderIcon>}

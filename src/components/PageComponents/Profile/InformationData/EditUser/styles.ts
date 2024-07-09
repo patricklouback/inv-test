@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+`;
+
 export const ModalAddUser = styled.div`
   position: fixed;
   top: 50%;
@@ -62,10 +72,10 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   button {
-    margin-top: 20px;
+    margin-top: 50px;
   }
   div {
-    gap: 1rem;
+    gap: 1.8rem;
     display: flex;
     flex-direction: column;
     width: 100%;

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const C = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ export const Row = styled.div`
   justify-content: space-between;
   margin: 30px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
@@ -95,15 +96,18 @@ export const FooterButtons = styled.div`
     background-color: ${({ theme }) => theme.colors.lightBlue};
     color: ${({ theme }) => theme.colors.background};
 
-    :disabled {
+
+    &:disabled{
       background-color: ${({ theme }) => theme.colors.greyDark};
       border: 2px solid ${({ theme }) => theme.colors.greyLight};
       color: ${({ theme }) => theme.colors.grey};
+      cursor: not-allowed;
     }
+
   }
   button.save {
-    border: 2px solid ${({ theme }) => theme.colors.terceary};
-    background-color: ${({ theme }) => theme.colors.terceary};
+    border: 2px solid ${({ theme }) => theme.colors.terceary[styleSlug]};
+    background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
     color: ${({ theme }) => theme.colors.background};
   }
 `;

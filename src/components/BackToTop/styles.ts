@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Base = styled.div<{ display: string }>`
   width: 100%;
@@ -14,12 +15,12 @@ export const Base = styled.div<{ display: string }>`
   }
 `;
 
-export const ButtonBack = styled.button<{ doAnimation: boolean }>`
+export const ButtonBack = styled.button<{ $doAnimation: boolean }>`
   bottom: 20px;
   right: 20px;
   padding: 10px;
   margin-bottom: 20px;
-  background-color: #48009b;
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -31,7 +32,7 @@ export const ButtonBack = styled.button<{ doAnimation: boolean }>`
       opacity: 1;
     }
   }
-  animation: ${({ doAnimation }) =>
-    doAnimation ? '1s ease-out 0s 1 load' : 'none'};
+  animation: ${({ $doAnimation }) =>
+    $doAnimation ? '1s ease-out 0s 1 load' : 'none'};
   font-size: 16px;
 `;

@@ -45,7 +45,7 @@ const responsive = {
 export default function CampaingComponent(): JSX.Element {
   const { colors } = useTheme();
   const { token, user } = useContext(AuthContext);
-  const unviewedHomeTour = user?.tours[TourId.HOME] === TourStatus.UNVIEWED;
+  const unviewedHomeTour = user?.tours?.[TourId.HOME] === TourStatus.UNVIEWED;
   const { loadCampaignsUserArea, campaigns, loading } =
     useContext(CampaignContext);
   const [campaignsNotFinished, setCampaingsNotFinished] = useState([]);
@@ -64,7 +64,6 @@ export default function CampaingComponent(): JSX.Element {
       loadCampaignsUserArea();
     }
   }, [loadCampaignsUserArea, token]);
-
 
   useEffect(() => {
     setCampaingsNotFinished(

@@ -3,7 +3,7 @@ import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
 } from 'next';
-import { getCookie } from 'cookies-next';
+import { getCookie } from 'utils/storage';
 import decode from 'jwt-decode';
 
 type WithSSRAuthOptions = {
@@ -30,10 +30,7 @@ export function withSSRAuth<T>(
   return async (
     ctx: GetServerSidePropsContext
   ): Promise<GetServerSidePropsResult<T>> => {
-    const token = getCookie('authentication', {
-      req: ctx.req,
-      res: ctx.res,
-    });
+    const token = getCookie('authentication', ctx.req);
 
     if (!token) {
       return {

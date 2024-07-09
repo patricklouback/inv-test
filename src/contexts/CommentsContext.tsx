@@ -171,7 +171,7 @@ export const CommentsListProvider: React.FC = ({ children }): JSX.Element => {
     unlikeSubComment,
     createSubComment,
     deleteComment,
-    deleteSubComment
+    deleteSubComment,
   ]);
 
   return (

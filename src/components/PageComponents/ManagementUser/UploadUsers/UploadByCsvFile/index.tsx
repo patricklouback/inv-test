@@ -24,10 +24,8 @@ export function UploadUsersByCsvFile({
 
     if (uploadedFiles[0]?.type === 'text/csv') {
       setIsLoading(true);
-      const formData = new FormData();
-      formData.append('file', uploadedFiles[0]);
 
-      await importCSV(formData);
+      await importCSV(uploadedFiles[0]);
       setIsLoading(false);
 
       setIsModalRegisterOpen(false);

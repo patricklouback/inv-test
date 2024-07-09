@@ -6,6 +6,7 @@ import { AuthContext } from 'contexts/AuthContext';
 import { useContext } from 'react';
 import { FiLogIn } from 'react-icons/fi';
 import { RiUserLine } from 'react-icons/ri';
+import { slug } from 'utils/constants';
 import { FormSendMailWrapper } from './styles';
 
 interface propsLogin {
@@ -24,7 +25,7 @@ export default function FormSendMail({
   const { sendEmailToAuthenticate, authLoginWithoutAuthentication } =
     useContext(AuthContext);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
 
   const {
     register,
@@ -41,7 +42,7 @@ export default function FormSendMail({
       <Input
         name="email"
         id="email"
-        register={register}
+        {...register('email')}
         placeholder="Entre com matrícula ou email..."
         errors={errors.email}
         Icon={RiUserLine}

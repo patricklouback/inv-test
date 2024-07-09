@@ -37,7 +37,7 @@ interface CampaignFieldFormProps extends CampaignField {
   campaignFieldValues: CampaignFieldValue[];
 }
 
-export const StepCreate: React.FC = (): JSX.Element => {
+export const StepCreate = () => {
   const { colors } = useTheme();
   const campaignFieldsText = 'Digite aqui o valor para o campo';
   registerLocale('pt-BR', pt);
@@ -67,8 +67,6 @@ export const StepCreate: React.FC = (): JSX.Element => {
   } = useForm({
     resolver: yupResolver(yupValidateCampaign),
   });
-
-  console.log('loading', loading);
 
   const handleChangeFieldValue = useCallback(
     (name: string, value: string) => {
@@ -144,7 +142,6 @@ export const StepCreate: React.FC = (): JSX.Element => {
         new Date(campaign.endDate.replace(/-/g, '/').replace(/T.+/, ''))
       );
       setValue('campaignFields', selectedCampaignFields);
-      setData({ image: campaign.image });
     } else {
       getDefaultCampaignFields();
     }
@@ -203,10 +200,10 @@ export const StepCreate: React.FC = (): JSX.Element => {
             <ContentSimpleComponent title="1. Título">
               <Input
                 errors={errors}
-                register={register}
                 name="title"
                 placeholder="Digite aqui o título da direcional"
                 defaultValue={campaign?.title}
+                {...register('title')}
               />
             </ContentSimpleComponent>
             <ContentSimpleComponent title="2. Resumo">
@@ -379,6 +376,7 @@ export const StepCreate: React.FC = (): JSX.Element => {
               margin_horizontal={0}
               name="createCampaign"
               type="submit"
+              disabled={loading}
             >
               Continuar
             </Button>

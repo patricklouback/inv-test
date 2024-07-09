@@ -31,10 +31,10 @@ export default function IdeaRepository(): JSX.Element {
 export const getServerSideProps = withSSRAuth(
   async () => {
     return {
-      props: {}
+      props: {},
     };
   },
   {
-    isManager: true
+    isManager: true,
   }
 );

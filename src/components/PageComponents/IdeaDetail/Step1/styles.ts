@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const WapperStep1 = styled.div`
   max-width: 356px;
@@ -18,7 +19,7 @@ export const WapperTitleActiv = styled.div`
     margin-right: 5px;
     text-transform: uppercase;
   }
-  background: ${({ theme }) => theme.colors.primaryLight};
+  background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
 `;
 

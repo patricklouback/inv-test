@@ -57,7 +57,9 @@ export const RequestReviewModal: React.FC<RequestReviewModalProps> = ({
 
       await reviewIdea(idea.id, {
         notification: {
-          title: `Foi solicitada uma revisão na sua iniciativa #${getSequenceNumber(idea.sequence)}. Clique aqui para ver as sugestões, faça as alterações e envie novamente!`,
+          title: `Foi solicitada uma revisão na sua iniciativa #${getSequenceNumber(
+            idea.sequence
+          )}. Clique aqui para ver as sugestões, faça as alterações e envie novamente!`,
           description: reason,
           link: `/idea/${idea.id}`,
           type: 'OWNER_REVIEW',

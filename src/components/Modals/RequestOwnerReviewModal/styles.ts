@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const NotificationContainer = styled.form`
   width: 100%;
@@ -93,7 +94,7 @@ export const SelectUser = styled.button`
 
   padding: 0.5rem;
   border: 0;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
   border-radius: 8px;
   font-size: 0.875rem;
@@ -109,9 +110,9 @@ export const ButtonContainer = styled.div`
 export const Button = styled.button`
   padding: 1rem 4rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
   font-size: 1.1rem;
   font-weight: 600;
@@ -120,6 +121,6 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;

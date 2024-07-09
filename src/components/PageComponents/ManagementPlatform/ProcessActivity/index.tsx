@@ -53,12 +53,6 @@ export const SectionProcessActivity: React.FC<ProcessActivityProps> = ({
       if (shouldFetchData) {
         await getProcessActivities(campaignId);
 
-        if (campaignId) {
-          setLocalProcessActivities(processActivitiesCampaign);
-        } else {
-          setLocalProcessActivities(processActivities);
-        }
-
         setShouldFetchData(false);
         setCreated(false);
       }
@@ -75,6 +69,14 @@ export const SectionProcessActivity: React.FC<ProcessActivityProps> = ({
   ]);
 
   useEffect(() => {
+    if (campaignId) {
+      setLocalProcessActivities(processActivitiesCampaign);
+    } else {
+      setLocalProcessActivities(processActivities);
+    }
+  }, [processActivities, processActivitiesCampaign, campaignId]);
+
+  useEffect(() => {
     if (reRenderComponent) {
       setShouldFetchData(true);
     }
@@ -84,12 +86,6 @@ export const SectionProcessActivity: React.FC<ProcessActivityProps> = ({
     const fetchDataOnCreate = async (): Promise<void> => {
       if (created) {
         await getProcessActivities(campaignId);
-
-        if (campaignId) {
-          setLocalProcessActivities(processActivitiesCampaign);
-        } else {
-          setLocalProcessActivities(processActivities);
-        }
 
         setShouldFetchData(false);
         setCreated(false);

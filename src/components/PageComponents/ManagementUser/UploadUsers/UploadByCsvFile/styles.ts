@@ -1,44 +1,44 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-    padding: 0 105px;
-    p {
-      letter-spacing: 0.7px;
+  padding: 0 105px;
+  p {
+    letter-spacing: 0.7px;
+    color: ${({ theme }) => theme.colors.fontLight};
+    margin-bottom: 15px;
+    line-height: 24px;
+  }
+  .download {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: auto;
+    margin-bottom: 54px;
+    &:hover {
       color: ${({ theme }) => theme.colors.fontLight};
-      margin-bottom: 15px;
-      line-height: 24px;
     }
-    .download {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      width: auto;
-      margin-bottom: 54px;
-      :hover {
-        color: ${({ theme }) => theme.colors.fontLight};
-      }
-      span {
-        margin-left: 6px;
-        text-decoration: underline;
-        font-size: 15px;
-      }
+    span {
+      margin-left: 6px;
+      text-decoration: underline;
+      font-size: 15px;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      #green {
-        margin-top: 20px;
-        background: ${({ theme }) => theme.colors.greenHipeLight};
-      }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #green {
+      margin-top: 20px;
+      background: ${({ theme }) => theme.colors.greenHipeLight};
     }
-`
+  }
+`;
 
 export const ButtonAction = styled.button`
-  :nth-child(3) {
+  &:nth-child(3) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
-  :nth-child(4) {
+  &:nth-child(4) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
   max-width: 226px;
@@ -48,10 +48,10 @@ export const ButtonAction = styled.button`
   border-radius: 8px;
   outline: none;
   margin: 0 8px;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   display: flex;
@@ -81,7 +81,7 @@ export const ButtonAction = styled.button`
       left: 0;
     }
   }
-  :disabled {
+  &:disabled {
     background: ${({ theme }) => theme.colors.font};
     cursor: not-allowed;
 
@@ -108,7 +108,7 @@ export const Download = styled.button`
   border: none;
   width: auto;
   margin-bottom: 54px;
-  :hover {
+  &:hover {
     color: ${({ theme }) => theme.colors.fontLight};
   }
   span {

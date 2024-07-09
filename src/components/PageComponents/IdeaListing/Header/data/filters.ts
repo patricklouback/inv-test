@@ -57,6 +57,5 @@ export const update_idea = [
     id: '1',
     name: 'NOT_SEEN',
     value: 'Com Atualização',
-  }
+  },
 ];
-

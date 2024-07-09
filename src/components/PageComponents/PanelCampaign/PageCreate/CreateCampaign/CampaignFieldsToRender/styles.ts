@@ -1,6 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
-export const ValueBox = styled.span<{colorActive?: boolean}>`
+export const ValueBox = styled.span<{ colorActive?: boolean }>`
   width: 400px;
 
   display: flex;
@@ -13,14 +14,14 @@ export const ValueBox = styled.span<{colorActive?: boolean}>`
     colorActive ? theme.colors.greenHipeLight : theme.colors.background};
 `;
 
-export const Value = styled.input<{colorActive?: boolean}>`
+export const Value = styled.input<{ colorActive?: boolean }>`
   margin-right: 10px;
   width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
-  background-color: #F6F6F8;
+  background-color: #f6f6f8;
   font-weight: 600;
   border: 0;
   outline: none;
@@ -31,23 +32,23 @@ export const Value = styled.input<{colorActive?: boolean}>`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     background-color: white;
   }
 `;
 
-export const AddStep = styled.div<{backgroundColor?: string}>`
+export const AddStep = styled.div<{ backgroundColor?: string }>`
   border: 2px solid ${props => props.theme.colors.grey};
   border-radius: 4px;
   width: 32px;
   height: 32px;
   padding-top: 4px;
   padding-left: 3px;
-  background: ${({backgroundColor}) => backgroundColor || 'none' };
+  background: ${({ backgroundColor }) => backgroundColor || 'none'};
   cursor: pointer;
-`
+`;
 
-export const DeleteStep = styled.div<{backgroundColor?: string}>`
+export const DeleteStep = styled.div<{ backgroundColor?: string }>`
   width: 32px;
   height: 32px;
   margin: 4px;
@@ -55,6 +56,6 @@ export const DeleteStep = styled.div<{backgroundColor?: string}>`
   border-radius: 4px;
   padding-top: 4px;
   padding-left: 3px;
-  background: ${({backgroundColor}) => backgroundColor || 'none' };
+  background: ${({ backgroundColor }) => backgroundColor || 'none'};
   cursor: pointer;
-`
+`;

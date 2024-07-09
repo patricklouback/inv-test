@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface LabelParams {
   max_Width?: number;
@@ -35,8 +36,8 @@ export const Item = styled.textarea`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
   outline: none;
   font-size: 14px;
@@ -61,7 +62,7 @@ export const Item = styled.textarea`
     color: ${({ theme }) => theme.colors.disabled};
   }
   &:focus {
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 
   width: 100%;
@@ -70,7 +71,6 @@ export const Item = styled.textarea`
 export const Container = styled.label`
   position: relative;
   min-width: 100%;
-
 
   .actions {
     border-bottom: 0;
@@ -121,7 +121,7 @@ export const Container = styled.label`
       color: ${({ theme }) => theme.colors.disabled};
     }
     &:focus {
-      border: 2px solid ${({ theme }) => theme.colors.primary};
+      border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     }
   }
 `;

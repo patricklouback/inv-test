@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.form`
   display: flex;
@@ -55,8 +56,8 @@ export const CampaignsOptionsContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -70,8 +71,7 @@ export const ChecboxContainer = styled.div<{ checked: boolean }>`
   margin: 2px 4px;
   border-radius: 5px;
 
-  background-color: ${({ theme }) => theme.colors.greyLight
-  };
+  background-color: ${({ theme }) => theme.colors.greyLight};
 
   display: flex;
   align-items: center;
@@ -88,7 +88,7 @@ export const VisibleCheckbox = styled.label<{ checked: boolean }>`
   height: 1rem;
 
   border-radius: 0.15rem;
-  border: 0.15rem solid ${({theme }) => theme.colors.grey};
+  border: 0.15rem solid ${({ theme }) => theme.colors.grey};
   background-color: white;
 
   svg {

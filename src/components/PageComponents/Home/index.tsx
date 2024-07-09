@@ -12,9 +12,9 @@ import IdeasSentComponent from './Right';
 import { ContentRight } from './Right/styles';
 import { ContainerHome, ContentBottom } from './styles';
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   const { user, acceptedTerms } = useContext(AuthContext);
-  const unviewedHomeTour = user?.tours[TourId.HOME] === TourStatus.UNVIEWED;
+  const unviewedHomeTour = user?.tours?.[TourId.HOME] === TourStatus.UNVIEWED;
   const onRequestCloseLogic = useCallback(() => {
     return null;
   }, []);

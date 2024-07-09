@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   position: relative;
@@ -15,11 +16,11 @@ export const Items = styled.li`
   padding: 15px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.borders};
 
-  :last-child {
+  &:last-child {
     border-bottom: 0;
   }
 
-  :first-child {
+  &:first-child {
     border-radius: 8px 8px 0 0;
   }
 
@@ -27,7 +28,7 @@ export const Items = styled.li`
   align-items: center;
 
   cursor: pointer;
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.greyLight};
   }
 `;
@@ -39,7 +40,7 @@ export const BadgeNotification = styled.div`
   position: absolute;
   top: -20%;
   right: 20%;
-  background-color: ${({ theme }) => theme.colors.terceary};
+  background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
 `;
 
 export const IconBellContainer = styled.div`
@@ -58,7 +59,7 @@ export const Drop = styled.ul<{ open: boolean }>`
   right: -10px;
   width: 290px;
 
-  ::after {
+  &::after {
     content: '';
     background: ${({ theme }) => theme.colors.greyLight};
     width: 10px;

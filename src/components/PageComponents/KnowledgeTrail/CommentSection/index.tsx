@@ -1,6 +1,6 @@
 import { AuthContext } from 'contexts/AuthContext';
 import { CommentsListContext } from 'contexts/CommentsContext';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Comment } from './Comment';
 import { NewComment } from './NewComment';
 import { Title } from './styles';
@@ -24,17 +24,20 @@ export const CommentSection: React.FC<{
   const [comments, setComments] = useState([]);
   const [commentListId, setCommentListId] = useState('');
 
-  function buildComments(data: any): void {
-    if (data.length > 0) {
-      const videoComments = data.find(
-        videoComment => videoComment.videoId === videoId
-      );
-      if (videoComments !== undefined) {
-        setComments(videoComments.comments);
-        setCommentListId(videoComments.id);
+  const buildComments = useCallback(
+    (data: any): void => {
+      if (data.length > 0) {
+        const videoComments = data.find(
+          videoComment => videoComment.videoId === videoId
+        );
+        if (videoComments !== undefined) {
+          setComments(videoComments.comments);
+          setCommentListId(videoComments.id);
+        }
       }
-    }
-  }
+    },
+    [videoId, setComments, setCommentListId]
+  );
 
   useEffect(() => {
     let mounted = true;
@@ -48,10 +51,10 @@ export const CommentSection: React.FC<{
         mounted = false;
       };
     }
-  }, [getAllComments, videoId]);
+  }, [buildComments, getAllComments, user, videoId]);
 
   const deleteCommentAndRefresh = (commentId: string): void => {
-    deleteComment(commentId).then(data => {
+    deleteComment(commentId).then(() => {
       getAllComments(videoId, user.id).then(data => {
         buildComments(data);
       });
@@ -59,7 +62,7 @@ export const CommentSection: React.FC<{
   };
 
   const deleteSubCommentAndRefresh = (commentId: string): void => {
-    deleteSubComment(commentId).then(data => {
+    deleteSubComment(commentId).then(() => {
       getAllComments(videoId, user.id).then(data => {
         buildComments(data);
       });

@@ -48,7 +48,13 @@ export const Options: React.FC<OptionProps> = ({
         {dataSelect?.map((e, i): JSX.Element | null => {
           return (
             <Item onClick={() => handleSelectItem(e.id)} key={i}>
-              <UserCard name={e.name} image={!!e.image && e.image} area={e.area} areaColor={e.areaColor} />
+              <UserCard
+                isSearch
+                name={e.name}
+                image={!!e.image && e.image}
+                area={e.area}
+                areaColor={e.areaColor}
+              />
             </Item>
           );
         })}

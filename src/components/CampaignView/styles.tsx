@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContainerProp {
-  img?: string;
+  $img?: string;
 }
 
 export const Container = styled.article<ContainerProp>`
@@ -20,9 +21,9 @@ export const Container = styled.article<ContainerProp>`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 `;
@@ -31,7 +32,7 @@ export const CampaingImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 278px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -46,7 +47,7 @@ export const CampaingText = styled.div<ContainerProp>`
 
   div span {
     font-size: 16px;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary[styleSlug]};
     margin-bottom: 8px;
   }
 

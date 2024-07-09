@@ -22,7 +22,6 @@ export function IdeaLinkedNotificationModal({
   notification,
   onRequestClose,
 }: IdeaLinkedNotificationModalProps): JSX.Element {
-
   const handleClick = useCallback(async () => {
     onRequestClose();
   }, [onRequestClose]);
@@ -40,16 +39,15 @@ export function IdeaLinkedNotificationModal({
       <NotificationContainer>
         <NotificationContent>
           <MessageDescriptionContainer>
-            <MessageTitle>
-              Sua iniciativa foi vinculada!
-            </MessageTitle>
+            <MessageTitle>Sua iniciativa foi vinculada!</MessageTitle>
             <MessageDescription>
-              {paragraphs && paragraphs.map((paragraph) => 
-                <>
-                  <br/>
-                  <p>{paragraph}</p>
-                </>
-              )}
+              {paragraphs &&
+                paragraphs.map(paragraph => (
+                  <>
+                    <br />
+                    <p>{paragraph}</p>
+                  </>
+                ))}
             </MessageDescription>
           </MessageDescriptionContainer>
         </NotificationContent>

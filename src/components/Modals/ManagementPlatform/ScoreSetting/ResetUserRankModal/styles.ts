@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const PopupContainer = styled.div`
   width: 100%;
@@ -87,7 +88,7 @@ export const CloseButton = styled.button`
 
   background: #ffffff;
 
-  border: 2px solid #47009a;
+  border: 2px solid ${({theme}) => theme.colors.primary[styleSlug]};
   border-radius: 12px;
 
   p {
@@ -100,11 +101,11 @@ export const CloseButton = styled.button`
     font-size: 20px;
     line-height: 20px;
 
-    color: #47009a;
+    color: ${({theme}) => theme.colors.primary[styleSlug]};
   }
 
   &:hover {
-    background: #47009a;
+    background: ${({theme}) => theme.colors.primary[styleSlug]};
     border: 0;
 
     p {
@@ -125,7 +126,7 @@ export const ResetButton = styled.button`
   width: 100%;
   min-height: 58px;
 
-  background: #47009a;
+  background: ${({theme}) => theme.colors.primary[styleSlug]};
   border-radius: 12px;
   border: 0;
 
@@ -146,10 +147,10 @@ export const ResetButton = styled.button`
 
   &:hover {
     background: #ffffff;
-    border: 1px solid #47009a;
+    border: 1px solid ${({theme}) => theme.colors.primary[styleSlug]};
 
     p {
-      color: #47009a;
+      color: ${({theme}) => theme.colors.primary[styleSlug]};
     }
   }
 `;

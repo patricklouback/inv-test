@@ -2,7 +2,7 @@ import { Campaign, Paginate } from '@default-types';
 import { CampaignField, ProcessActivity } from 'interfaces/campaign';
 
 interface RankingCampaign {
-  rank: string,
+  rank: string;
   title: string;
   createdIdeas: string;
   implementedIdeas: string;
@@ -18,7 +18,6 @@ interface CampaignProps {
   processActivities: ProcessActivity[] | null;
   campaignsRanking: RankingCampaign[] | null;
 }
-
 
 export const CampaignDefaultValues = {
   loading: false,
@@ -44,7 +43,7 @@ type CampaignAction =
     }
   | { type: 'SET_CAMPAIGNS_INFO'; campaignsInfo: Campaign[] }
   | { type: 'SET_PROCESS_ACTIVITIES'; processActivities: ProcessActivity[] }
-  | { type: 'SET_CAMPAIGNS_RANKING'; campaignsRanking: RankingCampaign[]}
+  | { type: 'SET_CAMPAIGNS_RANKING'; campaignsRanking: RankingCampaign[] };
 
 export const CampaignReducer = (
   state: CampaignProps,

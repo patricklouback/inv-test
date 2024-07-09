@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Content = styled.div<{ width: number }>`
   display: flex;
@@ -80,7 +81,7 @@ export const CustomTextArea = styled.textarea`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     max-height: none;
   }
   &::placeholder {
@@ -117,7 +118,7 @@ export const CustomInput = styled.input`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
   }
   &::placeholder {
     color: #2d374899;

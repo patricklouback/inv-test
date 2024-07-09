@@ -11,21 +11,18 @@ import {
   List,
   Item,
   ItemBox,
-  Exit
+  Exit,
 } from './styles';
 
 interface FilterProps {
   screen: string;
 }
 
-export const FilterComponent = ({
-  screen
-}: FilterProps) => {
+export const FilterComponent = ({ screen }: FilterProps) => {
   const [open, setOpen] = useState(false);
   const { getIdeas, getIdeasForUserArea } = useContext(IdeaContext);
   const { loadCampaignsUserArea } = useContext(CampaignContext);
 
-  
   const onReloadData = useCallback(
     (order): void => {
       if (screen === 'ideas') {
@@ -38,7 +35,7 @@ export const FilterComponent = ({
       if (screen === 'campaigns') {
         loadCampaignsUserArea({
           orderColumn: 'createdAt',
-          orderOrientation: order
+          orderOrientation: order,
         });
       }
       setOpen(false);

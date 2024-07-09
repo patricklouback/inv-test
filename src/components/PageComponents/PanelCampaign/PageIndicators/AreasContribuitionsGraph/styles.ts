@@ -41,11 +41,14 @@ export const TitleFilterBar = styled.div`
   }
 `;
 
-export const ExplanationTooltipText = styled.div.attrs<{ top: number, left: number }, { top: number, left: number }>(
-  props => {
-    return { top: props.top || 0, left: props.left || 0 };
-  }
-)`
+interface ExplanationTooltipTextProps {
+  top?: number;
+  left?: number;
+}
+
+export const ExplanationTooltipText = styled.div.attrs<ExplanationTooltipTextProps>(props => {
+  return { top: props.top || 0, left: props.left || 0 };
+})<ExplanationTooltipTextProps>`
   visibility: hidden;
   min-width: 350px;
   margin-left: 17px;

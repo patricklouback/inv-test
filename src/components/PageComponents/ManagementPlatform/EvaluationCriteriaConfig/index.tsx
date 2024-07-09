@@ -8,7 +8,7 @@ export const EvaluationCriteriaConfig: React.FC = (): JSX.Element => {
     evaluationCriteriasConfig,
     updateEvaluationCriteriaConfig,
     createEvaluationCriteriaConfig,
-    deleteEvaluationCriteriaConfig
+    deleteEvaluationCriteriaConfig,
   } = useContext(EvaluationCriteriaConfigurationContext);
   useEffect(() => {
     getEvaluationCriteriaConfig();

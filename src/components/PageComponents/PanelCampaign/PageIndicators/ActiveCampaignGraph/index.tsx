@@ -102,8 +102,8 @@ export function ActiveCampaignGraph(): JSX.Element {
         align: 'center',
         color: 'black',
         font: {
-            size: 13,
-            weight: 600,
+          size: 13,
+          weight: 600,
         },
       },
     },

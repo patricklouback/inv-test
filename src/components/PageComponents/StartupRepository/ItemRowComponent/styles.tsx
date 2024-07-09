@@ -93,7 +93,7 @@ export const CardItem = styled.div<{ color?: string }>`
 `;
 
 export const ItemValue = styled.td`
-  .actions svg :first-child {
+  .actions svg:first-child {
     cursor: pointer;
   }
 
@@ -121,6 +121,13 @@ export const ItemValue = styled.td`
     justify-content: flex-start;
   }
 `;
+
+
+export const ItemValueStatus = styled.td`
+  padding: 0.5rem 3rem 0.5rem 0;
+  border: none;
+  text-align: left;
+`
 
 export const ItemValueYear = styled.td`
   padding: 0.5rem 3rem 0.5rem 0;

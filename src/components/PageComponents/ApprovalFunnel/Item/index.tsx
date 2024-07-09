@@ -1,15 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Links } from '@components/PageComponents/ApprovalFunnel/Item/Links';
-import { WarningTag } from '@components/WarningTag';
-import { ApprovalFunnelContext } from 'contexts/ApprovalFunnel';
-import { IdeaTagContext } from 'contexts/IdeaTags';
 import { Idea, IdeaTag } from 'interfaces/idea';
 import React, {
   DragEventHandler,
   HTMLAttributes,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -64,12 +60,13 @@ import { EvaluationCriteriaInfo } from './EvaluationCriteriaInfo';
 interface ItemProps extends HTMLAttributes<HTMLDivElement> {
   idea: Idea;
   updateStepStatus?: boolean;
-  ideaHasChanges?: boolean;
+  // ideaHasChanges?: boolean;
   onDragStart: DragEventHandler<HTMLDivElement>;
   onClick?: () => void;
   openLinked?: any;
   kanbanStep?: string;
   wasScrolled?: boolean;
+  allIdeaTags: IdeaTag[];
 }
 
 export const Item: React.FC<ItemProps> = ({
@@ -77,15 +74,13 @@ export const Item: React.FC<ItemProps> = ({
   onDragStart,
   onClick,
   updateStepStatus,
-  ideaHasChanges,
+  // ideaHasChanges,
   openLinked,
   kanbanStep,
   wasScrolled,
+  allIdeaTags,
 }): JSX.Element => {
   const { colors } = useTheme();
-  const { getIdeaTags, allIdeaTags, filteredIdeaTags } =
-    useContext(IdeaTagContext);
-
   const [collapse, setCollapse] = useState(false);
   const [lastUpdateStep, setLastUpdateSteps] = useState(true);
   const [showOptions, setShowOptions] = useState(false);
@@ -155,23 +150,17 @@ export const Item: React.FC<ItemProps> = ({
   }
 
   useEffect(() => {
-    const ideaTagsList = allIdeaTags.filter(
-      ideaTag => ideaTag.ideaId === idea.id
-    );
-    const ideaTagsNameList = buildIdeaTagsName(
-      ideaTagsList.filter(tag => tag.checked)
-    );
-    setIdeaTagsNames(ideaTagsNameList);
-    setTotalSelectedTags(ideaTagsList.filter(tag => tag.checked).length);
+    if (allIdeaTags.length !== 0) {
+      const ideaTagsList = allIdeaTags.filter(
+        ideaTag => ideaTag.ideaId === idea.id
+      );
+      const ideaTagsNameList = buildIdeaTagsName(
+        ideaTagsList.filter(tag => tag.checked)
+      );
+      setIdeaTagsNames(ideaTagsNameList);
+      setTotalSelectedTags(ideaTagsList.filter(tag => tag.checked).length);
+    }
   }, [allIdeaTags, idea.id]);
-
-  useEffect(() => {
-    (async (): Promise<void> => {
-      if (allIdeaTags.length === 0) {
-        await getIdeaTags(filteredIdeaTags);
-      }
-    })();
-  }, [getIdeaTags, idea?.id]);
 
   useEffect(() => {
     if (idea?.id && updateStepStatus !== lastUpdateStep) {
@@ -219,7 +208,7 @@ export const Item: React.FC<ItemProps> = ({
     setShowTagOptions(!showTagOptions);
   };
 
-  const setPosition = (): void => {
+  const setPosition = useCallback((): void => {
     const interval = setInterval(() => {
       if (elementRef?.current)
         setTooltipPosition(elementRef.current.getBoundingClientRect().top);
@@ -227,11 +216,11 @@ export const Item: React.FC<ItemProps> = ({
     setTimeout(() => {
       clearInterval(interval);
     }, 100);
-  };
+  }, [elementRef, setTooltipPosition]);
 
-  const handleMouseScroll = (): void => {
+  const handleMouseScroll = useCallback((): void => {
     setPosition();
-  };
+  }, [setPosition]);
 
   const handleOptionsAndSubOptions = (event): void => {
     event.stopPropagation();
@@ -239,11 +228,11 @@ export const Item: React.FC<ItemProps> = ({
 
   useEffect(() => {
     setPosition();
-  }, [elementRef]);
+  }, [elementRef, setPosition]);
 
   useEffect(() => {
     setPosition();
-  }, [wasScrolled]);
+  }, [setPosition, wasScrolled]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleMouseScroll);
@@ -279,7 +268,6 @@ export const Item: React.FC<ItemProps> = ({
     const handleOutsideClick = (): void => {
       setShowOptions(false);
       setShowTagOptions(false);
-      // event.stopPropagation()
     };
 
     document.addEventListener('clicouFora', handleOutsideClick);
@@ -327,9 +315,11 @@ export const Item: React.FC<ItemProps> = ({
           <div>
             <Top>
               <Title>
-                <span>{`${idea?.title.slice(0, 40)}${
-                  idea?.title.length > 40 ? '...' : ''
-                }`}</span>
+                <span>
+                  {`${idea?.title.slice(0, 40)}${
+                    idea?.title.length > 40 ? '...' : ''
+                  }`}
+                </span>
               </Title>
               <OptionsWrapper ref={elementRef}>
                 <OptionsButton onClick={showOptionsToggle}>
@@ -356,13 +346,13 @@ export const Item: React.FC<ItemProps> = ({
                 )}
               </OptionsWrapper>
             </Top>
-            {ideaHasChanges ? (
+            {/* {ideaHasChanges ? (
               <WarningTag
                 text="Novas Atualizações"
                 size="13px"
                 margin="0.5rem 0"
               />
-            ) : null}
+            ) : null} */}
             <IdeaAppId>{`#${getSequenceNumber(idea.sequence)}`}</IdeaAppId>
             <p style={{ paddingTop: 10, fontSize: 16 }}>
               {' '}

@@ -17,6 +17,7 @@ import { ProcessActivityProvider } from 'contexts/ProcessActivity';
 import { EvaluationCriteriaCampaignProvider } from 'contexts/EvaluationCriteriaCampaign';
 import { EvaluationCriteriaConfigurationProvider } from 'contexts/EvaluationCriteriaConfiguration';
 import { HistoryItensProvider } from 'contexts/History';
+import { slug } from 'utils/constants';
 import { ViewCampaign } from './ViewCampaign';
 import { NewCampaign } from './PageCreate';
 import { Navegation } from './Navegation';
@@ -55,7 +56,7 @@ export function PanelCampaign({
   const [isBannerActive, setIsBannerActive] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
 
   function closeBanner(): void {
     setIsBannerActive(false);
@@ -96,7 +97,7 @@ export function PanelCampaign({
           back={() => back()}
         >
           <>
-            <SectionBanner isOpen={isBannerActive}>
+            <SectionBanner $isOpen={isBannerActive}>
               {bannersList && bannersList.length > 0 && (
                 <BannerComponent banner={bannersList[0]}>
                   <BannerWrapperContainer>

@@ -20,7 +20,10 @@ import {
   Warning,
 } from './styles';
 
-const defaultCampaign: Omit<CampaignField, 'id' | 'campaignFieldValues' | 'campaignId'> = {
+const defaultCampaign: Omit<
+  CampaignField,
+  'id' | 'campaignFieldValues' | 'campaignId'
+> = {
   sequence: 0,
   status: 'ACTIVE',
   title: 'Título',
@@ -29,18 +32,27 @@ const defaultCampaign: Omit<CampaignField, 'id' | 'campaignFieldValues' | 'campa
 
 export const SectionFormCampaign: React.FC = (): JSX.Element => {
   const { colors } = useTheme();
-  const { getDefaultCampaignFields, updateCampaignFieldsSequence, campaignFields } = useContext(ConfigContext);
+  const {
+    getDefaultCampaignFields,
+    updateCampaignFieldsSequence,
+    campaignFields,
+  } = useContext(ConfigContext);
 
   const [row, setRow] = useState(true);
   const [addNewField, setAddNewField] = useState(false);
-  const [campaignFieldsState, setCampaignFieldsState] = useState<CampaignField[]>(campaignFields);
+  const [campaignFieldsState, setCampaignFieldsState] =
+    useState<CampaignField[]>(campaignFields);
 
   const onDragEnd = (result): void => {
     const { destination, source } = result;
 
     if (!destination) return;
 
-    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
 
     const newCampaignFields: CampaignField[] = Array.from(campaignFieldsState);
     const item = newCampaignFields.splice(source.index, 1);
@@ -53,13 +65,13 @@ export const SectionFormCampaign: React.FC = (): JSX.Element => {
 
   const changeCampaignFieldState = (newState: CampaignField[]): void => {
     setCampaignFieldsState(newState);
-  }
+  };
 
   useEffect(() => {
     const loadIdeaFields = async (): Promise<void> => {
       const result = await getDefaultCampaignFields();
       setCampaignFieldsState(result);
-    }
+    };
     loadIdeaFields();
   }, [getDefaultCampaignFields]);
 
@@ -81,30 +93,35 @@ export const SectionFormCampaign: React.FC = (): JSX.Element => {
       >
         <Content>
           <FormCampaign>
-            <InfoWarning 
-              type='INFO'
-              text='Os campos fazem parte do detalhamento de um direcional de inovação.'
+            <InfoWarning
+              type="INFO"
+              text="Os campos fazem parte do detalhamento de um direcional de inovação."
             />
             <Warning>
-              <strong>Os campos Título, Descrição, Resumo e Objetivos Estratégicos são padrão do sistema e não precisam ser adicionados. </strong>
+              <strong>
+                Os campos Título, Descrição, Resumo e Objetivos Estratégicos são
+                padrão do sistema e não precisam ser adicionados.{' '}
+              </strong>
             </Warning>
             <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId='elements'>
-                {(provided) => { 
+              <Droppable droppableId="elements">
+                {provided => {
                   return (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
                       {campaignFieldsState.map((item, index) => (
-                        <RenderToCampaignForm 
-                          campaignField={item} 
-                          index={index} 
-                          key={item.id} 
-                          changeCampaignFieldState={changeCampaignFieldState} 
+                        <RenderToCampaignForm
+                          campaignField={item}
+                          index={index}
+                          key={item.id}
+                          changeCampaignFieldState={changeCampaignFieldState}
                         />
                       ))}
                       {provided.placeholder}
                       {addNewField && (
                         <RenderToCampaignForm
-                          campaignField={{ ...defaultCampaign } as CampaignField}
+                          campaignField={
+                            { ...defaultCampaign } as CampaignField
+                          }
                           index={campaignFieldsState.length}
                           setAddField={setAddNewField}
                           changeCampaignFieldState={changeCampaignFieldState}
@@ -112,13 +129,16 @@ export const SectionFormCampaign: React.FC = (): JSX.Element => {
                         />
                       )}
                       {!addNewField && (
-                        <ButtonSave type="button" onClick={() => setAddNewField(true)}>
+                        <ButtonSave
+                          type="button"
+                          onClick={() => setAddNewField(true)}
+                        >
                           <FiPlus color={colors.background} size={28} />
                           <Value>Adicionar novo campo</Value>
                         </ButtonSave>
                       )}
                     </div>
-                  )
+                  );
                 }}
               </Droppable>
             </DragDropContext>

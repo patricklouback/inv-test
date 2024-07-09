@@ -27,6 +27,7 @@ import {
 } from 'react';
 import { toast } from 'react-toastify';
 import { api } from 'services/api';
+import campaign from 'pages/campaign';
 import {
   CampaignDefaultValues,
   CampaignReducer,
@@ -172,7 +173,8 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (err) {
       dispatch({ type: 'SET_LOADING', loading: false });
-      toast.error('Error');
+      console.error('Error', err);
+      // toast.error('Error');
     }
   }, []);
 
@@ -188,7 +190,8 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (err) {
       dispatch({ type: 'SET_LOADING', loading: false });
-      toast.error('Error');
+      console.error('Error', err);
+      // toast.error('Error');
     }
   }, []);
 
@@ -205,7 +208,8 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (err) {
       dispatch({ type: 'SET_LOADING', loading: false });
-      toast.error('Error');
+      console.error('Error', err);
+      // toast.error('Error');
     }
   }, []);
 
@@ -271,7 +275,8 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       const { data } = await api.get(`campaigns/campaign/${campaignId}`);
       dispatch({ type: 'SET_CAMPAIGN', campaign: data.campaign });
     } catch (err) {
-      toast.error('Error');
+      console.error('Error', err);
+      // toast.error('Error');
     }
   }, []);
 
@@ -288,11 +293,15 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       }
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data: responseData } = await api.post('/campaigns/campaign', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const { data: responseData } = await api.post(
+          '/campaigns/campaign',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
         await getCampaign(responseData.campaign.id);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Direcional criada com sucesso');
@@ -312,6 +321,10 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       for (const key in data) {
         if (key === 'field') {
           formData.append(key, data[key][1]);
+        } else if (key === 'image') {
+          if (data[key] != null && data[key] !== undefined) {
+            formData.append(key, data[key]);
+          }
         } else {
           formData.append(key, data[key]);
         }
@@ -396,11 +409,14 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
   const getCampaignUsersSigned = useCallback(
     async (campaignId: string, type: CampaignUserType) => {
       try {
-        const { data } = await api.get(`/campaigns/campaign-users/${campaignId}`, {
-          params: {
-            type,
-          },
-        });
+        const { data } = await api.get(
+          `/campaigns/campaign-users/${campaignId}`,
+          {
+            params: {
+              type,
+            },
+          }
+        );
         return data.campaignUsers;
       } catch (err) {
         toast.error('Erro ao buscar usuários associados as campanhas');
@@ -415,7 +431,9 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
       try {
         const { data } = await api.get(
           `${
-            campaignId ? `/campaigns/campaign-steps/${campaignId}` : '/campaigns/campaign-steps/'
+            campaignId
+              ? `/campaigns/campaign-steps/${campaignId}`
+              : '/campaigns/campaign-steps/'
           }`,
           {
             params: {
@@ -435,7 +453,7 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
   const getCampaignStepItems = useCallback(async (campaignStepId: string) => {
     try {
       const { data } = await api.get(
-        `/campaign-step-items/${campaignStepId}`,
+        `/campaigns/campaign-step-items/${campaignStepId}`,
         {}
       );
       return data.campaignStepItems;
@@ -476,7 +494,7 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
 
   const removeStepItem = useCallback(async (campaignStepId: string) => {
     try {
-      await api.delete(`/campaign-step-items/${campaignStepId}`);
+      await api.delete(`/campaigns/campaign-step-items/${campaignStepId}`);
     } catch (err) {
       toast.error('Erro ao criar nova atividade');
     }
@@ -486,7 +504,7 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
     async (campaignStepId: string, title: string, limitDate: Date) => {
       try {
         const { data } = await api.post(
-          `/campaign-step-items/${campaignStepId}`,
+          `/campaigns/campaign-step-items/${campaignStepId}`,
           {
             title,
             limitDate,
@@ -505,7 +523,7 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
   const updateStepItem = useCallback(
     async (id: string, title: string, limitDate: Date) => {
       try {
-        const { data } = await api.put(`/campaign-step-items/${id}`, {
+        const { data } = await api.put(`/campaigns/campaign-step-items/${id}`, {
           title,
           limitDate,
         });
@@ -544,11 +562,14 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
   const getAreasRepresentative = useCallback(
     async (campaignId: string, type: CampaignUserType) => {
       try {
-        const { data } = await api.get(`/campaigns/campaign-areas/${campaignId}`, {
-          params: {
-            type,
-          },
-        });
+        const { data } = await api.get(
+          `/campaigns/campaign-areas/${campaignId}`,
+          {
+            params: {
+              type,
+            },
+          }
+        );
         return data.campaignUsers;
       } catch (err) {
         toast.error('Erro ao buscar usuários representantes');
@@ -602,10 +623,13 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
   const signNewAreaCampaign = useCallback(
     async (campaignId: string, areaId: string) => {
       try {
-        const { data } = await api.post(`/campaigns/campaign-areas/${campaignId}`, {
-          campaignId,
-          areaId,
-        });
+        const { data } = await api.post(
+          `/campaigns/campaign-areas/${campaignId}`,
+          {
+            campaignId,
+            areaId,
+          }
+        );
 
         return data;
       } catch (error) {
@@ -627,7 +651,9 @@ export const CampaignProvider: React.FC = ({ children }): JSX.Element => {
 
   const removeAreaCampaignSigned = useCallback(async (campaignId: string) => {
     try {
-      const removedArea = await api.delete(`/campaigns/campaign-areas/${campaignId}`);
+      const removedArea = await api.delete(
+        `/campaigns/campaign-areas/${campaignId}`
+      );
       return removedArea;
     } catch (err) {
       toast.error('Erro ao remover área');

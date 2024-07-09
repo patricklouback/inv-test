@@ -7,7 +7,7 @@ interface FeatureActiveProps {
 
 export const FeatureActiveDefaultValues = {
   loading: true,
-  featureActives: []
+  featureActives: [],
 };
 
 type FeatureActiveAction =

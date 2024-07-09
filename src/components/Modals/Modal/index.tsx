@@ -17,6 +17,8 @@ interface ModalProps {
   title?: string;
   hideCloseButton?: boolean;
   svgIcon?: boolean;
+  fadeHeader?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -27,12 +29,14 @@ export const Modal: React.FC<ModalProps> = ({
   title,
   hideCloseButton,
   svgIcon,
+  fadeHeader,
+  style
 }): JSX.Element => {
   const [zIndex, setZIndex] = React.useState(99999);
   setTimeout(() => setZIndex(99999), 100);
   return (
-    <Container zIndex={zIndex}>
-      <Content width={width} height={height}>
+    <Container $zIndex={zIndex}>
+      <Content width={width} height={height} style={style}>
         <ModalHeader>
           {title && (
             <Title>
@@ -50,6 +54,8 @@ export const Modal: React.FC<ModalProps> = ({
             </ExitModal>
           )}
         </ModalHeader>
+        {fadeHeader && <div className="fade-line" />}
+
         {children}
       </Content>
     </Container>

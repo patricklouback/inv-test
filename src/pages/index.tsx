@@ -5,20 +5,23 @@ import { ProviderUser } from 'contexts/User';
 import { ConfigProvider } from 'contexts/ConfigContext';
 import { BannersProvider } from 'contexts/Banners';
 import { withSSRAuth } from 'utils/withSSRAuth';
+import { QueryContext } from 'contexts/QueryClient';
 
-export default function Home(): JSX.Element {
+export default function Home() {
   return (
-    <CampaignProvider>
-      <Container>
-        <ProviderUser>
-          <ConfigProvider>
-            <BannersProvider>
-              <HomePage />
-            </BannersProvider>
-          </ConfigProvider>
-        </ProviderUser>
-      </Container>
-    </CampaignProvider>
+    <QueryContext>
+      <CampaignProvider>
+        <Container>
+          <ProviderUser>
+            <ConfigProvider>
+              <BannersProvider>
+                <HomePage />
+              </BannersProvider>
+            </ConfigProvider>
+          </ProviderUser>
+        </Container>
+      </CampaignProvider>
+    </QueryContext>
   );
 }
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.greyLight};
@@ -7,7 +8,7 @@ export const Container = styled.div`
 
   position: relative;
 
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -57,8 +58,8 @@ export const RecordsWrapper = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;

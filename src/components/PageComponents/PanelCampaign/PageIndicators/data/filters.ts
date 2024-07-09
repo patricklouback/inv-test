@@ -9,7 +9,7 @@ export const type_graph = [
     name: 'IDEAS',
     value: 'Histórico de Iniciativass',
   },
-   /* {
+  /* {
     id: '3',
     name: 'INNOVATIONS',
     value: 'Categorias de Inovações',

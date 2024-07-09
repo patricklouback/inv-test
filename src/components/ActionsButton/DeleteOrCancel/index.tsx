@@ -12,7 +12,7 @@ interface DeleteProps extends SelectHTMLAttributes<HTMLSelectElement> {
 export function DeleteOrCancel({
   handleDeleteItem,
   isEditing,
-  handleCancelEdit
+  handleCancelEdit,
 }: DeleteProps): JSX.Element {
   return (
     <DeleteWrapper>

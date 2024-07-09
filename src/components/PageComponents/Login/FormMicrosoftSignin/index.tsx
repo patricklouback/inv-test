@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import { UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 import Button from '@components/Button';
 import { AuthContext } from 'contexts/AuthContext';
 import { useContext, useEffect, useState } from 'react';
 import { useTheme } from 'styled-components';
 import { getIsEmail } from 'utils/isEmail';
+import { styleSlug } from 'utils/constants';
 import IconMicrosoft from '../../../../assets/inventta/microsoft.svg';
 import FormLogin from '../FormLogin';
 import FormSendMail from '../FormSendMail';
@@ -16,7 +18,7 @@ import {
   OrContainer,
 } from './styles';
 
-const SignInButton = (): JSX.Element => {
+const SignInButton = ({ disabled }: { disabled: boolean }): JSX.Element => {
   const { instance } = useMsal();
 
   const { colors } = useTheme();
@@ -50,6 +52,7 @@ const SignInButton = (): JSX.Element => {
     <Button
       onClick={() => handleLogin()}
       {...propsLogin}
+      disabled={disabled}
       icon={<IconMicrosoft style={{ height: '20px' }} />}
     >
       Entrar com a Microsoft
@@ -60,14 +63,16 @@ const SignInButton = (): JSX.Element => {
 export default function FormMicrosoftSignin(): JSX.Element {
   const { colors } = useTheme();
 
+  const hasSSO = localStorage.getItem('hasSSO') === 'true';
+
   const { loginStep } = useContext(AuthContext);
 
   const [isEmail, setIsEmail] = useState(true);
 
   const propsLogin = {
-    hover: colors.primaryLight,
+    hover: colors.primaryLight[styleSlug],
     color: colors.fontWhite,
-    background: colors.primary,
+    background: colors.primary[styleSlug],
     margin_vertical: 20,
     max_width: 391,
     center: true,
@@ -103,7 +108,7 @@ export default function FormMicrosoftSignin(): JSX.Element {
           <OrContainer> OU </OrContainer>
           <Line />
         </DivisoryContainer>
-        <SignInButton />
+        <SignInButton disabled={!hasSSO} />
       </Container>
     </UnauthenticatedTemplate>
   );

@@ -4,7 +4,7 @@ import { ConfigContext } from 'contexts/ConfigContext';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import Collapsible from 'react-collapsible';
 import { BiSave } from 'react-icons/bi';
-import { IoDocumentTextOutline } from "react-icons/io5";
+import { IoDocumentTextOutline } from 'react-icons/io5';
 import { useTheme } from 'styled-components';
 import { RenderHeader } from '../RenderHeader';
 import {
@@ -19,8 +19,7 @@ import {
 
 export const SectionTermsOfUse: React.FC = (): JSX.Element => {
   const { colors } = useTheme();
-  const { editCompanyTerms, company_terms } =
-    useContext(ConfigContext);
+  const { editCompanyTerms, company_terms } = useContext(ConfigContext);
   const [row, setRow] = useState(true);
   const [companyTermsState, setCompanyTermsState] = useState('');
 
@@ -33,7 +32,7 @@ export const SectionTermsOfUse: React.FC = (): JSX.Element => {
   );
 
   useEffect(() => {
-    setCompanyTermsState(company_terms)
+    setCompanyTermsState(company_terms);
   }, [company_terms]);
 
   return (

@@ -1,3 +1,3 @@
 export interface GlobalIndicatorsProps {
-    campaignIds?: string[];
+  campaignIds?: string[];
 }

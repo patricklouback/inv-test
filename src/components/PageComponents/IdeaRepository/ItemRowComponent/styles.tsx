@@ -12,6 +12,7 @@ export const ItemRow = styled.tr`
   .actions {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     margin: auto 0;
   }
 

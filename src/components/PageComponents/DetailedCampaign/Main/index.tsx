@@ -16,24 +16,24 @@ export const Main: React.FC = (): JSX.Element => {
       <About>
         <h2>Resumo</h2>
         <Item>
-        <ReactMarkdown className="markdown">
-          {campaign.summary}
-        </ReactMarkdown>
-          </Item>
+          <ReactMarkdown className="markdown">{campaign.summary}</ReactMarkdown>
+        </Item>
       </About>
       <About>
         <h2>Descrição</h2>
         <Item>
-          <ReactMarkdown className="markdown"> 
+          <ReactMarkdown className="markdown">
             {campaign.description}
           </ReactMarkdown>
         </Item>
       </About>
       <Info>
         <GoalsMet>
-          <h2 className='markdown'>Objetivos estratégicos</h2>
+          <h2 className="markdown">Objetivos estratégicos</h2>
           <div className="markdownContainer">
-            <ReactMarkdown className='disabledH2'>{campaign.goals}</ReactMarkdown>
+            <ReactMarkdown className="disabledH2">
+              {campaign.goals}
+            </ReactMarkdown>
           </div>
         </GoalsMet>
       </Info>

@@ -45,7 +45,7 @@ export const TitleTextFirst = styled.h2`
 `;
 
 export const WapperBoxParticip = styled.div`
-  max-width: 230px;
+  max-width: 280px;
   width: 100%;
 `;
 

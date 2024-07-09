@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ContentSimpleComponent } from '@components/ContainerTitleSimple';
 import { Input } from '@components/InputText';
 import { CampaignContext } from 'contexts/Campaign';

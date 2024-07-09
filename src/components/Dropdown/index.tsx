@@ -52,7 +52,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             {itemsList?.length > 0 &&
               itemsList.map(item => {
                 return (
-                  <DropdownItem 
+                  <DropdownItem
                     key={item.id}
                     onClick={() => handleSelect(item.id)}
                   >

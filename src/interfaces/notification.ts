@@ -10,7 +10,9 @@ export type NotificationType =
   | 'SEND_VIDEO'
   | 'OWNER_REVIEW'
   | 'LINK'
-  | 'EVALUATION_CRITERIA';
+  | 'EVALUATION_CRITERIA'
+  | 'REPLY_INVITE_IDEA'
+  | 'NOTIFY_INVITE_IDEA';
 
 export interface Notification {
   id: string;

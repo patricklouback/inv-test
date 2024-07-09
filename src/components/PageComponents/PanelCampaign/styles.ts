@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledComponentProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 export const Container = styled.div`
@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const SectionBanner = styled.div<StyledComponentProps>`
-  display: ${props => props.isOpen ? 'flex': 'none'};
+  display: ${props => (props.$isOpen ? 'flex' : 'none')};
   align-items: center;
   height: 112px;
 `;

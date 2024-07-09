@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const IndicatorCards = styled.div`
   display: grid;
@@ -46,5 +46,5 @@ export const RowOneLeft = styled.div`
 
 export const RowOneRight = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { CSSProperties, ReactNode } from 'react';
 import { ContentTourHome, P, Title } from './style';
 

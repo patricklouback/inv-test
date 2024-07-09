@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   position: relative;
@@ -7,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 1rem;
-  gap: 1rem
+  gap: 1rem;
 `;
 
 export const Title = styled.h3`
@@ -27,8 +28,8 @@ export const StepsButton = styled.button`
   cursor: pointer;
   padding: 8px 32px;
   border-radius: 16px;
-  background-color: #9d28f0;
-  border: 1px solid #9d28f0;
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+  border: 1px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #ffffff;
 
   align-self: flex-end;
@@ -46,6 +47,6 @@ export const StepsButton = styled.button`
   &:hover,
   &:focus {
     background-color: transparent;
-    color: #9d28f0;
+    color: ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;

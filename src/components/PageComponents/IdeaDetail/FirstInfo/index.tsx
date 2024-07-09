@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UserCard } from '@components/CardUser';
 
 import { Idea } from 'interfaces/idea';
+import { AuthContext } from 'contexts/AuthContext';
 import {
   IdeaAppId,
   ItemBoxParticip,
@@ -20,13 +21,14 @@ interface FirstInfoProps {
 }
 
 export const FirstInfo: React.FC<FirstInfoProps> = ({ idea }): JSX.Element => {
+  const { user } = useContext(AuthContext);
   const getSequenceNumber = React.useCallback((sequence: number): string => {
     if (sequence >= 100000) {
       return sequence.toString();
     }
     const paddedSequence = sequence.toString().padStart(6, '0');
     return paddedSequence;
-  },[])
+  }, []);
 
   return (
     <WapperFirstInfoIdea>
@@ -42,13 +44,42 @@ export const FirstInfo: React.FC<FirstInfoProps> = ({ idea }): JSX.Element => {
         <TitleTextFirst>{idea?.title}</TitleTextFirst>
       </WapperTextFirst>
       <WapperBoxParticip>
+        <ValueBoxParticip>Criador da Iniciativa</ValueBoxParticip>
+        <LIstBBoxParticip>
+          {idea?.ideaUsers
+            .filter(users => users.type === 'OWNER')
+            .map(item => (
+              <ItemBoxParticip key={item.id}>
+                <UserCard
+                  owner
+                  status={item.status}
+                  name={item?.user?.name}
+                  area={item?.user?.area.name ?? null}
+                  areaColor={item?.user?.area.color ?? null}
+                />
+              </ItemBoxParticip>
+            ))}
+        </LIstBBoxParticip>
         <ValueBoxParticip>Participantes da Iniciativa</ValueBoxParticip>
         <LIstBBoxParticip>
-          {idea?.ideaUsers.map(item => (
-            <ItemBoxParticip key={item.id}>
-              <UserCard name={item.user.name} image={item.user.image} />
-            </ItemBoxParticip>
-          ))}
+          {idea?.ideaUsers
+            .filter(users => users.type === 'COLLABORATOR')
+            .map(item => {
+              const isTheSameUser = item?.user?.id === user?.id;
+              return (
+                <ItemBoxParticip key={item.id}>
+                  <UserCard
+                    ideaId={idea.id}
+                    userId={item.user.id}
+                    isTheSameUser={isTheSameUser}
+                    status={item.status}
+                    name={item?.user?.name}
+                    area={item?.user?.area.name ?? null}
+                    areaColor={item?.user?.area.color ?? null}
+                  />
+                </ItemBoxParticip>
+              );
+            })}
         </LIstBBoxParticip>
       </WapperBoxParticip>
     </WapperFirstInfoIdea>

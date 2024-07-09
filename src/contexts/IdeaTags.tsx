@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { api } from 'services/api';
 import {
   IdeaTagDefaultValues,
-  IdeaTagReducer
+  IdeaTagReducer,
 } from './reducers/IdeaTagReducer';
 
 interface IdeaTagPropsData {
@@ -14,8 +14,15 @@ interface IdeaTagPropsData {
   loading: boolean;
   updateIdeaTagName: (tagId: string, newName: string) => Promise<void>;
   updateIdeaTagChecked: (ideaTagId: string, checked: boolean) => Promise<void>;
-  getIdeaTags: (filteredTags: FilteredIdeaTags[]) => void;
+  getIdeaTags: (filteredTags: FilteredIdeaTags[]) => Promise<void>;
   updateFilteredTags: (filteredTags: FilteredIdeaTags[]) => void;
+  sortIdea: (ideaTags: IdeaTag[]) => IdeaTag[];
+  buildIdeaTagsUsed: (
+    ideaTags: IdeaTag[],
+    filteredTags: FilteredIdeaTags[]
+  ) => void;
+  handleTagsItem: (tags: IdeaTag[], filteredTags: FilteredIdeaTags[]) => void;
+  dispatch: React.Dispatch<any>;
 }
 
 export const IdeaTagContext = createContext<IdeaTagPropsData>(
@@ -39,7 +46,10 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
     });
   }
 
-  function buildIdeaTagsUsed(ideaTags, filteredTags): void {
+  function buildIdeaTagsUsed(
+    ideaTags: IdeaTag[],
+    filteredTags: FilteredIdeaTags[]
+  ): void {
     const usedTags = [];
     ideaTags
       .filter(ideaTag => ideaTag.checked)
@@ -59,7 +69,7 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
       });
     dispatch({
       type: 'SET_FILTERED_IDEA_TAGS',
-      filteredIdeaTags: usedTags
+      filteredIdeaTags: usedTags,
     });
   }
 
@@ -69,7 +79,7 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
       buildIdeaTagsUsed(data.ideaTags, filteredTags);
       dispatch({
         type: 'SET_IDEA_TAGS',
-        allIdeaTags: sortIdea(data.ideaTags)
+        allIdeaTags: sortIdea(data.ideaTags),
       });
     } catch (error) {
       toast.error('Error', error);
@@ -79,7 +89,10 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
   const updateIdeaTagName = useCallback(
     async (tagId: string, newName: string) => {
       try {
-        await api.put(`/idea/tag/${tagId}/${newName}`);
+        await api.put(`/ideas/tag/${tagId}`, {
+          name: newName,
+        });
+        toast.success('Nome da tag atualizado com sucesso.');
       } catch (error) {
         toast.error('Erro ao atualizar o nome da tag.');
       }
@@ -101,9 +114,22 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
   const updateFilteredTags = useCallback((filteredTags: FilteredIdeaTags[]) => {
     dispatch({
       type: 'SET_FILTERED_IDEA_TAGS',
-      filteredIdeaTags: filteredTags
+      filteredIdeaTags: filteredTags,
     });
   }, []);
+
+  const handleTagsItem = (
+    tags: IdeaTag[],
+    filteredTags: FilteredIdeaTags[]
+  ) => {
+    if (tags.length > 0) {
+      dispatch({
+        type: 'SET_IDEA_TAGS',
+        allIdeaTags: sortIdea(tags),
+      });
+      buildIdeaTagsUsed(tags, filteredTags);
+    }
+  };
 
   const IdeaTagDataValue = useMemo(() => {
     return {
@@ -111,14 +137,22 @@ export const IdeaTagProvider: React.FC = ({ children }): JSX.Element => {
       getIdeaTags,
       updateIdeaTagName,
       updateIdeaTagChecked,
-      updateFilteredTags
+      updateFilteredTags,
+      sortIdea,
+      buildIdeaTagsUsed,
+      handleTagsItem,
+      dispatch,
     };
   }, [
     dataReducer,
     getIdeaTags,
     updateIdeaTagName,
     updateIdeaTagChecked,
-    updateFilteredTags
+    updateFilteredTags,
+    sortIdea,
+    buildIdeaTagsUsed,
+    handleTagsItem,
+    dispatch,
   ]);
 
   return (

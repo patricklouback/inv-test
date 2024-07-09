@@ -57,4 +57,4 @@ export const ContainerButton = styled.div`
   @media screen and (max-width: 510px) {
     width: 50%;
   }
-`
+`;

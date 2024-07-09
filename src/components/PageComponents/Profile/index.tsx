@@ -22,7 +22,6 @@ export const ProfilePage: React.FC = (): JSX.Element => {
         <PageTitle title="Perfil do usuário" icon={FiUser} />
         <Content>
           <InformationData />
-          {/* <Ideas /> */}
         </Content>
       </Container>
       <Line />

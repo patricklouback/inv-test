@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import {
   Chart as ChartJS,
@@ -9,7 +8,7 @@ import {
   LineElement,
   Legend,
   Tooltip,
-  ChartOptions
+  ChartOptions,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -21,7 +20,7 @@ import {
   GraphContainer,
   GraphFilterBar,
   IconContainer,
-  TitleFilterBar
+  TitleFilterBar,
 } from './styles';
 
 ChartJS.register(
@@ -48,20 +47,20 @@ export function ProjectFunnel(): JSX.Element {
       setDataProjectsFunnel({
         workPlan: {
           label: 'Plano de trabalho',
-          value: '1'
+          value: '1',
         },
         ideaAcceleration: {
           label: 'Aceleração da iniciativa',
-          value: '2'
+          value: '2',
         },
         previewAnalysis: {
           label: 'Análise prévia resultados',
-          value: '2'
+          value: '2',
         },
         conclusionResults: {
           label: 'Conclusão e resultados',
-          value: '1'
-        }
+          value: '1',
+        },
       });
     }
     fechData();
@@ -75,9 +74,9 @@ export function ProjectFunnel(): JSX.Element {
           label: 'Projetos',
           data: [''],
           backgroundColor: ['#DF0075', '#3C3C3C'],
-          borderRadius: 8
-        }
-      ]
+          borderRadius: 8,
+        },
+      ],
     };
     if (dataProjectsFunnel) {
       const keys = Object.keys(dataProjectsFunnel);
@@ -97,30 +96,30 @@ export function ProjectFunnel(): JSX.Element {
       x: {
         grid: {
           display: false,
-          drawBorder: false
-        }
+          drawBorder: false,
+        },
       },
       y: {
         grid: {
           display: false,
-          drawBorder: false
+          drawBorder: false,
         },
         ticks: {
-          display: false
-        }
-      }
+          display: false,
+        },
+      },
     },
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
       datalabels: {
         display: true,
         anchor: 'end',
         align: 'start',
-        color: '#FFF'
-      }
-    }
+        color: '#FFF',
+      },
+    },
   };
   return (
     <GraphContainer>

@@ -42,12 +42,12 @@ export const Records: React.FC<{ ideaId: string }> = ({ ideaId }) => {
           <Item key={record.title}>
             <DateWrapper>
               <div>{`${
-                monthNames[(new Date((new Date(record.date)))).getMonth()]
-              } ${(new Date(record.date)).getDay()}`}</div>
-              <div>{`às ${(new Date(record.date)).getHours()}:${
-                (new Date(record.date)).getMinutes() < 10
-                  ? `0${(new Date(record.date)).getMinutes()}`
-                  : (new Date(record.date)).getMinutes()
+                monthNames[new Date(new Date(record.date)).getMonth()]
+              } ${new Date(record.date).getDay()}`}</div>
+              <div>{`às ${new Date(record.date).getHours()}:${
+                new Date(record.date).getMinutes() < 10
+                  ? `0${new Date(record.date).getMinutes()}`
+                  : new Date(record.date).getMinutes()
               }`}</div>
             </DateWrapper>
             <RecordInfoWrapper>

@@ -24,8 +24,7 @@ export const Subtitle = styled.h2`
   padding: 1.5rem 0 0;
 `;
 
-export const Content = styled.div`
-`;
+export const Content = styled.div``;
 
 export const ButtonsContainer = styled.div`
   display: flex;

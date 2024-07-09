@@ -75,7 +75,6 @@ export const Step2: React.FC<Step1Props> = ({
   const [ideaFilteredComments, setIdeaFilteredComments] = useState([]);
   const [possibleUsersMention, setPossibleUsersMention] = useState([]);
   const {
-    register,
     control,
     handleSubmit,
     setValue,
@@ -99,21 +98,21 @@ export const Step2: React.FC<Step1Props> = ({
     preview === 'ANALYZE' ||
     preview === 'SCREENING';
 
-  const getFilteredComments = (ideaComments): any[] => {
-    if (stepSelected !== undefined) {
-      return ideaComments.filter(comment => {
-        const filtered = relatededStepsIds.find(relatedStepItem =>
-          relatedStepItem.includes(stepSelected.id)
-        );
-        return filtered?.includes(comment.stepId);
-      });
-    }
-    return ideaComments.filter(
-      comment => comment.stepId === undefined || comment.stepId === null
-    );
-  };
-
   useEffect(() => {
+    const getFilteredComments = (ideaComments): any[] => {
+      if (stepSelected !== undefined) {
+        return ideaComments.filter(comment => {
+          const filtered = relatededStepsIds.find(relatedStepItem =>
+            relatedStepItem.includes(stepSelected.id)
+          );
+          return filtered?.includes(comment.stepId);
+        });
+      }
+      return ideaComments.filter(
+        comment => comment.stepId === undefined || comment.stepId === null
+      );
+    };
+
     setIdeaFilteredComments(getFilteredComments(ideaComments));
   }, [ideaComments, stepSelected, relatededStepsIds]);
 
@@ -155,7 +154,14 @@ export const Step2: React.FC<Step1Props> = ({
       setValue('message', '');
       setFile({ name: '', fileData: '' });
     },
-    [createIdeaComment, setValue, file, id]
+    [
+      stepSelected?.id,
+      id,
+      file.fileData,
+      createIdeaComment,
+      notificateMentionedUsers,
+      setValue,
+    ]
   );
 
   const handleDeleteComment = useCallback(
@@ -187,7 +193,7 @@ export const Step2: React.FC<Step1Props> = ({
         fetchComments();
       }
     },
-    [updateIdeaComment, getIdeasComments, ideaId]
+    [updateIdeaComment, ideaId, getIdeasComments, ideasIds]
   );
 
   const handleEditComment = useCallback(
@@ -209,7 +215,6 @@ export const Step2: React.FC<Step1Props> = ({
       });
       await listIdeaSteps(ideaId);
       const possibleUsers = await getPossibleMentionUsers(ideaId);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setPossibleUsersMention(possibleUsers.data);
     }
@@ -217,19 +222,25 @@ export const Step2: React.FC<Step1Props> = ({
     if (ideaId && ideasIds.length > 0) {
       fetchComments();
     }
-  }, [getIdeasComments, ideaId, ideasIds]);
-
-  const getRelatedSteps = (stepName: string): string[] => {
-    const relatedIds = [];
-    allIdeaSteps.forEach(ideaStepItem => {
-      ideaStepItem
-        .filter(step => step.title === stepName)
-        .forEach(step => relatedIds.push(step.id));
-    });
-    return relatedIds;
-  };
+  }, [
+    getIdeasComments,
+    getPossibleMentionUsers,
+    ideaId,
+    ideasIds,
+    listIdeaSteps,
+  ]);
 
   useEffect(() => {
+    const getRelatedSteps = (stepName: string): string[] => {
+      const relatedIds = [];
+      allIdeaSteps.forEach(ideaStepItem => {
+        ideaStepItem
+          .filter(step => step.title === stepName)
+          .forEach(step => relatedIds.push(step.id));
+      });
+      return relatedIds;
+    };
+
     const relatedSteps = [];
     if (allIdeaSteps.length > 0) {
       ideaSteps.forEach(step => {
@@ -250,7 +261,7 @@ export const Step2: React.FC<Step1Props> = ({
       setAllIdeaSteps(allSteps);
     }
     getAllSteps();
-  }, [ideasIds]);
+  }, [ideasIds, listIdeaSteps]);
 
   useEffect(() => {
     if (ideaId && allLinkedIdeas) {
@@ -281,7 +292,7 @@ export const Step2: React.FC<Step1Props> = ({
                   onChange={e => field.onChange(e.target.value)}
                   allowSpaceInQuery
                   placeholder="Comentário"
-                  error={errors.message}
+                  error={!!errors.message}
                 >
                   <Mention trigger="@" data={possibleUsersMention} />
                 </StyledMentionsInput>

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContainerProp {
-  img: string;
+  $img: string;
 }
 
 export const ContainerCampaingRank = styled.button`
@@ -30,7 +31,7 @@ export const ContentCampaingRankIdeias = styled.span`
 `;
 
 export const ContentCampaingRankDownPosition = styled.span`
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #fff;
   width: 38px;
   min-height: 100%;
@@ -47,12 +48,13 @@ export const CampaingTopImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 
-  border-bottom: 1px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 1px solid
+    ${({ theme }) => theme.colors.primaryLight[styleSlug]};
 `;
 
 export const ContentCampaingRankText = styled.div`
@@ -94,11 +96,12 @@ export const ContentCampaingRankImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 1px solid
+    ${({ theme }) => theme.colors.primaryLight[styleSlug]};
 
   @media screen and (max-width: 1048px) {
     height: 140px;
@@ -110,7 +113,7 @@ export const ContentCampaingRankDownQnt = styled.span`
   height: 22px;
   left: 46px;
   top: 8px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   background: #ffffff;
   border-radius: 6px;
 

@@ -17,22 +17,7 @@ import { ResetTourApp } from './ResetTourApp';
 import { Sidebar } from './Sidebar';
 import { HeaderContent, HeaderWrapper, UserInfo } from './styles';
 
-interface HeaderProps {
-  hasUserInfo: boolean;
-  isAdmin: boolean;
-  isManager: boolean;
-  data: {
-    name: string;
-    image: string;
-  };
-}
-
-export default function Header({
-  hasUserInfo,
-  isAdmin,
-  isManager,
-  data,
-}: HeaderProps): JSX.Element {
+export default function Header(): JSX.Element {
   const { colors } = useTheme();
   const { user, token } = useContext(AuthContext);
   const { setSize } = useContext(ListenSizeContext);
@@ -59,11 +44,11 @@ export default function Header({
     <HeaderWrapper ref={ref}>
       <div className="fade-line" />
       <Container>
-        <HeaderContent logged={!!token}>
+        <HeaderContent $logged={!!token}>
           <Link href="/home">
-            <a className="logo">
+            <span className="logo">
               <img alt="Avantt.i" src="/images/logo-header.png" />
-            </a>
+            </span>
           </Link>
           {user && (
             <>
@@ -74,9 +59,9 @@ export default function Header({
                   src={companyImage}
                 />
               </div>
-              <UserInfo image={user.image}>
+              <UserInfo $image={user.image}>
                 <div className="user-icons">
-                  {user?.tours[TourId.MENU_LIST] === TourStatus.VIEWED && (
+                  {user?.tours?.[TourId.MENU_LIST] === TourStatus.VIEWED && (
                     <ResetTourApp />
                   )}
                   <NotificationDropList />

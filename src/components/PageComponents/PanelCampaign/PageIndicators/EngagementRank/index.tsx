@@ -1,12 +1,5 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  RiFilter2Line,
-} from 'react-icons/ri';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { RiFilter2Line } from 'react-icons/ri';
 import { UserContext } from 'contexts/User';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import DatePicker from 'react-datepicker';
@@ -42,7 +35,9 @@ import {
   UserPoints,
 } from './styles';
 
-export function EngagementRank({ campaignIds }: GlobalIndicatorsProps): JSX.Element {
+export function EngagementRank({
+  campaignIds,
+}: GlobalIndicatorsProps): JSX.Element {
   const { engagementRanking, getEngagementRanking } = useContext(UserContext);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -125,14 +120,21 @@ export function EngagementRank({ campaignIds }: GlobalIndicatorsProps): JSX.Elem
               <RankNumber>{user.rank}</RankNumber>
               <EngagementTitle>
                 <Icon>
-                  {user ? <ItemImageUser key= {user.rank} images_users={ user.image || '/images/user.png'}/> : <div>erro</div>}
+                  {user ? (
+                    <ItemImageUser
+                      key={user.rank}
+                      images_users={user.image || '/images/user.png'}
+                    />
+                  ) : (
+                    <div>erro</div>
+                  )}
                 </Icon>
                 <UserNameAndPoints>
                   <UserName>{user.name}</UserName>
                   <UserPoints>
-                    {
-                      `${user.points} ${Number(user.points) > 1 ? 'interações' : 'interação'}`
-                    }
+                    {`${user.points} ${
+                      Number(user.points) > 1 ? 'interações' : 'interação'
+                    }`}
                   </UserPoints>
                 </UserNameAndPoints>
               </EngagementTitle>

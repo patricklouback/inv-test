@@ -26,22 +26,22 @@ interface CampaignStepSelected extends CampaignStep {
 }
 
 interface ActivityProps {
-    campaingStep: CampaignStepSelected;
-    editable?: boolean;
+  campaingStep: CampaignStepSelected;
+  editable?: boolean;
 }
 
 const initialCampaignStepState = {
-    id: '',
-    campaignId: '',
-    title: '',
-    description: '',
-    sequence: 0,
-    campaignStepItems: []
-  };
+  id: '',
+  campaignId: '',
+  title: '',
+  description: '',
+  sequence: 0,
+  campaignStepItems: [],
+};
 
 export const Activity: React.FC<ActivityProps> = ({
-    campaingStep,
-    editable = true,
+  campaingStep,
+  editable = true,
 }): JSX.Element => {
   const [stepsItemsSelected, setStepItemsSelected] = useState<
     CampaignStepItem[]
@@ -51,23 +51,23 @@ export const Activity: React.FC<ActivityProps> = ({
   const [valueChanged, setValueChanged] = useState('');
   const [newStepItem, setNewStepItem] = useState(false);
   const [campaignStepSelected, setCampaignStepSelected] =
-  useState<CampaignStepSelected>(initialCampaignStepState);
+    useState<CampaignStepSelected>(initialCampaignStepState);
 
   const {
     addNewStepItem,
     getCampaignStepItems,
     removeStepItem,
-    updateStepItem
+    updateStepItem,
   } = useContext(CampaignContext);
 
   const handleListCampaignStepItems = useCallback(
     async (campaignStepId: string) => {
       const campaignStepItems = await getCampaignStepItems(campaignStepId);
-        setStepItemsSelected(campaignStepItems);
+      setStepItemsSelected(campaignStepItems);
     },
     [getCampaignStepItems]
   );
-  
+
   const handleSelectStep = useCallback(
     (cs: CampaignStepSelected) => {
       if (cs.id === '') {
@@ -82,21 +82,15 @@ export const Activity: React.FC<ActivityProps> = ({
 
   useEffect(() => {
     handleSelectStep(campaingStep);
-  }, [handleSelectStep, campaingStep])
+  }, [handleSelectStep, campaingStep]);
 
-  const handleEditStepItem = useCallback(
-    (stepItemEdited: CampaignStepItem) => {
-      setStepItemEditedId(stepItemEdited.id);
-        setValueChanged(stepItemEdited.title);
-    },
-    []
-  );
+  const handleEditStepItem = useCallback((stepItemEdited: CampaignStepItem) => {
+    setStepItemEditedId(stepItemEdited.id);
+    setValueChanged(stepItemEdited.title);
+  }, []);
 
   const handleRemoveStepItem = useCallback(
-    async (
-      campaignStepItemId: string,
-      campaignStepId: string
-    ) => {
+    async (campaignStepItemId: string, campaignStepId: string) => {
       await removeStepItem(campaignStepItemId);
 
       await handleListCampaignStepItems(campaignStepId);
@@ -104,26 +98,23 @@ export const Activity: React.FC<ActivityProps> = ({
     [removeStepItem, handleListCampaignStepItems]
   );
 
-  const handleUpdateStepItem = useCallback(
-    async () => {
-      await updateStepItem(stepItemEditedId, valueChanged, limitDate);
+  const handleUpdateStepItem = useCallback(async () => {
+    await updateStepItem(stepItemEditedId, valueChanged, limitDate);
 
-      await handleListCampaignStepItems(campaignStepSelected.id);
+    await handleListCampaignStepItems(campaignStepSelected.id);
 
-      setNewStepItem(false);
-      setValueChanged('');
-      setStepItemEditedId('');
-      setLimitDate(null);
-    },
-    [
-      updateStepItem,
-      handleListCampaignStepItems,
-      stepItemEditedId,
-      valueChanged,
-      campaignStepSelected?.id,
-      limitDate
-    ]
-  );
+    setNewStepItem(false);
+    setValueChanged('');
+    setStepItemEditedId('');
+    setLimitDate(null);
+  }, [
+    updateStepItem,
+    handleListCampaignStepItems,
+    stepItemEditedId,
+    valueChanged,
+    campaignStepSelected?.id,
+    limitDate,
+  ]);
 
   const handleAddNewStep = useCallback(
     async (campaignStepId: string) => {
@@ -135,19 +126,13 @@ export const Activity: React.FC<ActivityProps> = ({
       setStepItemEditedId('');
       setLimitDate(null);
     },
-    [
-      addNewStepItem,
-      handleListCampaignStepItems,
-      valueChanged,
-      limitDate,
-    ]
+    [addNewStepItem, handleListCampaignStepItems, valueChanged, limitDate]
   );
 
   const handleActiveNewStepProject = useCallback(() => {
     setNewStepItem(true);
     setValueChanged('');
     setStepItemEditedId('');
-    
   }, []);
 
   return (
@@ -167,13 +152,9 @@ export const Activity: React.FC<ActivityProps> = ({
                     style={{ marginTop: 5, marginBottom: 5 }}
                     disabled={csi.id !== stepItemEditedId}
                     value={
-                      csi.id === stepItemEditedId
-                        ? valueChanged
-                        : csi.title
+                      csi.id === stepItemEditedId ? valueChanged : csi.title
                     }
-                    onChange={event =>
-                      setValueChanged(event.target.value)
-                    }
+                    onChange={event => setValueChanged(event.target.value)}
                     type="text"
                   />
                   <Item>
@@ -185,8 +166,11 @@ export const Activity: React.FC<ActivityProps> = ({
                       selected={limitDate}
                       minDate={new Date()}
                       placeholderText={
-                        csi.limitDate 
-                          ? `Limite: ${format(new Date(csi.limitDate), 'dd/MM/yyyy')}` 
+                        csi.limitDate
+                          ? `Limite: ${format(
+                              new Date(csi.limitDate),
+                              'dd/MM/yyyy'
+                            )}`
                           : 'Sem Limite'
                       }
                       onChange={setLimitDate}
@@ -211,10 +195,7 @@ export const Activity: React.FC<ActivityProps> = ({
                       <ButtonDelete
                         type="button"
                         onClick={() =>
-                          handleRemoveStepItem(
-                            csi.id,
-                            campaignStepSelected.id,
-                          )
+                          handleRemoveStepItem(csi.id, campaignStepSelected.id)
                         }
                       >
                         <FiX id="remove" size={24} />
@@ -232,7 +213,7 @@ export const Activity: React.FC<ActivityProps> = ({
                   onChange={event => setValueChanged(event.target.value)}
                 />
                 <Item>
-                  <DatePicker 
+                  <DatePicker
                     className="datePicker"
                     locale={pt}
                     dateFormat="dd/MM/yyyy"
@@ -243,9 +224,7 @@ export const Activity: React.FC<ActivityProps> = ({
                 </Item>
                 <ButtonDelete
                   type="button"
-                  onClick={() =>
-                    handleAddNewStep(campaignStepSelected.id)
-                  }
+                  onClick={() => handleAddNewStep(campaignStepSelected.id)}
                 >
                   <FiCheck id="check" size={24} />
                 </ButtonDelete>

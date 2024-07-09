@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CampaignField } from 'interfaces/campaign';
 import { IdeaField, KanbanStep } from 'interfaces/idea';
 import React, {
@@ -396,7 +394,9 @@ export const ConfigProvider: React.FC = ({ children }): JSX.Element => {
 
   const getIdeaFieldsForIdeaForm = useCallback(async (campaignId: string) => {
     try {
-      const { data } = await api.get(`/ideas/idea-fields/idea-form/${campaignId}`);
+      const { data } = await api.get(
+        `/ideas/idea-fields/idea-form/${campaignId}`
+      );
       dispatch({ type: 'SET_IDEA_FIELDS', ideaFields: data.ideaFields });
       return data.ideaFields;
     } catch (error) {
@@ -477,7 +477,6 @@ export const ConfigProvider: React.FC = ({ children }): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    // @ts-ignore
     if (token && api?.defaults?.headers?.Authorization) {
       getGlobalConfigs();
     }

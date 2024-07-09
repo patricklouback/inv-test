@@ -1,9 +1,10 @@
 /* eslint-disable no-nested-ternary */
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface DefaultParams {
   type?: 'normal' | 'full' | 'filter';
-  small?: boolean;
+  $small?: boolean;
   borderBottom?: boolean;
 }
 
@@ -34,8 +35,8 @@ export const HeaderIcon = styled.div`
 `;
 
 export const HeaderSectionDefault = styled.div<DefaultParams>`
-  padding: ${({ small, type }) => {
-    if (!small) {
+  padding: ${({ $small, type }) => {
+    if (!$small) {
       if (type === 'normal') {
         return '16px 24px';
       }
@@ -54,8 +55,8 @@ export const HeaderSectionDefault = styled.div<DefaultParams>`
     return '0';
   }};
   width: 100%;
-  height: ${({ type, small }) =>
-    !small ? (type === 'filter' ? '52px' : '62px') : '54px'};
+  height: ${({ type, $small }) =>
+    !$small ? (type === 'filter' ? '52px' : '62px') : '54px'};
   border-radius: ${({ type }) =>
     type === 'filter' ? '16px 16px 0 0' : '16px'};
   background: ${({ theme }) => theme.colors.greyLight};
@@ -69,15 +70,15 @@ export const HeaderSectionDefault = styled.div<DefaultParams>`
     align-items: center;
 
     h2 {
-      font-size: ${({ small }) => (small ? `16px` : `22px`)};
+      font-size: ${({ $small }) => ($small ? `16px` : `22px`)};
       font-weight: bold;
-      margin-left: ${({ small }) => (small ? `16px` : `20px`)};
+      margin-left: ${({ $small }) => ($small ? `16px` : `20px`)};
       letter-spacing: 0.4px;
     }
 
     @media screen and (max-width: 1114px) {
       h2 {
-        font-size: ${({ small }) => (small ? `16px` : `19px`)};
+        font-size: ${({ $small }) => ($small ? `16px` : `19px`)};
       }
     }
   }
@@ -115,14 +116,14 @@ export const Relative = styled.div<DefaultParams>`
   ${({ borderBottom, theme }) =>
     borderBottom &&
     css`
-      border-bottom: 10px solid ${theme.colors.terceary};
+      border-bottom: 10px solid ${theme.colors.terceary[styleSlug]};
       border-radius: 8px;
     `}
 
   ${({ type, theme }) =>
     type === 'filter' &&
     css`
-      ::after {
+      &::after {
         position: absolute;
         content: '';
         bottom: -10px;

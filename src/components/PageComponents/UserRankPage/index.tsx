@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { ApresentationCompany } from '@components/Apresentation';
 import { Container } from '@components/Container';
 import { DefaultSection } from '@components/SectionDefault';
 import { AiFillCaretDown } from 'react-icons/ai';
@@ -180,7 +179,7 @@ export const UserRankPage: React.FC = (): JSX.Element => {
                   <Filter size={size}>
                     <ButtonAction
                       size={size}
-                      backgr={colors.font}
+                      $backgr={colors.font}
                       onClick={() => handleOpenFilter('AREA')}
                     >
                       <MdFilterListAlt />
@@ -217,7 +216,7 @@ export const UserRankPage: React.FC = (): JSX.Element => {
                   <Filter size={size}>
                     <ButtonAction
                       size={size}
-                      backgr={colors.font}
+                      $backgr={colors.font}
                       onClick={() => handleOpenFilter('DEPARTAMENT')}
                     >
                       <MdFilterListAlt />

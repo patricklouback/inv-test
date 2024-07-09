@@ -30,7 +30,7 @@ export function TourCampaignStep2(): JSX.Element {
               <Steps current={1} total={3} />
               <StepsButton
                 aria-label="next"
-                variant="primary"
+                $variant="primary"
                 onClick={() => {
                   setState(prevState => ({
                     ...prevState,
@@ -61,7 +61,7 @@ export function TourCampaignStep2(): JSX.Element {
               <Steps current={2} total={3} />
               <StepsButton
                 aria-label="next"
-                variant="primary"
+                $variant="primary"
                 onClick={() => {
                   setState(prevState => ({
                     ...prevState,
@@ -91,7 +91,7 @@ export function TourCampaignStep2(): JSX.Element {
               <Steps current={3} total={3} />
               <StepsButton
                 aria-label="next"
-                variant="primary"
+                $variant="primary"
                 onClick={async () => {
                   await viewedTour(TourId.CAMPAIGN_STEP_TWO);
                   setState(prevState => ({

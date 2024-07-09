@@ -19,7 +19,7 @@ export const ScreeningEvaluator: React.FC = (): JSX.Element => {
     getCampaignUsersSigned,
     signNewCampaignUser,
     searchCampaignUsers,
-    campaign
+    campaign,
   } = useContext(CampaignContext);
 
   const [selectedEvaluators, setSelectedEvaluators] = useState<CampaignUser[]>(
@@ -86,7 +86,7 @@ export const ScreeningEvaluator: React.FC = (): JSX.Element => {
     <Draft size={size}>
       <ContentSimpleComponent
         title="Avaliador - Triagem"
-        tooltipMessage='Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Triagem.'
+        tooltipMessage="Tem acesso ao funil de aprovação com as inciativas deste direcional que estão na coluna Triagem."
       >
         <ContentItem>
           <Select

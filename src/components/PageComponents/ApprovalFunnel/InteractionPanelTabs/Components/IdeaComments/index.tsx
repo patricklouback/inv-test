@@ -207,14 +207,30 @@ export const IdeaComments: React.FC<{
             name="message"
             control={control}
             render={({ field }) => (
-              <StyledMentionsInput
+              <textarea 
                 value={field.value}
                 onChange={e => field.onChange(e.target.value)}
-                allowSpaceInQuery
                 placeholder="Digite sua mensagem"
-              >
-                <Mention trigger="@" data={possibleUsersMention} />
-              </StyledMentionsInput>
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  border: 'none',
+                  color: colors.font,
+                  resize: 'none',
+                  outline: 'none',
+                }}
+              />
+              // Chat com mensao, arrumar que esta quebrando o layout o placeholder
+              // <StyledMentionsInput
+              //   value={field.value}
+              //   onChange={e => field.onChange(e.target.value)}
+              //   allowSpaceInQuery
+              //   placeholder="Digite sua mensagem"
+              // >
+              //   <Mention trigger="@" data={possibleUsersMention} />
+              // </StyledMentionsInput>
             )}
           />
           <WapperActionsComment>

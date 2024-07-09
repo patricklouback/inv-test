@@ -1,12 +1,12 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 interface ButtonParams {
-  background?: string;
+  $background?: string;
   color?: string;
   height?: number;
   max?: number;
-  center?: boolean;
-  hover?: string;
+  $center?: boolean;
+  $hover?: string;
   hoverWeigth?: number;
   hoverColor?: string;
   marginTop?: number;
@@ -20,7 +20,7 @@ interface ButtonParams {
 }
 
 export const ButtonContainer = styled.div<ButtonParams>`
-  margin: ${({ center }) => center && '0 auto'};
+  margin: ${({ $center }) => $center && '0 auto'};
   margin-top: ${({ marginTop }) => `${marginTop}px`};
   cursor: pointer;
 
@@ -35,8 +35,8 @@ export const ButtonContainer = styled.div<ButtonParams>`
 
   white-space: ${({ noWrap }) => (noWrap ? 'nowrap' : 'normal')};
 
-  background: ${({ isSelected, hover, background }) =>
-    isSelected ? !!hover && hover : background};
+  background: ${({ isSelected, $hover, $background }) =>
+    isSelected ? !!$hover && $hover : $background};
   border-radius: ${({ borderRadius }) =>
     borderRadius ? `${borderRadius}px` : '12px'};
   color: ${({ isSelected, hoverColor, color, disabled }) =>
@@ -50,11 +50,13 @@ export const ButtonContainer = styled.div<ButtonParams>`
   font-family: ${({ theme }) => theme.font.primary};
   font-weight: ${({ isSelected, hoverWeigth }) =>
     isSelected ? !!hoverWeigth && hoverWeigth : 400};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 
-  transition: background-color 0.2s;
+  transition: $background-color 0.2s;
   &:hover {
-    background: ${({ hover, disabled, background }) =>
-      !disabled ? !!hover && hover : background};
+    $background: ${({ $hover, disabled, $background }) =>
+      !disabled ? !!$hover && $hover : $background};
     font-weight: ${({ hoverWeigth, disabled }) =>
       !disabled ? !!hoverWeigth && hoverWeigth : 400};
     color: ${({ hoverColor, disabled, color }) =>

@@ -33,12 +33,12 @@ const StatusOption = [
 ];
 
 export const FilteredEvaluationCriteria: React.FC<{
-  setFiltered;
-  evaluationCriterias;
-  marginTop;
-  border?;
-  title?;
-  status?;
+  setFiltered: (evaluationCriterias: any[]) => void;
+  evaluationCriterias: any[];
+  marginTop: number;
+  border?: string;
+  title?: string;
+  status?: boolean;
 }> = ({
   setFiltered,
   evaluationCriterias,
@@ -69,7 +69,7 @@ export const FilteredEvaluationCriteria: React.FC<{
             );
           })
     );
-  }, [selectedItems, evaluationCriterias]);
+  }, [selectedItems, evaluationCriterias, setFiltered, status]);
 
   const handleSelect = (id: string, checked: boolean): void => {
     if (checked) {

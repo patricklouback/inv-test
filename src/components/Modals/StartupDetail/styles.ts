@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const StartupName = styled.div`
   padding: 10px 50px;
@@ -19,9 +20,9 @@ export const FadeLine = styled.div`
 
   background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
 `;
 
@@ -91,8 +92,8 @@ export const AllFieldsWrapper = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -108,6 +109,7 @@ export const FieldWrapper = styled.div`
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 export const Title = styled.div`
@@ -115,6 +117,17 @@ export const Title = styled.div`
 `;
 
 export const Value = styled.div``;
+
+export const ItemTarget = styled.div<{ $index: number }>`
+  display: flex;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: ${props => (props.$index % 2 === 0 ? '#9D28F0' : '#3C3C3C')};
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Montserrat';
+`;
 
 export const Top = styled.div`
   display: flex;
@@ -142,8 +155,8 @@ export const Description = styled(ReactMarkdown)`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -202,8 +215,8 @@ export const UrlContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   } */
 `;
 
@@ -251,8 +264,8 @@ export const MemberContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 

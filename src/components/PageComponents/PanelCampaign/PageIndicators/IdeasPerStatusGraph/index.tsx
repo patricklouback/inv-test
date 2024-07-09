@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApprovalFunnelContext } from 'contexts/ApprovalFunnel';
 import { step_idea } from '@components/PageComponents/IdeaRepository/data/filters';
 import {
@@ -135,41 +134,41 @@ export function IdeasPerStatusGraph({
           <h3>Iniciativas por Status</h3>
         </TitleFilterBar>
         {kanbanSteps.length > 0 && (
-                    <ButtonContainer>
-                        <ButtonFilter onClick={handleOpenFilter}>
-                            <RiFilter2Line size={24} />
-                            <Arrow selected={isFilterOpen}>
-                                <IoMdArrowDropdown size={22} />
-                            </Arrow>
-                        </ButtonFilter>
-                        {isFilterOpen && (
-                            <Balloon>
-                                <ToggleFilters>
-                                    <WapperTitleFilter>
-                                        <strong>Etapa</strong>
-                                    </WapperTitleFilter>
-                                    {step_idea.map((step, index) => (
-                                        <StyledCheckboxContainer
-                                            key={step.id}
-                                            onClick={() => handleSelectStep(step.name)}
-                                        >
-                                            <HiddenCheckbox
-                                                checked={ideaSteps.some(e => e === step.name)}
-                                                onChange={() => handleSelectStep(step.name)}
-                                            />
-                                            <VisibleCheckbox
-                                                checked={ideaSteps.some(e => e === step.name)}
-                                            >
-                                                <ImCheckmark size={12} />
-                                            </VisibleCheckbox>
-                                            <span>{kanbanSteps[index].title}</span>
-                                        </StyledCheckboxContainer>
-                                    ))}
-                                </ToggleFilters>
-                            </Balloon>
-                        )}
-                    </ButtonContainer>
-                )}
+          <ButtonContainer>
+            <ButtonFilter onClick={handleOpenFilter}>
+              <RiFilter2Line size={24} />
+              <Arrow selected={isFilterOpen}>
+                <IoMdArrowDropdown size={22} />
+              </Arrow>
+            </ButtonFilter>
+            {isFilterOpen && (
+              <Balloon>
+                <ToggleFilters>
+                  <WapperTitleFilter>
+                    <strong>Etapa</strong>
+                  </WapperTitleFilter>
+                  {step_idea.map((step, index) => (
+                    <StyledCheckboxContainer
+                      key={step.id}
+                      onClick={() => handleSelectStep(step.name)}
+                    >
+                      <HiddenCheckbox
+                        checked={ideaSteps.some(e => e === step.name)}
+                        onChange={() => handleSelectStep(step.name)}
+                      />
+                      <VisibleCheckbox
+                        checked={ideaSteps.some(e => e === step.name)}
+                      >
+                        <ImCheckmark size={12} />
+                      </VisibleCheckbox>
+                      <span>{kanbanSteps[index].title}</span>
+                    </StyledCheckboxContainer>
+                  ))}
+                </ToggleFilters>
+              </Balloon>
+            )}
+          </ButtonContainer>
+        )}
       </GraphFilterBar>
       <Pie data={data} options={options} />
     </GraphContainer>

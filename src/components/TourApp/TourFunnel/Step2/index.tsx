@@ -97,7 +97,7 @@ export function TourFunnelStepTwo(): JSX.Element {
           ),
           locale: {
             next: (
-              <StepsButton aria-label="next" variant="primary">
+              <StepsButton aria-label="next" $variant="primary">
                 Seguir
               </StepsButton>
             ),
@@ -134,7 +134,7 @@ export function TourFunnelStepTwo(): JSX.Element {
             ),
             locale: {
               next: (
-                <StepsButton aria-label="next" variant="primary">
+                <StepsButton aria-label="next" $variant="primary">
                   Seguir
                 </StepsButton>
               ),
@@ -186,7 +186,7 @@ export function TourFunnelStepTwo(): JSX.Element {
               ),
               locale: {
                 next: (
-                  <StepsButton aria-label="next" variant="primary">
+                  <StepsButton aria-label="next" $variant="primary">
                     Seguir
                   </StepsButton>
                 ),

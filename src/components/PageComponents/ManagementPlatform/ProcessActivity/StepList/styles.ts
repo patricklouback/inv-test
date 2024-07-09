@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const StepsWrapper = styled.div``;
 
-export const Steps = styled.div<{maxWidth: string}>`
+export const Steps = styled.div<{ maxWidth: string }>`
   max-width: ${({ maxWidth }) => maxWidth};
   width: 100%;
   display: flex;
@@ -23,8 +24,8 @@ export const Steps = styled.div<{maxWidth: string}>`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 

@@ -11,7 +11,10 @@ import {
 interface IdeaStepPropsData {
   ideaSteps: IdeaStep[];
   loading: boolean;
-  listIdeaSteps: (ideaId: string, doNotsetValue?: boolean) => Promise<IdeaStep[]>;
+  listIdeaSteps: (
+    ideaId: string,
+    doNotsetValue?: boolean
+  ) => Promise<IdeaStep[]>;
   approveIdeaStep: (ideaStepId: string, ideaId?: string) => Promise<void>;
   toggleIdeaStepItem: (stepId: string, stepItemId: string) => Promise<void>;
 }
@@ -32,7 +35,9 @@ export const IdeaStepProvider: React.FC = ({ children }): JSX.Element => {
         dispatch({ type: 'SET_LOADING', loading: true });
         const { data } = await api.get(`/ideas/idea-steps/${ideaId}`);
 
-        if (!doNotsetValue) {dispatch({ type: 'SET_IDEA_STEPS', ideaSteps: data.ideaSteps });}
+        if (!doNotsetValue) {
+          dispatch({ type: 'SET_IDEA_STEPS', ideaSteps: data.ideaSteps });
+        }
 
         dispatch({ type: 'SET_LOADING', loading: false });
         return data.ideaSteps;
@@ -73,7 +78,7 @@ export const IdeaStepProvider: React.FC = ({ children }): JSX.Element => {
   const approveIdeaStep = useCallback(
     async (ideaStepId: string, ideaId: string) => {
       try {
-        await api.put(`/ideas/idea-steps/approve/${ideaStepId}`, {ideaId});
+        await api.put(`/ideas/idea-steps/approve/${ideaStepId}`, { ideaId });
 
         const newIdeaSteps = dataReducer.ideaSteps;
 

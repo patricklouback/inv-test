@@ -158,12 +158,7 @@ export const LinkIdeasModal: React.FC<LinkIdeasProps> = ({
         })
       );
     })();
-  }, [
-    listLinkedIdeas,
-    getIdeasForLink,
-    idea,
-    searchState,
-  ]);
+  }, [listLinkedIdeas, getIdeasForLink, idea, searchState]);
 
   return (
     <Modal

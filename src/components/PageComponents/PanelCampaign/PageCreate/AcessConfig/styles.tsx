@@ -46,10 +46,10 @@ export const ContainerPreview = styled.div`
 export const Draft = styled.div<{ size?: number }>`
   margin: 0 8px;
   width: 100%;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   ${({ size }) => {

@@ -1,6 +1,12 @@
 /* eslint-disable no-restricted-syntax */
 import { CampaignUserType } from 'interfaces/campaign';
-import { Idea, IdeaKanbamStep, KanbanObject, IdeaLink, KanbanStep } from 'interfaces/idea';
+import {
+  Idea,
+  IdeaKanbamStep,
+  KanbanObject,
+  IdeaLink,
+  KanbanStep,
+} from 'interfaces/idea';
 import { User } from 'interfaces/user';
 import { useContext } from 'react';
 import { createContext, useCallback, useMemo, useReducer } from 'react';
@@ -57,7 +63,7 @@ interface ApprovalFunnelData {
   kanbanSteps: KanbanStep[];
   loading: boolean;
   linkedIdeas: Idea[];
-  allLinkedIdeas: Idea[]
+  allLinkedIdeas: Idea[];
   getKanbanIdeas: (params?: any) => Promise<void>;
   getKanbanSteps: () => Promise<void>;
   getIdeasForLink: (params: any) => Promise<Idea[]>;
@@ -72,7 +78,7 @@ interface ApprovalFunnelData {
   updateKanbanIdeaStatus: (
     idea: Idea,
     kanbanStep: IdeaKanbamStep,
-    sequence: number,
+    sequence: number
   ) => Promise<void>;
   searchIdeaUsers: (
     search: string,
@@ -83,12 +89,19 @@ interface ApprovalFunnelData {
     ideaId: string,
     kanbanStatus: IdeaKanbanStatus
   ) => void;
-  linkIdeas: (primaryIdeaId: string, secondaryIdeaId: string) => Promise<IdeaLink>
-  unLinkIdeas: (params?: any) => Promise<IdeaLink[]>
-  listLinkedIdeas: (ideaId: string) => Promise<Idea[]>
-  listAllLinkedIdeas: (ideaId: string) => Promise<Idea[]>
-  listIdeaLinksForIdeaUser: (ideaId: string) => Promise<Idea[]>
-  listAllSecondaryIdeaLinks: () => Promise<string[]>
+  linkIdeas: (
+    primaryIdeaId: string,
+    secondaryIdeaId: string
+  ) => Promise<IdeaLink>;
+  unLinkIdeas: (params?: any) => Promise<IdeaLink[]>;
+  listLinkedIdeas: (ideaId: string) => Promise<Idea[]>;
+  listAllLinkedIdeas: (ideaId: string) => Promise<Idea[]>;
+  listIdeaLinksForIdeaUser: (ideaId: string) => Promise<Idea[]>;
+  listAllSecondaryIdeaLinks: () => Promise<string[]>;
+  handleSelectCampaign: (id: string) => void;
+  selectedCampaignsIds: string[];
+  handleSelectIdeaType: (type: string) => void;
+  selectedIdeaTypes: string[];
 }
 
 export const ApprovalFunnelContext = createContext<ApprovalFunnelData>(
@@ -128,7 +141,9 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
       dispatch({ type: 'SET_KANBAN_STEPS', kanbanSteps: data.kanbanSteps });
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao buscar etapas do funil');
+      toast.error(
+        err?.response?.data?.message || 'Erro ao buscar etapas do funil'
+      );
     }
   }, []);
 
@@ -174,7 +189,8 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
         await getKanbanIdeas();
       } catch (error) {
         toast.error(
-          error?.response?.data?.message || 'Erro ao tentar recusar a iniciativa!'
+          error?.response?.data?.message ||
+            'Erro ao tentar recusar a iniciativa!'
         );
       }
     },
@@ -240,7 +256,7 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
         if (kanbanStep !== idea.kanbanStep) {
           await api.put(`/ideas/change-kanban/${idea.id}`, {
             kanbanStep,
-            sequence
+            sequence,
           });
 
           const { kanbanIdeas } = dataReducer;
@@ -272,7 +288,9 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
           dispatch({ type: 'SET_LOADING', loading: false });
         }
       } catch (err) {
-        toast.error(err?.response?.data?.message || 'Erro ao atualizar iniciativa');
+        toast.error(
+          err?.response?.data?.message || 'Erro ao atualizar iniciativa'
+        );
       }
     },
     [dataReducer, notificateIdeaUsers]
@@ -331,93 +349,134 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
     [dataReducer]
   );
 
-  const linkIdeas = useCallback(async (primaryIdeaId: string, secondaryIdeaId: string) => {
-    try {
-      const {
-        data: {
-          createdIdeaLinks
-        }
-      } = await api.post(`/ideas/idea-links/link`, {
-        primaryIdeaId,
-        secondaryIdeaId,
-      });
-      return createdIdeaLinks;
-    } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao vincular iniciativas');
-    }
-  }, []);
+  const linkIdeas = useCallback(
+    async (primaryIdeaId: string, secondaryIdeaId: string) => {
+      try {
+        const {
+          data: { createdIdeaLinks },
+        } = await api.post(`/ideas/idea-links/link`, {
+          primaryIdeaId,
+          secondaryIdeaId,
+        });
+        return createdIdeaLinks;
+      } catch (err) {
+        toast.error(
+          err?.response?.data?.message || 'Erro ao vincular iniciativas'
+        );
+      }
+    },
+    []
+  );
 
   const unLinkIdeas = useCallback(async (params = {}) => {
     try {
       const {
-        data: {
-          deletedIdeaLink
-        }
+        data: { deletedIdeaLink },
       } = await api.delete(`/ideas/idea-links/unlink/`, {
         params: {
           primaryIdeaId: params.params1,
           secondaryIdeaId: params.params2,
-        }
+        },
       });
       return deletedIdeaLink;
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao desvincular iniciativas');
+      toast.error(
+        err?.response?.data?.message || 'Erro ao desvincular iniciativas'
+      );
     }
   }, []);
 
   const listLinkedIdeas = useCallback(async (ideaId: string) => {
     try {
       const {
-        data: {
-          linkedIdeas
-        }
+        data: { linkedIdeas },
       } = await api.get(`/ideas/idea-links/${ideaId}`);
       dispatch({ type: 'SET_LINKED_IDEAS', linkedIdeas });
       return linkedIdeas;
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao buscar iniciativas vinculadas');
+      toast.error(
+        err?.response?.data?.message || 'Erro ao buscar iniciativas vinculadas'
+      );
     }
   }, []);
 
   const listAllLinkedIdeas = useCallback(async (ideaId: string) => {
     try {
       const {
-        data: {
-          allLinkedIdeas
-        }
+        data: { allLinkedIdeas },
       } = await api.get(`/ideas/idea-links/all/${ideaId}`);
       dispatch({ type: 'SET_ALL_LINKED_IDEAS', allLinkedIdeas });
       return allLinkedIdeas;
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao buscar todas as iniciativas vinculadas');
+      toast.error(
+        err?.response?.data?.message ||
+          'Erro ao buscar todas as iniciativas vinculadas'
+      );
     }
   }, []);
 
   const listAllSecondaryIdeaLinks = useCallback(async () => {
     try {
       const {
-        data: {
-          secondaryLinkedIdeas
-        }
+        data: { secondaryLinkedIdeas },
       } = await api.get(`/ideas/idea-links/secondary`);
       return secondaryLinkedIdeas;
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao buscar iniciativas secundárias vinculadas');
+      toast.error(
+        err?.response?.data?.message ||
+          'Erro ao buscar iniciativas secundárias vinculadas'
+      );
     }
   }, []);
 
   const listIdeaLinksForIdeaUser = useCallback(async (ideaId: string) => {
     try {
       const {
-        data: {
-          ideaLinksForIdeaUser
-        }
+        data: { ideaLinksForIdeaUser },
       } = await api.get(`/ideas/idea-links/for-user/${ideaId}`);
       return ideaLinksForIdeaUser;
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao buscar iniciativas vinculadas');
+      toast.error(
+        err?.response?.data?.message || 'Erro ao buscar iniciativas vinculadas'
+      );
     }
   }, []);
+
+  const handleSelectCampaign = (id: string) => {
+    const campaignIndex = dataReducer.selectedCampaignsIds.findIndex(
+      campaignId => campaignId === id
+    );
+
+    if (campaignIndex !== -1) {
+      dispatch({
+        type: 'SET_SELECTED_CAMPAIGNS_IDS',
+        selectedCampaignsIds: dataReducer.selectedCampaignsIds.filter(
+          (campaign, index) => index !== campaignIndex
+        ),
+      });
+    } else {
+      dispatch({
+        type: 'SET_SELECTED_CAMPAIGNS_IDS',
+        selectedCampaignsIds: [...dataReducer.selectedCampaignsIds, id],
+      });
+    }
+  };
+
+  const handleSelectIdeaType = (type: string) => {
+    let newSelectedIdeaTypes = [...dataReducer.selectedIdeaTypes];
+    if (newSelectedIdeaTypes.includes(type)) {
+      newSelectedIdeaTypes = newSelectedIdeaTypes.filter(
+        selectedIdeaType => selectedIdeaType !== type
+      );
+    } else {
+      newSelectedIdeaTypes.push(type);
+    }
+
+    dispatch({
+      type: 'SET_SELECTED_IDEA_TYPES',
+      selectedIdeaTypes: newSelectedIdeaTypes,
+    });
+  };
 
   const ApprovalFunnelDataValue = useMemo(() => {
     return {
@@ -439,6 +498,8 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
       listIdeaLinksForIdeaUser,
       listAllSecondaryIdeaLinks,
       getIdeasForLink,
+      handleSelectCampaign,
+      handleSelectIdeaType,
     };
   }, [
     dataReducer,
@@ -459,6 +520,7 @@ export const ApprovalFunnelProvider: React.FC = ({ children }): JSX.Element => {
     listIdeaLinksForIdeaUser,
     listAllSecondaryIdeaLinks,
     getIdeasForLink,
+    handleSelectCampaign,
   ]);
 
   return (

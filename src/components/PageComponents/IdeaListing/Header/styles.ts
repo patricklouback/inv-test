@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const WapperHeader = styled.header<{ size?: number }>`
   margin: 20px 0;
@@ -26,7 +27,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {
@@ -63,7 +64,7 @@ export const VisibleCheckbox = styled.label<{ checked: boolean }>`
   width: 21px;
   height: 21px;
   border-radius: 4px;
-  border: 1.4px solid #47009a;
+  border: 1.4px solid ${({theme}) => theme.colors.primary[styleSlug]};
   background: #fff;
   display: flex;
   justify-content: center;
@@ -97,7 +98,7 @@ export const ToggleFilters = styled.div<{ isArea?: boolean }>`
 `;
 
 export const Balloon = styled.div`
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     left: 20%;
@@ -170,11 +171,11 @@ export const Button = styled.button<{ size?: number }>`
 
   border-radius: 12px;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 
@@ -186,11 +187,11 @@ export const Button = styled.button<{ size?: number }>`
 
         margin: 5px 0;
 
-        :first-child {
+        &:first-child {
           margin-top: 0;
         }
 
-        :last-child {
+        &:last-child {
           margin-bottom: 0;
         }
       `;
@@ -263,7 +264,7 @@ export const BadgeNotification = styled.div`
   position: absolute;
   top: -20%;
   right: 20%;
-  background-color: ${({ theme }) => theme.colors.terceary};
+  background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
 `;
 
 export const WapperIconNotification = styled.div`

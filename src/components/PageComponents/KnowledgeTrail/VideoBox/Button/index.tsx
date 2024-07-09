@@ -33,12 +33,12 @@ export default function Button({
     <ButtonWrapper
       right={right}
       margin_vertical={margin_vertical}
-      background={background}
+      $background={background}
       margin_horizontal={margin_horizontal}
       max_width={max_width}
-      center={center}
+      $center={center}
       color={color}
-      hover={hover}
+      $hover={hover}
       {...rest}
     >
       {loading ? (

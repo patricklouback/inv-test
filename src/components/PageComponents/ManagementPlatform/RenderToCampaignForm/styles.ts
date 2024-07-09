@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ToForm = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   margin: 5px 0px;
   border: 2px solid;
-  border-color: ${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   border-radius: 10px;
   background-color: white;
 `;
@@ -71,10 +72,10 @@ export const Label = styled.div`
   display: flex;
   align-items: center;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -135,16 +136,16 @@ export const IconButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.grey_hover};
     border-radius: 50%;
   }
   margin: 0 2px;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 `;

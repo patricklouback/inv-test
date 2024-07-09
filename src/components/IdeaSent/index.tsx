@@ -26,6 +26,7 @@ import {
   Text,
   Title,
   ValuesUsers,
+  IdeaFinished,
 } from './styles';
 
 interface ItemIdeaSentParams {
@@ -86,7 +87,8 @@ export const ItemIdeaSent: React.FC<ItemIdeaSentParams> = ({
       : idea?.campaign?.title;
 
   return (
-    <Container isAlternative={isAlternative}>
+    <Container isAlternative={isAlternative}
+    >
       <ModalSendIdea
         idea={idea}
         isOpen={modalSendIdeaOpen}
@@ -115,7 +117,7 @@ export const ItemIdeaSent: React.FC<ItemIdeaSentParams> = ({
       {showTags && (
         <div>
           <CampaingTitle>{ideaCampaingTitle}</CampaingTitle>
-          {isFinished ? (
+          {isFinished  ? (
             <CampaingStatusFinished>
               Não aceita novas iniciativas
             </CampaingStatusFinished>
@@ -123,6 +125,12 @@ export const ItemIdeaSent: React.FC<ItemIdeaSentParams> = ({
             <CampaingStatusActived>Aceitando iniciativas</CampaingStatusActived>
           )}
         </div>
+      )}
+
+      {idea?.status === 'INACTIVE' && (
+       <IdeaFinished>
+        {idea?.status === 'INACTIVE' ? 'Finalizada' : ''}
+      </IdeaFinished>
       )}
       <Box>
         <ListImagesUsers>
@@ -145,8 +153,12 @@ export const ItemIdeaSent: React.FC<ItemIdeaSentParams> = ({
           value="Ver mais"
           background={colors.font}
           color={colors.background}
-          Icon={<RiAddFill color={colors.background} size={20} />}
+          disabled={idea.status === 'INACTIVE'}
+          Icon={<RiAddFill color={colors.background} size={20} />
+        }
         />
+
+        {idea?.status !== 'INACTIVE' && (
         <BoxAction>
           <LikeBox>
             {idea?.ideaLikes?.length !== 0 ? (
@@ -179,6 +191,7 @@ export const ItemIdeaSent: React.FC<ItemIdeaSentParams> = ({
             style={{ cursor: 'pointer' }}
           />
         </BoxAction>
+        )}
       </Footer>
     </Container>
   );

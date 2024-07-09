@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const GraphContainer = styled.div`
   width: 100%;
@@ -61,7 +62,7 @@ export const TitleFilterBar = styled.div`
 `;
 
 export const Balloon = styled.div`
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     left: 20%;
@@ -99,7 +100,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {
@@ -136,7 +137,7 @@ export const VisibleCheckbox = styled.label<{ checked: boolean }>`
   width: 21px;
   height: 21px;
   border-radius: 4px;
-  border: 1.4px solid #47009a;
+  border: 1.4px solid ${({theme}) => theme.colors.primary[styleSlug]};
   background: #fff;
   display: flex;
   justify-content: center;
@@ -164,8 +165,8 @@ export const RankingContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 4px;
   }
 `;

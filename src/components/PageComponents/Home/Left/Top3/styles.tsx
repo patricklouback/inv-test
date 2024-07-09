@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   padding-bottom: 3rem;
@@ -45,7 +46,7 @@ export const ListCampaing = styled.ul<{ align: boolean }>`
 `;
 
 interface ContainerProp {
-  img: string;
+  $img: string;
 }
 
 export const ContainerCampaingRank = styled.li`
@@ -56,7 +57,7 @@ export const ContainerCampaingRank = styled.li`
 
   background: ${({ theme }) => theme.colors.background};
   cursor: pointer;
-  :hover .hover {
+  &:hover .hover {
     transition: 0.4s ease;
     background: #dfdfdf;
   }
@@ -75,7 +76,7 @@ export const ContentCampaingRankDown = styled.div`
   border-radius: 8px;
 
   @media screen and (max-width: 510px) {
-    justify-content: flex-start
+    justify-content: flex-start;
   }
 `;
 
@@ -87,7 +88,7 @@ export const ContentCampaingRankIdeias = styled.span`
 `;
 
 export const ContentCampaingRankDownPosition = styled.span`
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #fff;
   width: 38px;
   height: 38px;
@@ -105,7 +106,7 @@ export const CampaingTopImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -147,7 +148,7 @@ export const ContentCampaingRankImage = styled.div<ContainerProp>`
   position: relative;
   width: 100%;
   height: 100px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -163,7 +164,7 @@ export const ContentCampaingRankDownQnt = styled.span`
   height: 22px;
   left: 46px;
   top: 8px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   background: #ffffff;
   border-radius: 6px;
 

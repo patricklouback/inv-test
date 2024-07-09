@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface StepItemProps {
   completed: boolean;
@@ -60,7 +61,7 @@ export const WapperDraft = styled.div<{ size?: number }>`
   ${({ size }) => {
     if (size <= 521) {
       return css`
-        :first-child {
+        &:first-child {
           margin-top: 20px;
         }
       `;
@@ -70,7 +71,7 @@ export const WapperDraft = styled.div<{ size?: number }>`
   ${({ size }) => {
     if (size <= 521) {
       return css`
-        :last-child {
+        &:last-child {
           justify-content: space-between;
         }
       `;
@@ -131,7 +132,7 @@ export const ItemTag = styled.li<{ background?: string }>`
   justify-content: center;
   align-items: center;
 
-  :nth-child(2) {
+  &:nth-child(2) {
     margin-left: 14px;
   }
 `;
@@ -142,7 +143,7 @@ const KanbanColors = {
   EXTERNAL_REVIEW: '#F99335',
   APPROVED: '#67D1C4',
   PAUSED: 'rgba(45, 55, 72, 0.6)',
-  INACTIVE: '#B80F0A'
+  INACTIVE: '#B80F0A',
 };
 
 export const KanbanStatus = styled.div<{ type: string }>`
@@ -174,10 +175,10 @@ export const WapperDraft1 = styled.div<{ size?: number }>`
   ${({ size }) => {
     if (size <= 1279) {
       return css`
-        :first-child {
+        &:first-child {
           padding-left: 0;
         }
-        :last-child {
+        &:last-child {
           padding-right: 0;
         }
         padding: 0 5px;
@@ -231,10 +232,10 @@ export const WapperDraft2 = styled.div<{ size?: number }>`
   ${({ size }) => {
     if (size <= 1279) {
       return css`
-        :first-child {
+        &:first-child {
           padding-left: 0;
         }
-        :last-child {
+        &:last-child {
           padding-right: 0;
         }
         padding: 0 5px;
@@ -365,9 +366,9 @@ export const CircleGate = styled.div<{ status?: boolean }>`
 export const Line = styled.div<StepItemProps>`
   flex: 1;
   background: ${({ theme, completed }) =>
-    completed ? theme.colors.primary : theme.colors.grey};
+    completed ? theme.colors.primary[styleSlug] : theme.colors.grey};
 
-  height: 16px;
+  height: 12px;
 
   margin: 0 2px;
 `;
@@ -476,10 +477,11 @@ export const PausedTag = styled.span`
   }
 `;
 
-export const LinksTooltip = styled.div.attrs<{ top: number, left: number }, { top: number, left: number }>(
-  props => {
-    return { top: props.top || 0, left: props.left || 0 };
-  }
+export const LinksTooltip = styled.div.attrs<{ top?: number; left?: number }>(
+  props => ({
+    top: props.top ?? 0,
+    left: props.left ?? 0
+  })
 )`
   visibility: hidden;
   margin-left: 17px;

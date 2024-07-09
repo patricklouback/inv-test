@@ -1,7 +1,7 @@
 import ChangePasswordPage from '@components/PageComponents/ChangePassword';
 import { withSSRGuest } from 'utils/withSSRGuest';
 
-export default function ChangePassword(): JSX.Element {
+export default function ChangePassword() {
   return <ChangePasswordPage />;
 }
 

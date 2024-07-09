@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.greyLight};
   border-radius: 24px 24px 8px 8px;
   position: relative;
 
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     border-radius: 0 0 8px 8px;
@@ -27,7 +28,7 @@ export const ButtonSend = styled.button`
   background: ${({ theme }) => theme.colors.greenHipeLight};
   transition: 0.2s ease;
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.greenLimao};
   }
 
@@ -79,9 +80,9 @@ export const Line = styled.div`
 
   background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
 `;
 
@@ -99,11 +100,11 @@ export const Tag = styled.button<{ background?: string; click?: boolean }>`
 
   margin: 0 5px;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 
@@ -159,9 +160,7 @@ export const MainTitle = styled.h2`
 `;
 
 export const Participants = styled.div`
-  max-width: 220px;
-  width: 100%;
-  max-width: 180px;
+  width: 280px;
   margin-bottom: 10px;
 `;
 
@@ -174,11 +173,11 @@ export const ListParticipants = styled.ul`
 export const ItemParticipants = styled.li`
   margin: 5px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 `;
@@ -186,9 +185,34 @@ export const ItemParticipants = styled.li`
 export const ContentParticipants = styled.div``;
 
 export const TitleParticipants = styled.h3`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 18px;
   font-weight: 300;
   margin-bottom: 8px;
+`;
+
+export const ContentIcon = styled.button<{ clickable?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 25%;
+  border: 1px solid ${({ theme }) => theme.colors.borders};
+  background-color: white;
+  cursor: ${({ clickable }) => (clickable === false ? 'default' : 'pointer')};
+
+  &:hover {
+    background-color: ${({ theme, clickable }) =>
+      clickable === false ? 'white' : theme.colors.secondaryLight[styleSlug]};
+    transition: 0.3s ease;
+  }
+
+  &:hover > * {
+    transform: ${({ clickable }) => (clickable === false ? 'none' : 'scale(1.02)')};
+    transition: 0.3s ease;
+  }
 `;
 
 export const ListDescriptionIdea = styled.div`
@@ -200,11 +224,11 @@ export const ItemDescription = styled.div`
   padding-bottom: 20px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.borders};
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 `;
@@ -229,11 +253,11 @@ export const ImagesIdea = styled.ul`
 export const ItemImg = styled.li`
   margin: 0 8px;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 `;
@@ -268,10 +292,10 @@ export const DropList = styled.ul`
 
 export const ItemDroped = styled.li`
   justify-content: space-between;
-  :first-child {
+  &:first-child {
     position: relative;
 
-    :hover #frag {
+    &:hover #frag {
       background: ${({ theme }) => theme.colors.greyLight};
     }
 
@@ -301,18 +325,18 @@ export const ItemDroped = styled.li`
 
   border-bottom: 2px solid ${({ theme }) => theme.colors.borders};
 
-  :first-child {
+  &:first-child {
     border-radius: 8px 8px 0 0;
   }
 
-  :last-child {
+  &:last-child {
     border-bottom: 0;
     border-radius: 0 0 8px 8px;
   }
 
   cursor: pointer;
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.greyLight};
     color: ${({ theme }) => theme.colors.fontDarkGrey};
     font-weight: 600;
@@ -411,7 +435,7 @@ export const TicketTag = styled.div`
   margin-top: 3px;
 `;
 
-export const TagsWrapper = styled.div<{hoverBackgroundColor: boolean}>`
+export const TagsWrapper = styled.div<{ hoverBackgroundColor: boolean }>`
   display: flex;
   max-width: 220px;
   width: 100%;
@@ -421,8 +445,9 @@ export const TagsWrapper = styled.div<{hoverBackgroundColor: boolean}>`
   border-radius: 8px;
   padding-top: 12px;
   padding-left: 8px;
-  :hover {
-    background-color: ${ props => props.hoverBackgroundColor ? '#fdfdfd' : 'none'};
+  &:hover {
+    background-color: ${props =>
+      props.hoverBackgroundColor ? '#fdfdfd' : 'none'};
   }
 `;
 
@@ -448,7 +473,7 @@ export const TagNameWrapper = styled.div<{ backgroundColor: string }>`
   animation: 1s ease-out 0s 1 load;
 `;
 
-export const TagName = styled.div<{color: string}>`
+export const TagName = styled.div<{ color: string }>`
   flex-basis: 80%;
   white-space: nowrap;
   color: ${props => props.color};
@@ -458,11 +483,10 @@ export const TagName = styled.div<{color: string}>`
 `;
 
 export const ColumnRigth = styled.div`
-  margin-left: 20px;
 `;
 
 export const DeleteTag = styled.div`
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -484,9 +508,7 @@ export const DeleteTagWrapper = styled.div`
   animation: 1s ease-out 0s 1 load;
 `;
 
-export const TagsComponent = styled.div`
-  
-`;
+export const TagsComponent = styled.div``;
 
 export const EmptyTags = styled.div`
   display: flex;
@@ -497,12 +519,12 @@ export const EmptyTags = styled.div`
   line-height: 21px;
   letter-spacing: 0em;
   text-align: center;
-  color: #2D374899;
+  color: #2d374899;
   background-color: #fdfdfd;
-  :hover {
+  &:hover {
     cursor: pointer;
   }
-`
+`;
 export const FilesContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -525,4 +547,10 @@ export const LinkTitle = styled.div`
   font-size: 16px;
   line-height: 24px;
   color: #2d3748;
+`;
+
+export const NoParticipants = styled.span`
+  margin-left: 5px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.fontLight};
 `;

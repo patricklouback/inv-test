@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledComponentProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 export const WapperDataInfo = styled.div`
@@ -123,10 +123,12 @@ export const Name = styled.h3`
 export const WapperOutherInformations = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.8rem;
 `;
 
 export const ItemOutherInformations = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  width: 100%;
 `;
 
 export const Exit = styled.div``;
@@ -142,17 +144,17 @@ export const CardsContainer = styled.div`
   }
 `;
 
-export const UserImage = styled.div<{ img?: string }>`
+export const UserImage = styled.div<{ $img?: string }>`
   height: 300px;
   width: 300px;
-  background-image: url(${({ img }) => img});
+  background-image: url(${({ $img }) => $img});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 `;
 
 export const SectionBanner = styled.div<StyledComponentProps>`
-  display: ${props => props.isOpen ? 'flex': 'none'};
+  display: ${props => (props.$isOpen ? 'flex' : 'none')};
   align-items: center;
   width: 98%;
   height: 60px;
@@ -194,8 +196,7 @@ export const KnowPlans = styled.span`
   }
 `;
 
-export const BannerSubtitle = styled.div`
-`;
+export const BannerSubtitle = styled.div``;
 
 export const CloseButtonWrapper = styled.div`
   &:hover {

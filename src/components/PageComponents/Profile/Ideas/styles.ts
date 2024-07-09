@@ -26,11 +26,11 @@ export const Item = styled.div`
   margin: 10px;
   padding-bottom: 20px;
 
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
 

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ValueProps {
   selected?: string;
@@ -33,11 +34,11 @@ export const InfoText = styled.div`
 export const DraftC = styled.div`
   margin: 50px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 `;
@@ -66,12 +67,12 @@ const WrapperValueModifier = {
     color: ${({ theme }) => theme.colors.fontWhite};
   `,
   no: () => css`
-  color: ${({ theme }) => theme.colors.font};
-`,
-}
+    color: ${({ theme }) => theme.colors.font};
+  `,
+};
 
 export const Value = styled.span<ValueProps>`
-  ${(props) => css`
+  ${props => css`
     width: 131px;
     height: 88px;
 
@@ -84,8 +85,7 @@ export const Value = styled.span<ValueProps>`
     position: absolute;
     font-size: 15px;
     ${WrapperValueModifier[props.selected]}
-  `}
-  ;
+  `};
 `;
 
 export const Rotate = styled.div<{ rotate?: boolean }>`
@@ -107,7 +107,7 @@ export const Rotate = styled.div<{ rotate?: boolean }>`
     rotate &&
     css`
       transform: rotateZ(0deg);
-      background: ${({ theme }) => theme.colors.primaryLight};
+      background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
     `}
 `;
 

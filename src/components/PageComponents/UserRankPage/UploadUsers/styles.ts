@@ -32,7 +32,7 @@ export const ModalRegister = styled.div`
       cursor: pointer;
       width: auto;
       margin-bottom: 54px;
-      :hover {
+      &:hover {
         color: ${({ theme }) => theme.colors.fontLight};
       }
       span {
@@ -54,10 +54,10 @@ export const ModalRegister = styled.div`
 `;
 
 export const ButtonAction = styled.button`
-  :nth-child(3) {
+  &:nth-child(3) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
-  :nth-child(4) {
+  &:nth-child(4) {
     background: ${({ theme }) => theme.colors.greenHipeLight};
   }
   max-width: 226px;
@@ -67,10 +67,10 @@ export const ButtonAction = styled.button`
   border-radius: 8px;
   outline: none;
   margin: 0 8px;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   display: flex;

@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ApresentationCompany } from '@components/Apresentation';
 import { Container } from '@components/Container';
 import { Pagination } from '@components/Pagination';
 import { DefaultSection } from '@components/SectionDefault';
@@ -19,7 +18,9 @@ import {
 } from 'react-icons/io';
 import { MdFilterListAlt } from 'react-icons/md';
 import { useTheme } from 'styled-components';
-import DownloadSvg from '../../../assets/inventta/downloadIcon.svg';
+import { styleSlug } from 'utils/constants';
+import { debounce } from 'lodash';
+import { DownloadIcon } from '@components/Icons';
 import { AddUser } from './AddUser';
 import { InactiveUsers } from './InactiveUsers';
 import { UpdateUsers } from './UpdateUsers';
@@ -52,7 +53,7 @@ import {
 
 type FilterOptionOpen = 'DEPARTAMENT' | 'AREA' | undefined;
 
-export const ManagementUserPage: React.FC = (): JSX.Element => {
+export const ManagementUserPage = () => {
   const { colors } = useTheme();
   const { back } = useRouter();
 
@@ -81,6 +82,7 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
         limit: paginate.limit,
         offset: paginate.pages,
         page: newPage,
+        orderColumn: 'name',
       });
     },
     [paginate, getUsers]
@@ -151,13 +153,23 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
     getUsers();
   }, [getAreas, getDepartaments, getUsers]);
 
+  const debounceGetUsers = useCallback(
+    debounce(() => {
+      getUsers({
+        areaIds: areaIds.length > 0 ? JSON.stringify(areaIds) : undefined,
+        departamentIds:
+          departamentIds.length > 0
+            ? JSON.stringify(departamentIds)
+            : undefined,
+        search,
+        orderColumn: 'name',
+      });
+    }, 500),
+    [areaIds, departamentIds, search, getUsers]
+  );
+
   useEffect(() => {
-    getUsers({
-      areaIds: areaIds.length > 0 ? JSON.stringify(areaIds) : undefined,
-      departamentIds:
-        departamentIds.length > 0 ? JSON.stringify(departamentIds) : undefined,
-      search,
-    });
+    debounceGetUsers();
   }, [areaIds, departamentIds, search, getUsers]);
 
   return (
@@ -175,8 +187,8 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
       )}
 
       {isModalRegisterOpen && (
-        <UploadUsers 
-          setIsModalRegisterOpen={setIsModalRegisterOpen} 
+        <UploadUsers
+          setIsModalRegisterOpen={setIsModalRegisterOpen}
           setModalAddUserOpen={setIsModalAddUserOpen}
         />
       )}
@@ -224,7 +236,7 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
                   <Filter size={size}>
                     <ButtonAction
                       size={size}
-                      backgr={colors.font}
+                      $backgr={colors.font}
                       onClick={() => handleOpenFilter('AREA')}
                     >
                       <MdFilterListAlt />
@@ -253,7 +265,7 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
                   <Filter size={size}>
                     <ButtonAction
                       size={size}
-                      backgr={colors.font}
+                      $backgr={colors.font}
                       onClick={() => handleOpenFilter('DEPARTAMENT')}
                     >
                       <MdFilterListAlt />
@@ -284,19 +296,19 @@ export const ManagementUserPage: React.FC = (): JSX.Element => {
                     )}
                   </Filter>
                   <ButtonDownload
-                    // onClick={downloadReport}
+                    onClick={downloadReport}
                     className="download-material"
-                    disabled
-                    title='Em desenvolvimento'
+                    // disabled
+                    title="Em desenvolvimento"
                   >
-                    <DownloadSvg />
+                    <DownloadIcon color={colors.primary[styleSlug]} />
                     <ButtonDownloadText>
-                    <span>Histórico de acessos</span>
+                      <span>Histórico de acessos</span>
                     </ButtonDownloadText>
                   </ButtonDownload>
                   <ButtonAction
                     size={size}
-                    backgr={colors.primary}
+                    $backgr={colors.primary[styleSlug]}
                     onClick={() => setIsModalRegisterOpen(true)}
                   >
                     <span>Adicionar Usuários</span>

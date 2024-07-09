@@ -32,11 +32,11 @@ export default function FormLogin({ ...propsButton }: propsLogin): JSX.Element {
       <Input
         name="authenticationCode"
         id="authenticationCode"
-        register={register}
         placeholder="******"
         errors={errors.authenticationCode}
         Icon={AiOutlineLock}
         isPassword={!propsButton.isEmail}
+        {...register('authenticationCode')}
       />
 
       <Button {...propsButton} name="login" icon={<AiOutlineLock />}>

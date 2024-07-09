@@ -94,7 +94,6 @@ export const Content = styled.div`
 `;
 
 export const Item = styled.div`
-
   font-family: Montserrat;
   font-size: 16px;
   font-weight: 500;
@@ -118,4 +117,4 @@ export const ItemDescription = styled.div`
 export const UserWrapper = styled.div`
   margin-top: 10px;
   margin-bottom: 20px;
-`
+`;

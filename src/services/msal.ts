@@ -1,14 +1,42 @@
 import * as msal from '@azure/msal-browser';
 
-const msalConfig = {
-  auth: {
-    clientId: `${process.env.NEXT_PUBLIC_AUTH_CLIENT_ID_LAB}`,
-    authority: `https://login.microsoftonline.com/${process.env.NEXT_PUBLIC_AUTH_TENANT_GUID_LAB}`,
-    redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URL_LAB}`,
-  },
+import { getSsoClients } from '../utils/get-sso-clients';
+
+const createMsalInstance = (key: string) => {
+  const ssoConfig = getSsoClients(key);
+  if (!ssoConfig) {
+    const inventtaConfig = getSsoClients('inventta');
+
+    const msalConfig = {
+      auth: {
+        clientId: inventtaConfig.authClient,
+        authority: `https://login.microsoftonline.com/${inventtaConfig.authTennant}`,
+        redirectUri: inventtaConfig.redirect,
+      },
+    };
+  
+    const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+    return {
+      msalInstance,
+      hasSSO: false,
+    };
+  };
+
+  const msalConfig = {
+    auth: {
+      clientId: ssoConfig.authClient,
+      authority: `https://login.microsoftonline.com/${ssoConfig.authTennant}`,
+      redirectUri: ssoConfig.redirect,
+    },
+  };
+
+  const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+  return {
+    msalInstance,
+    hasSSO: true,
+  };
 };
 
-const msalInstance = new msal.PublicClientApplication(msalConfig);
-
-export { msalInstance };
-
+export { createMsalInstance };

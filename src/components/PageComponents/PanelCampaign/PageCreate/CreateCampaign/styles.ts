@@ -66,7 +66,9 @@ export const Item = styled.div`
   // }
 `;
 
-export const ButtonSave = styled.button<React.ButtonHTMLAttributes<HTMLButtonElement>>`
+export const ButtonSave = styled.button<
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>`
   border-radius: 12px;
   width: auto;
   height: 56px;

@@ -51,7 +51,7 @@ export const SubComment: React.FC<{
       <CommentArea>
         <UserAndDate>
           <PhotoAndName>
-            <Image img={userImage || '/images/user.png'} />
+            <Image $img={userImage || '/images/user.png'} />
             <div> {userName} </div>
           </PhotoAndName>
           <CommentDate>{createdAt.toLocaleDateString('pt-BR')}</CommentDate>

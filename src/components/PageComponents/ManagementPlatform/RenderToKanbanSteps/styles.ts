@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ToForm = styled.div`
   display: flex;
@@ -70,10 +71,10 @@ export const Label = styled.div`
   display: flex;
   align-items: center;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -119,7 +120,7 @@ export const CustomInput = styled.input`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -134,16 +135,16 @@ export const IconButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.grey_hover};
     border-radius: 50%;
   }
   margin: 0 2px;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 `;

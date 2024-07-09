@@ -74,6 +74,9 @@ export const ButtonAction = styled.button`
   color: ${({ theme }) => theme.colors.background};
   font-weight: 500;
   letter-spacing: 0.5px;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const Label = styled.p`
@@ -116,11 +119,10 @@ export const UserType = styled.div`
   margin-top: 0.5rem;
 `;
 
-export const UserTypeTooltip = styled.div.attrs<{ top: number, left: number }, { top: number, left: number }>(
-  props => {
-    return { top: props.top || 0, left: props.left || 0 };
-  }
-)`
+export const UserTypeTooltip = styled.div.attrs<{ top?: number; left?: number }>(props => ({
+  top: props.top ?? 0,
+  left: props.left ?? 0
+}))`
   visibility: hidden;
   min-width: 350px;
   margin-left: 17px;

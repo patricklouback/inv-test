@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useTheme } from 'styled-components';
+import { styleSlug } from 'utils/constants';
+import { DownloadIcon } from '@components/Icons';
 import CheckSvg from '../../../../assets/inventta/check.svg';
-import DownloadSvg from '../../../../assets/inventta/downloadIcon.svg';
 import LikeSvg from '../../../../assets/inventta/like.svg';
 import LikedSvg from '../../../../assets/inventta/liked.svg';
 import ShareSvg from '../../../../assets/inventta/share.svg';
@@ -55,6 +57,7 @@ export const VideoBox: React.FC<{
   liked,
   updateVideoLiked,
 }): JSX.Element => {
+  const { colors } = useTheme();
   const onVideoWatched = (): void => {
     updateVideoWatched(videoId);
   };
@@ -149,7 +152,7 @@ export const VideoBox: React.FC<{
                     className="download-material"
                     title={fileName === '' && 'Não há material para baixar'}
                   >
-                    <DownloadSvg />
+                    <DownloadIcon color={colors.primary[styleSlug]} />
                     <ButtonDownloadText>
                       Baixar material desta aula
                     </ButtonDownloadText>

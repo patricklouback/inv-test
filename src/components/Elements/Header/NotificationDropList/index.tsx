@@ -56,9 +56,7 @@ export function NotificationDropList(): JSX.Element {
       extraBottom={
         notifications.length > 0 && (
           <ViewAll>
-            <Link href="/notifications">
-              <a>Ver tudo</a>
-            </Link>
+            <Link href="/notifications">Ver tudo</Link>
           </ViewAll>
         )
       }

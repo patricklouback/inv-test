@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Containerr = styled.div`
   display: flex;
@@ -74,7 +75,7 @@ export const Video = styled.div`
 
 export const ButtonNext = styled.button`
   background: white;
-  color: #47009a;
+  color: ${({theme}) => theme.colors.primary[styleSlug]};
   height: 56px;
   border-color: #b5b5b5;
   border-top-right-radius: 6px;
@@ -97,15 +98,15 @@ export const ButtonNext = styled.button`
     transform: scaleX(-1) rotate(225deg);
     width: 16px;
     height: 16px;
-    border-top: 4px solid #47009a;
-    border-right: 4px solid #47009a;
+    border-top: 4px solid ${({theme}) => theme.colors.primary[styleSlug]};
+    border-right: 4px solid ${({theme}) => theme.colors.primary[styleSlug]};
     transform-origin: left top;
   }
 `;
 
 export const ButtonPreview = styled.button`
   background: white;
-  color: #47009a;
+  color: ${({theme}) => theme.colors.primary[styleSlug]};
   height: 56px;
   border-color: #b5b5b5;
   border-top-left-radius: 6px;
@@ -128,8 +129,8 @@ export const ButtonPreview = styled.button`
     transform: scaleX(-1) rotate(45deg);
     width: 16px;
     height: 16px;
-    border-top: 4px solid #47009a;
-    border-right: 4px solid #47009a;
+    border-top: 4px solid ${({theme}) => theme.colors.primary[styleSlug]};
+    border-right: 4px solid ${({theme}) => theme.colors.primary[styleSlug]};
     transform-origin: left top;
   }
 `;
@@ -137,7 +138,7 @@ export const ButtonPreview = styled.button`
 export const ButtonDownload = styled.button`
   background: white;
   display: flex;
-  color: #47009a;
+  color: ${({theme}) => theme.colors.primary[styleSlug]};
   height: 56px;
   border-color: #b5b5b5;
   border-radius: 10px;
@@ -180,7 +181,7 @@ export const Title = styled.div`
 `;
 
 export const DefaultSection = styled.div`
-  display: flex
+  display: flex;
   align-items: left;
   justify-content: left;
   gap: 20px;

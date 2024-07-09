@@ -1,13 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { KanbanStep } from 'interfaces/idea';
 import { ConfigContext } from 'contexts/ConfigContext';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import { FiCheck, FiEdit2, } from 'react-icons/fi';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { FiCheck, FiEdit2 } from 'react-icons/fi';
 import {
   ToForm,
   Index,
@@ -24,7 +19,7 @@ interface RenderKanbanStepsProps {
   kanbanStep: KanbanStep;
   index: number;
   isCreate?: boolean;
-  changeKanbanStepState?:(newState: KanbanStep[]) => void;
+  changeKanbanStepState?: (newState: KanbanStep[]) => void;
 }
 
 export const RenderToKanbanSteps: React.FC<RenderKanbanStepsProps> = ({
@@ -35,14 +30,14 @@ export const RenderToKanbanSteps: React.FC<RenderKanbanStepsProps> = ({
 }): JSX.Element => {
   const [isEditable, setIsEditable] = useState(false);
   const [kanbanStepBase, setKanbanStepBase] = useState<KanbanStep>();
-  const {
-    getKanbanSteps,
-    updateKanbanStep,
-  } = useContext(ConfigContext);
+  const { getKanbanSteps, updateKanbanStep } = useContext(ConfigContext);
 
-  const handleChangeKanbanStepsState = useCallback((newState: KanbanStep[]): void => {
-    changeKanbanStepState(newState);
-  },[changeKanbanStepState]);
+  const handleChangeKanbanStepsState = useCallback(
+    (newState: KanbanStep[]): void => {
+      changeKanbanStepState(newState);
+    },
+    [changeKanbanStepState]
+  );
 
   const handleEditKanbanStepBase = useCallback(event => {
     const { name, value } = event.target;
@@ -70,37 +65,35 @@ export const RenderToKanbanSteps: React.FC<RenderKanbanStepsProps> = ({
       setIsEditable(true);
     }
   }, [kanbanStep, isCreate]);
-        return (
-          <InputWrapper>
-            <ToForm>
-              <Index>{index + 1}.</Index>
-              <Content>
-                <Draft>
-                  <Text>Título</Text>
-                  <CustomInput
-                    value={kanbanStepBase?.title}
-                    name="title"
-                    onChange={handleEditKanbanStepBase}
-                    placeholder="Título"
-                    type="text"
-                    disabled={!isEditable}
-                  />
-                </Draft>
-                <Actions>
-                  {isEditable ? (
-                    <IconButton
-                      onClick={handleUpdateKanbanStep}
-                    >
-                      <FiCheck size={20} />
-                    </IconButton>
-                  ) : (
-                    <IconButton onClick={() => setIsEditable(true)}>
-                      <FiEdit2 size={20} />
-                    </IconButton>
-                  )}
-                </Actions>
-              </Content>
-            </ToForm>
-          </InputWrapper>
-        )
+  return (
+    <InputWrapper>
+      <ToForm>
+        <Index>{index + 1}.</Index>
+        <Content>
+          <Draft>
+            <Text>Título</Text>
+            <CustomInput
+              value={kanbanStepBase?.title}
+              name="title"
+              onChange={handleEditKanbanStepBase}
+              placeholder="Título"
+              type="text"
+              disabled={!isEditable}
+            />
+          </Draft>
+          <Actions>
+            {isEditable ? (
+              <IconButton onClick={handleUpdateKanbanStep}>
+                <FiCheck size={20} />
+              </IconButton>
+            ) : (
+              <IconButton onClick={() => setIsEditable(true)}>
+                <FiEdit2 size={20} />
+              </IconButton>
+            )}
+          </Actions>
+        </Content>
+      </ToForm>
+    </InputWrapper>
+  );
 };

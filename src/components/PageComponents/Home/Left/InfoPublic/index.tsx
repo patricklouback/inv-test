@@ -29,8 +29,20 @@ export function InfoPublic(): JSX.Element {
   return (
     <Container>
       <List>
-        <InfoCard  iconComponent={<RiLightbulbFlashLine color="rgba(49, 85, 148, 0.6)" size={100}/>} data={ideas?.countIdeas} title='Iniciativas Criadas'/>
-        <InfoCard  iconComponent={<RiFileSettingsLine color="rgba(49, 85, 148, 0.6)" size={100} />} data={ideas?.countImplementedIdeas} title='Projetos em implantação'/>
+        <InfoCard
+          iconComponent={
+            <RiLightbulbFlashLine color="rgba(49, 85, 148, 0.6)" size={100} />
+          }
+          data={ideas?.countIdeas}
+          title="Iniciativas Criadas"
+        />
+        <InfoCard
+          iconComponent={
+            <RiFileSettingsLine color="rgba(49, 85, 148, 0.6)" size={100} />
+          }
+          data={ideas?.countImplementedIdeas}
+          title="Projetos em implantação"
+        />
       </List>
     </Container>
   );

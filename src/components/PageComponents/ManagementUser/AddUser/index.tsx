@@ -5,10 +5,11 @@ import { yupValidateAddUser } from '@validators/user';
 import { AdmContext, ICreateUserDTO } from 'contexts/Adm';
 import { Area } from 'interfaces/areas';
 import { Departament } from 'interfaces/departament';
-import { SetStateAction, useCallback, useContext } from 'react';
+import { SetStateAction, useCallback, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
+import { toast } from 'react-toastify';
 import {
   AdminContainer,
   AdminTypeTip,
@@ -35,6 +36,7 @@ export function AddUser({
   departaments,
 }: AddUserProps): JSX.Element {
   const { createUser, getUsers } = useContext(AdmContext);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     formState: { errors },
     register,
@@ -42,10 +44,57 @@ export function AddUser({
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupValidateAddUser),
+    defaultValues: {
+      name: '',
+      email: '',
+      registration: '',
+      areaId: '',
+      departamentId: '',
+      isAdmin: false,
+      isManager: false,
+      password: '',
+    },
   });
 
   const handleSubmitUser = useCallback(
     async values => {
+      const hasEmail = values.email !== '';
+      const hasRegistration = values.registration !== '';
+      const hasPassword = values.password !== '';
+
+      const emptyArea =
+        values.areaId === '' ||
+        values.areaId === null ||
+        values.areaId === undefined;
+
+      const emptyDept =
+        values.departamentId === '' ||
+        values.departamentId === null ||
+        values.departamentId === undefined;
+
+      if (!hasEmail && !hasRegistration) {
+        toast.warning('Insira um email ou matrícula para criar um usuário.');
+        return;
+      }
+
+      if (!hasPassword && hasRegistration) {
+        toast.warning(
+          'Se houver matrícula a redefinição da senha é obrigatória, apague a matrícula para continuar, ou redefina a senha.'
+        );
+        return;
+      }
+
+      if (emptyArea) {
+        toast.warning('Selecione uma área para poder criar um usuário.');
+        return;
+      }
+
+      if (emptyDept) {
+        toast.warning('Selecione um departamento para poder criar um usuário.');
+        return;
+      }
+      setIsLoading(true);
+
       const data: ICreateUserDTO = {
         name: values.name,
         areaId: values.areaId,
@@ -57,9 +106,15 @@ export function AddUser({
         isAdmin: values.isAdmin,
         isManager: values.isManager,
       };
-      await createUser(data);
-      await getUsers();
-      setIsModalAddUserOpen(false);
+      try {
+        await createUser(data);
+        await getUsers();
+      } catch (error) {
+        toast.error('Erro ao criar usuário');
+      } finally {
+        setIsLoading(false);
+        setIsModalAddUserOpen(false);
+      }
     },
     [createUser, setIsModalAddUserOpen, getUsers]
   );
@@ -78,39 +133,43 @@ export function AddUser({
         <div>
           <Label>Nome</Label>
           <Input
-            errors={errors}
-            register={register}
             name="name"
             placeholder="Nome"
+            {...register('name')}
+            error={errors?.name?.message}
           />
 
           <Label>Email</Label>
           <Input
-            errors={errors}
-            register={register}
             name="email"
             placeholder="Email"
+            {...register('email')}
+            error={errors?.email?.message}
           />
 
           <Label>Matrícula</Label>
           <Input
-            errors={errors}
-            register={register}
             name="registration"
             placeholder="Matrícula"
+            {...register('registration')}
+            error={errors?.registration?.message}
           />
 
           <Label>Senha Temporária</Label>
           <Input
-            errors={errors}
-            register={register}
             name="password"
-            placeholder="******"
             type="password"
+            placeholder="******"
+            {...register('password')}
+            error={errors?.password?.message}
           />
 
           <Label>Área / Unidade do Negócio</Label>
-          <Select name="areaId" {...register('areaId')} error={errors.areaId}>
+          <Select
+            name="areaId"
+            error={!!errors?.areaId?.message}
+            {...register('areaId')}
+          >
             <option value="">Selecione</option>
             {areas.map(area => (
               <option value={area.id}>{area.name}</option>
@@ -120,8 +179,8 @@ export function AddUser({
           <Label>Departamento</Label>
           <Select
             name="departamentId"
+            error={!!errors?.departamentId?.message}
             {...register('departamentId')}
-            error={errors.areaId}
           >
             <option value="">Selecione</option>
             {departaments.map(departament => (
@@ -163,8 +222,8 @@ export function AddUser({
           </UserType>
         </div>
 
-        <ButtonAction id="green" type="submit">
-          <span>Adicionar Usuarios</span>
+        <ButtonAction id="green" disabled={isLoading} type="submit">
+          <span>{isLoading ? 'Criando usuário...' : 'Adicionar Usuario'}</span>
         </ButtonAction>
       </Form>
     </ModalAddUser>

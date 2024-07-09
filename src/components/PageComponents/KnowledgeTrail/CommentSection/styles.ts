@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
-export const Content = styled.div.attrs<{ height: number }, { height: number }>(
-  props => {
-    return { height: props.height || 682 };
-  }
-)`
+export const Content = styled.div<{ height?: number }>`
   width: 1256px;
-  // height: ${props => props.height}px;
+  height: ${props => props.height || 682}px;
   padding-bottom: 31px;
   padding-left: 32px;
   padding-right: 32px;

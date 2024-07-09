@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { getCookie, removeCookies, setCookies } from 'cookies-next';
 import { LoginForm, LoginWithoutAuthForm, SendCodeForm } from 'interfaces';
 import { ITour, TourId, TourStatus } from 'interfaces/tour';
 import { ChangePassword, User, UserUpdate } from 'interfaces/user';
@@ -15,6 +14,7 @@ import React, {
 import { toast } from 'react-toastify';
 import { api } from 'services/api';
 import { getIsEmail } from 'utils/isEmail';
+import { getCookie, setCookie, removeCookie } from 'utils/storage';
 import { AuthDefaultValues, AuthReducer } from './reducers/AuthReducer';
 
 interface AuthPropsData {
@@ -66,11 +66,7 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
       dispatch({ type: 'SET_TOKEN', token: data.token });
       dispatch({ type: 'SET_USER', user: data.user });
 
-      setCookies('authentication', data.token, {
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24,
-        path: '/',
-      });
+      setCookie('authentication', data.token);
 
       Object.assign(api.defaults.headers, {
         Authorization: `Bearer ${data.token}`,
@@ -95,12 +91,7 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
 
       dispatch({ type: 'SET_TOKEN', token: data.token });
       dispatch({ type: 'SET_USER', user: data.user });
-
-      setCookies('authentication', data.token, {
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24,
-        path: '/',
-      });
+      setCookie('authentication', data.token);
 
       Object.assign(api.defaults.headers, {
         Authorization: `Bearer ${data.token}`,
@@ -134,8 +125,6 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
     async ({ email }: SendCodeForm) => {
       try {
         const isEmail = getIsEmail(email);
-
-        console.log({ isEmail });
 
         dispatch({ type: 'SET_LOADING', loading: true });
         await api.post('/users/sessions', {
@@ -179,18 +168,14 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
         if (!isEmail && !hasFirstAcess) {
           await push('/change-password');
         } else {
-          setCookies('authentication', data.token, {
-            secure: true,
-            maxAge: 1000 * 60 * 60 * 24,
-            path: '/',
-          });
+          setCookie('authentication', data.token);
 
           Object.assign(api.defaults.headers, {
             Authorization: `Bearer ${data.token}`,
           });
 
           toast.success('Entrando...');
-          await push('/home');
+          await push('/');
         }
         dispatch({ type: 'SET_LOGIN_STEP', loginStep: false });
       } catch (err) {
@@ -215,11 +200,7 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
           newPassword,
         });
 
-        setCookies('authentication', dataReducer.token, {
-          secure: true,
-          maxAge: 1000 * 60 * 60 * 24,
-          path: '/',
-        });
+        setCookie('authentication', dataReducer.token);
 
         Object.assign(api.defaults.headers, {
           Authorization: `Bearer ${dataReducer.token}`,
@@ -249,12 +230,7 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
         dispatch({ type: 'SET_TOKEN', token: data.token });
         dispatch({ type: 'SET_USER', user: data.user });
 
-        setCookies('authentication', data.token, {
-          secure: true,
-          maxAge: 1000 * 60 * 60 * 24,
-          path: '/',
-        });
-
+        setCookie('authentication', data.token);
         Object.assign(api.defaults.headers, {
           Authorization: `Bearer ${data.token}`,
         });
@@ -279,20 +255,24 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
 
         toast.success('Editado sucesso');
       } catch (err) {
-        toast.error(err?.response?.data?.message || 'Error');
+        console.error(err?.response?.data?.message);
+        // toast.error(err?.response?.data?.message || 'Error');
       }
     },
     [dispatch]
   );
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    await api.post('/users/sessions/end-access');
+
     localStorage.removeItem('emailLogin');
-    removeCookies('authentication');
+    removeCookie('authentication');
     dispatch({ type: 'SET_TOKEN', token: undefined });
     dispatch({ type: 'SET_USER', user: undefined });
     Object.assign(api.defaults.headers, {
       Authorization: '',
     });
+
     // push('api/auth/signout/azureb2c');
     push('/login');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -310,12 +290,6 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
         });
         dispatch({ type: 'SET_TOKEN', token: data.token });
         dispatch({ type: 'SET_USER', user: data.user });
-
-        setCookies('authentication', data.token, {
-          secure: true,
-          maxAge: 1000 * 60 * 60 * 24,
-          path: '/',
-        });
 
         Object.assign(api.defaults.headers, {
           Authorization: `Bearer ${data.token}`,
@@ -337,7 +311,8 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
       const { data } = await api.get('/users/sessions/get-accept-terms');
       dispatch({ type: 'SET_ACCEPTED_TERMS', acceptedTerms: data });
     } catch (err) {
-      toast.error(err?.response?.data?.message || 'Erro ao aceitar termos');
+      console.error(err?.response?.data?.message);
+      // toast.error(err?.response?.data?.message || 'Erro ao aceitar termos');
     }
   }, [dispatch]);
 
@@ -471,15 +446,6 @@ export const ProviderAuth: React.FC = ({ children }): JSX.Element => {
   useEffect(() => {
     verifyToken();
   }, [verifyToken]);
-
-  // useEffect(() => {
-  //   if (getCookie('authentication')) {
-  //     dispatch({
-  //       type: 'SET_TOKEN',
-  //       token: String(getCookie('authentication')),
-  //     });
-  //   }
-  // }, [dispatch]);
 
   const AuthDataValue: AuthPropsData = useMemo(() => {
     return {

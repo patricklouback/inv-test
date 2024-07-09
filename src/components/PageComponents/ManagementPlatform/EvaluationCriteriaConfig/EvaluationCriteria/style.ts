@@ -8,11 +8,11 @@ export const Section = styled.section`
 export const DraftC = styled.div`
   margin: 50px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 `;

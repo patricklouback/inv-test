@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { MentionsInput } from 'react-mentions';
 
 export const SectionComments = styled.div`
@@ -69,10 +69,10 @@ export const StyledMentionsInput = styled(MentionsInput)`
     padding: 24px 1rem;
     border: 0;
     outline: 0;
-  
+
     -moz-box-shadow: none;
     box-shadow: none;
-  
+
     max-width: 100%;
   }
 `;

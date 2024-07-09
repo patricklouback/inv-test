@@ -4,7 +4,7 @@ import { DepartamentProvider } from 'contexts/DepartamentContext';
 import { ProviderUser } from 'contexts/User';
 import { BannersProvider } from 'contexts/Banners';
 
-export default function Profile(): JSX.Element {
+export default function Profile() {
   return (
     <ProviderUser>
       <AreaProvider>

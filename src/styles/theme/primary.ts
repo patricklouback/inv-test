@@ -1,14 +1,26 @@
 export const theme = {
   colors: {
-    primary: '#48009b',
-    primaryLight: '#9d29f0',
+    primary: {
+      default: '#48009b',
+      accamargo: '#007E35',
+    },
+    primaryLight: {
+      default: '#9d29f0',
+      accamargo: '#5EAD7F',
+    },
     primaryShadow: 'rgba(71, 0, 154, 0.05)',
     secondary: '#222',
-    secondaryLight: '#f9f9f9',
+    secondaryLight: {
+      default: '#f9f9f9',
+      accamargo: 'rgba(0, 126, 53, 0.05)',
+    },
     accent: '#8c0960',
     accentLight: '#e00076',
     rankColor: '#DF0075',
-    terceary: '#67D1C4',
+    terceary: {
+      default: '#67D1C4',
+      accamargo: '#0C563D',
+    },
     tercearyHover: '#9ad9d1',
     font: '#2D3748',
     fontWhite: '#FDFDFD',
@@ -40,7 +52,7 @@ export const theme = {
     greenHipeLight: '#00D4C5',
     yellow: '#FEC14B',
     red: '#F51B1B',
-    lightRed:'rgba(245, 27, 27, 0.5)',
+    lightRed: 'rgba(245, 27, 27, 0.5)',
     secondaryLight2: '#2D3748',
     orange: '#F99335',
     primaryPurple: '#47009A',
@@ -61,5 +73,17 @@ export const theme = {
   sizes: {
     container: '1440px',
     internalPadding: '0 2rem',
+  },
+  images: {
+    login: {
+      default: '/background_login.jpg',
+      accamargo: '/background_login_acc.png',
+    },
+  },
+  slug: {
+    login: {
+      default: 'center',
+      accamargo: 'space-between',
+    },
   },
 };

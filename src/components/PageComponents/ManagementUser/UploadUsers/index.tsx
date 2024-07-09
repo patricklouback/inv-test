@@ -18,6 +18,7 @@ export function UploadUsers({
 }: UploadUsersProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
   const [showUploadCsvForm, setShowUploadCsvForm] = useState(false);
+  const hasSSO = localStorage.getItem('hasSSO') === 'true';
   const handleUploadUsersByMicrosoft = async (): Promise<void> => {
     try {
       setIsLoading(true);
@@ -54,10 +55,12 @@ export function UploadUsers({
 
     return (
       <>
-        <ButtonAction onClick={handleUploadUsersByMicrosoft}>
-          <span>Sincronizar pela Microsoft</span>
-          <IconMicrosoft id="icon" style={{ height: '20px' }} />
-        </ButtonAction>
+        {hasSSO && (
+          <ButtonAction onClick={handleUploadUsersByMicrosoft}>
+            <span>Sincronizar pela Microsoft</span>
+            <IconMicrosoft id="icon" style={{ height: '20px' }} />
+          </ButtonAction>
+        )}
         <ButtonAction
           onClick={() => {
             setShowUploadCsvForm(true);
@@ -66,9 +69,7 @@ export function UploadUsers({
           Upload por CSV
           <FaFileCsv id="icon" size={28} />
         </ButtonAction>
-        <ButtonAction
-        onClick={() => setModalAddUserOpen(true)}
-        >
+        <ButtonAction onClick={() => setModalAddUserOpen(true)}>
           <span>Adicionar Usuários</span>
         </ButtonAction>
       </>

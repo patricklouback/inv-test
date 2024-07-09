@@ -46,8 +46,18 @@ export const UserEvaluationCriterias: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     async function loadEvaluationCriterias(): Promise<void> {
-      const response = (await getUsersEvaluationCriterias()).sort((a, b) => {
-        return a.id - b.id;
+      const fetchedCriterias = await getUsersEvaluationCriterias();
+      const uniqueCriterias = fetchedCriterias.reduce((acc, current) => {
+        const key = `${current.sequence}-${current.criteriaStep}`;
+        if (
+          !acc.some(item => `${item.sequence}-${item.criteriaStep}` === key)
+        ) {
+          acc.push(current);
+        }
+        return acc;
+      }, []);
+      const response = uniqueCriterias.sort((a, b) => {
+        return a.sequence - b.sequence;
       });
       setEvaluationCriterias(response);
       setAllEvaluationCriterias(response);
@@ -109,7 +119,7 @@ export const UserEvaluationCriterias: React.FC = (): JSX.Element => {
         <FilterSearch>
           <SearchSVG />
           <InputFilterSearch
-            placeholder="Pesquisar por nome ou ID"
+            placeholder="Pesquisar por nome"
             value={filterContent}
             onChange={handleChangeFilterContent}
           />
@@ -146,7 +156,7 @@ export const UserEvaluationCriterias: React.FC = (): JSX.Element => {
         <Table>
           <thead>
             <TableRow>
-              <TableHeader isFirst>ID</TableHeader>
+              <TableHeader isFirst>ID da iniciativa</TableHeader>
               <TableHeader>Título da iniciativa</TableHeader>
               <TableHeader>Tempo pendente</TableHeader>
               <TableHeader>Etapa</TableHeader>
@@ -159,9 +169,11 @@ export const UserEvaluationCriterias: React.FC = (): JSX.Element => {
         <TableContainer>
           <Table>
             <TableBody>
-              {evaluationCriterias.map((item, index) => (
+              {evaluationCriterias.map(item => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.id}</TableCell>
+                  <TableCell>
+                    {item.sequence.toString().padStart(4, '0')}
+                  </TableCell>
                   <TableCell>{item.title}</TableCell>
                   <TableCell>{daysPassedSince(item)}</TableCell>
                   <TableCell>{mapStepName[item.criteriaStep].name}</TableCell>

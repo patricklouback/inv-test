@@ -29,12 +29,12 @@ const stepsDefault: Step[] = [
     ),
     locale: {
       next: (
-        <StartButton aria-label="next" variant="primary">
+        <StartButton aria-label="next" $variant="primary">
           Vamos lá!
         </StartButton>
       ),
       skip: (
-        <StartButton aria-label="skip" variant="secondary">
+        <StartButton aria-label="skip" $variant="secondary">
           Ver depois
         </StartButton>
       ),
@@ -52,7 +52,7 @@ const stepsDefault: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),
@@ -90,7 +90,7 @@ const stepAdmin: Step = {
   ),
   locale: {
     close: (
-      <StepsButton aria-label="close" variant="primary">
+      <StepsButton aria-label="close" $variant="primary">
         Ok!
       </StepsButton>
     ),
@@ -130,7 +130,7 @@ export function TourHome(): JSX.Element {
             ),
             locale: {
               next: (
-                <StepsButton aria-label="next" variant="primary">
+                <StepsButton aria-label="next" $variant="primary">
                   Entendi
                 </StepsButton>
               ),
@@ -153,7 +153,7 @@ export function TourHome(): JSX.Element {
               ),
               locale: {
                 next: (
-                  <StepsButton aria-label="next" variant="primary">
+                  <StepsButton aria-label="next" $variant="primary">
                     Entendi.
                   </StepsButton>
                 ),
@@ -189,7 +189,7 @@ export function TourHome(): JSX.Element {
           ),
           locale: {
             next: (
-              <StepsButton aria-label="next" variant="primary">
+              <StepsButton aria-label="next" $variant="primary">
                 Entendi.
               </StepsButton>
             ),

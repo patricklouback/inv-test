@@ -10,7 +10,7 @@ interface AuthProps {
 type AdmActions =
   | { type: 'SET_USERS'; users: User[] }
   | { type: 'SET_PAGINATE'; paginate: Paginate }
-  | { type: 'SET_LOADING'; loading: boolean }
+  | { type: 'SET_LOADING'; loading: boolean };
 
 export const AdmDefaultValues = {
   users: null,

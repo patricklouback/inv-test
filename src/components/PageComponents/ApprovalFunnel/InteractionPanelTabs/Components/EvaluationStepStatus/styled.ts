@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Content = styled.div<{ backgroudColor: string, color: string }>`
+export const Content = styled.div<{ backgroudColor: string; color: string }>`
   display: flex;
   background-color: ${({ backgroudColor }) => backgroudColor};
   height: 24px;

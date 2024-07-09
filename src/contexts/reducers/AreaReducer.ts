@@ -6,9 +6,9 @@ interface AreaProps {
   loading: boolean;
 }
 
-type AreaActions = 
-  | { type: 'SET_AREAS'; areas: Area[] } 
-  | { type: 'SET_AREA'; area: Area } 
+type AreaActions =
+  | { type: 'SET_AREAS'; areas: Area[] }
+  | { type: 'SET_AREA'; area: Area }
   | { type: 'SET_LOADING'; loading: boolean };
 
 export const AreaDefaultValues = {

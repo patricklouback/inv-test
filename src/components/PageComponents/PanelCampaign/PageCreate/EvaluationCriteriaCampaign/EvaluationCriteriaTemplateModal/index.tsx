@@ -1,11 +1,12 @@
 import ButtonLink from '@components/Link';
 import { LuImport } from 'react-icons/lu';
-import { useCallback, useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useTheme } from 'styled-components';
 import { EvaluationCriteriaConfigurationContext } from 'contexts/EvaluationCriteriaConfiguration';
 import { EvaluationCriteria } from '@components/PageComponents/ManagementPlatform/EvaluationCriteriaConfig/EvaluationCriteria';
 import { EvaluationCriteriaCampaignContext } from 'contexts/EvaluationCriteriaCampaign';
+import { styleSlug } from 'utils/constants';
 import {
   Subtitle,
   Title,
@@ -35,9 +36,9 @@ export function EvaluationCriteriaTemplateModal({
     EvaluationCriteriaCampaignContext
   );
 
-  useState(() => {
+  useEffect(() => {
     getEvaluationCriteriaConfig();
-  }, [campaignId]);
+  }, [campaignId, getEvaluationCriteriaConfig]);
 
   const [isWarningModal, setIsWarningModal] = useState(false);
 
@@ -48,12 +49,11 @@ export function EvaluationCriteriaTemplateModal({
       setModalPosition({ top: element.top, left: element.left });
   };
 
-  const importEvaluationCriterias = useCallback(async () => {
+  const importEvaluationCriterias = async () => {
     await importEvaluationCriteriaTemplate(campaignId);
     setIsWarningModal(false);
-    // onImportEvaluationCriterias();
     onRequestClose();
-  }, []);
+  };
 
   return (
     <Modal
@@ -105,8 +105,8 @@ export function EvaluationCriteriaTemplateModal({
               value="Usar template"
               max={150}
               color={colors.fontWhite}
-              background={colors.primary}
-              hover={colors.primaryLight}
+              background={colors.primary[styleSlug]}
+              hover={colors.primaryLight[styleSlug]}
               hoverWeigth={500}
               onClick={() => setIsWarningModal(true)}
             />

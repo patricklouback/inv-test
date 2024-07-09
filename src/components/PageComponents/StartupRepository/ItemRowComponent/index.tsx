@@ -3,6 +3,8 @@ import { Startup } from 'interfaces/startups';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri';
+import { useStartups } from 'hooks';
+import { HumanizeStatusStartups } from '../HumanizeStatusStartups';
 import {
   CardItem,
   ItemRow,
@@ -12,6 +14,7 @@ import {
   ItemValueMarket,
   ItemValueYear,
   StartupTitle,
+  ItemValueStatus,
 } from './styles';
 
 interface ItemRowProps {
@@ -65,8 +68,9 @@ export const ItemRowComponent = ({
   handleOpenStartup,
   handleSaveStartup,
   handleUnsaveStartup,
-}: ItemRowProps): JSX.Element => {
+}: ItemRowProps) => {
   const { getFavoriteStartups, favoriteStartups } = useContext(StartupsContext);
+  const { formatCountry } = useStartups();
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
@@ -74,8 +78,10 @@ export const ItemRowComponent = ({
     await getFavoriteStartups();
   }, [getFavoriteStartups]);
 
-  const handleLocation = useCallback((city, state) => {
-    return state !== ' ' ? `${city}, ${state}` : city;
+  const handleLocation = useCallback((state, country) => {
+    return country !== ' '
+      ? `${state}, ${formatCountry(country)?.name}`
+      : state;
   }, []);
 
   const handleSave = useCallback(
@@ -123,11 +129,11 @@ export const ItemRowComponent = ({
         {item.foundationYear}
       </ItemValueYear>
       <ItemValueMarket className="market">{item.marketFields}</ItemValueMarket>
-      <ItemValueAudience className="targetAudience">
-        {item.investmentRounds === 0 ? 'Não há dados' : item.investmentRounds}
-      </ItemValueAudience>
-      <ItemValueLocation>
-        {handleLocation(item.city, item.state)}
+      <ItemValueStatus className="status">
+        <HumanizeStatusStartups status={item.status} />
+      </ItemValueStatus>
+      <ItemValueLocation className="truncate">
+        {handleLocation(item.state, item.country)}
       </ItemValueLocation>
       <ItemValue>
         <div className="actions">

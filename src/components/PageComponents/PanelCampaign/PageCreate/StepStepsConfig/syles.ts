@@ -52,7 +52,7 @@ export const ButtonAddStepItem = styled.button`
   border-radius: 0.5rem;
   transition: background-color 1s;
   background-color: ${({ theme }) => theme.colors.greyLight};
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.grey};
   }
 
@@ -82,7 +82,7 @@ export const NewStepContainer = styled.div`
     border: 0;
     border-radius: 0.5rem;
     transition: background-color 1s;
-    :hover {
+    &:hover {
       background-color: ${({ theme }) => theme.colors.grey};
     }
 

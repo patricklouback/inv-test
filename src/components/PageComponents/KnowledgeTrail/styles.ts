@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StyledComponentProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 export const Container = styled.div`
@@ -36,7 +36,7 @@ export const Title = styled.div`
 `;
 
 export const DefaultSection = styled.div`
-  display: flex
+  display: flex;
   align-items: left;
   justify-content: left;
   gap: 20px;
@@ -49,7 +49,7 @@ export const DefaultSection = styled.div`
 `;
 
 export const SectionBanner = styled.div<StyledComponentProps>`
-  display: ${props => props.isOpen ? 'flex': 'none'};
+  display: ${props => (props.$isOpen ? 'flex' : 'none')};
   align-items: center;
   height: 104px;
 `;
@@ -79,8 +79,7 @@ export const BannerTitle = styled.div`
   font-weight: 600;
 `;
 
-export const BannerSubtitle = styled.div`
-`;
+export const BannerSubtitle = styled.div``;
 
 export const CloseButtonWrapper = styled.div`
   &:hover {

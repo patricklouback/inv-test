@@ -29,7 +29,12 @@ export const PreviewUserAddsComponent: React.FC<PreviewUserParams> = ({
     <Container>
       <IoMdClose onClick={clickRemove} size={23} color={colors.fontLight} />
       {!type ? (
-        <UserCard name={name} image={image} area={areaName} areaColor={areaColor}/>
+        <UserCard
+          name={name}
+          image={image}
+          area={areaName}
+          areaColor={areaColor}
+        />
       ) : (
         <Tag value={name} background={color || colors.greenLive} />
       )}

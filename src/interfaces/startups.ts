@@ -1,36 +1,47 @@
 type FoundationYear = `${number}${number}${number}${number}`;
 
-export interface Startup {
-    id: string;
-    name: string;
-    state?: string;
-    city?: string;
-    foundationYear?: FoundationYear;
-    url?: string;
-    description?: string;
-    marketFields?: string;
-    investmentRounds?: number;
-    lastInvestment?: string;
-    linkedIn?: string;
-    email?: string;
-    startupMembers?: string[];
-}
-
 export interface StartupMember {
-    id: string;
-    name: string;
-    position?: string;
-    startupId: string;
-    email?: string;
+  id?: string;
+  name?: string;
+  role?: string;
+  position?: string;
+  startupId?: string;
+  email?: string;
 }
 
-export type SocialMediaType = 'FACEBOOK' | 'TWITTER' | 'INSTAGRAM' | 'LINKEDIN' | 'YOUTUBE'
+
+export interface Startup {
+  id: string;
+  name: string;
+  state?: string;
+  target?: string[];
+  city?: string;
+  country?: string;
+  foundationYear?: FoundationYear | number;
+  url?: string;
+  description?: string;
+  marketFields?: string;
+  investmentRounds?: number;
+  lastInvestment?: string;
+  linkedIn?: string;
+  email?: string;
+  status?: string;
+  startupMembers?: StartupMember[];
+  segment?: string;
+}
+
+export type SocialMediaType =
+  | 'FACEBOOK'
+  | 'TWITTER'
+  | 'INSTAGRAM'
+  | 'LINKEDIN'
+  | 'YOUTUBE';
 
 export interface StartupSocialMedia {
-    id: string;
-    url: string;
-    socialMedia: SocialMediaType;
-    startupId: string;
+  id: string;
+  url: string;
+  socialMedia: SocialMediaType;
+  startupId: string;
 }
 
 export const StartupLastInvestment = [

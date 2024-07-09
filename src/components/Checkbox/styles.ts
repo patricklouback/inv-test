@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const CheckboxContainer = styled.span``;
 
@@ -19,7 +20,7 @@ export const VisibleCheckbox = styled.label<{ checked: boolean }>`
   border-radius: 0.15rem;
   border: 0.15rem solid
     ${({ checked, theme }) =>
-      checked ? theme.colors.primaryLight : theme.colors.grey};
+      checked ? theme.colors.primaryLight[styleSlug] : theme.colors.grey};
 
   svg {
     display: ${({ checked }) => (checked ? 'flex' : 'none')};

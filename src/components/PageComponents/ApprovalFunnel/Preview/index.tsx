@@ -1,7 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/no-array-index-key */
 import { CardIdeia } from '@components/CardIdea';
 import { UserCard } from '@components/CardUser';
 import { ChangeCampaignModal } from '@components/Modals/ChangeCampaignModal';
@@ -35,6 +31,10 @@ import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import { toast } from 'react-toastify';
 import { useTheme } from 'styled-components';
 import { FilesDetails } from '@components/PageComponents/IdeaDetail/ModalPreview';
+import Link from 'next/link';
+import { AddUserIcon } from '@components/Icons';
+import { styleSlug } from 'utils/constants';
+import { getSequenceNumber } from 'utils/sequenceNumber';
 import BarraSvg from '../../../../assets/inventta/barra.svg';
 import DeleteTagSvg from '../../../../assets/inventta/exclude.svg';
 import TicketSvg from '../../../../assets/inventta/ticketBigger.svg';
@@ -50,6 +50,7 @@ import {
   ColumnRigth,
   Container,
   Content,
+  ContentIcon,
   ContentParticipants,
   DeleteTag,
   DeleteTagWrapper,
@@ -76,6 +77,7 @@ import {
   ListDescriptionIdea,
   ListParticipants,
   MainTitle,
+  NoParticipants,
   ParagraphIdea,
   Participants,
   Tag,
@@ -91,6 +93,7 @@ import {
   TitleDescription,
   TitleParticipants,
 } from './styles';
+import { AddParticipants } from './AddParticipants';
 
 interface PreviewProps {
   setPreview: () => void;
@@ -121,6 +124,7 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
     ideaTag => ideaTag.ideaId === idea.id && ideaTag.checked
   );
   // ALL LOGIC MODAL ----------------------------------------------------------
+  const [isModalAddUserOpen, setIsModalAddUserOpen] = useState(false);
   const [dropItems, setDropItems] = useState(false);
   const [dropTypeItems, setDropTypeItems] = useState(false);
   const [isModalTechReviewOpen, setIsModalTechReviewOpen] = useState(false);
@@ -141,7 +145,6 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
   const { getHistoryItens } = useContext(HistoryItensContext);
   const [modalDirectApproval, setModalDirectApproval] = useState(false);
   const [modalPreviewFile, setModalPreviewFile] = useState<boolean>(false);
-  const [previewFile, setPreviewFile] = useState<string | null>(null);
 
   const optionItemRef = useRef(null);
 
@@ -179,16 +182,8 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
       await getHistoryItens(idea.id);
       setDropTypeItems(false);
     },
-    [updateIdea, idea?.id]
+    [updateIdea, idea.id, getHistoryItens]
   );
-
-  useEffect(() => {
-    (async (): Promise<void> => {
-      if (allIdeaTags.length === 0) {
-        await getIdeaTags(filteredIdeaTags);
-      }
-    })();
-  }, [getIdeaTags, idea?.id]);
 
   const updateStatus = useCallback(
     async (toStep: IdeaKanbamStep, sequence: number): Promise<boolean> => {
@@ -236,14 +231,6 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
     setNextSequenceKanban(nextSequenceKanban);
   }, []);
 
-  const getSequenceNumber = useCallback((sequence: number): any => {
-    if (sequence >= 100000) {
-      return sequence;
-    }
-    const paddedSequence = sequence.toString().padStart(6, '0');
-    return paddedSequence;
-  }, []);
-
   const showEditTagTogle = (): void => {
     setShowEditTag(!showEditTag);
   };
@@ -280,17 +267,16 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
     scrollToEvaluationCriteria();
   };
 
-  const handleConfirmNextStep = (): void => {
-    // updateStatus(nextStepKanban, nextSequenceKanban);
-  };
-
-  const execOpenModal = (file: string) => {
-    setModalPreviewFile(true);
-    setPreviewFile(file);
-  };
-
   return (
     <>
+      {isModalAddUserOpen && (
+        <AddParticipants
+          setIsModalAddUserOpen={setIsModalAddUserOpen}
+          existingIdeaUsers={idea?.ideaUsers}
+          ideaId={idea.id}
+        />
+      )}
+
       <RequestRepresentativeAnalysisModal
         idea={idea}
         isOpen={isModalRepresentativeAnalysisOpen}
@@ -491,20 +477,15 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
                 <MainTitle>{idea?.title}</MainTitle>
                 <FilesContainer>
                   {idea?.ideaFiles.map((ideaFile, i) => (
-                    <ButtonFiles key={i}
-                      onClick={() => execOpenModal(ideaFile)}
-                      >
-                      <a rel="noreferrer">
+                    <ButtonFiles key={ideaFile}>
+                      <Link target="_blank" href={ideaFile} rel="noreferrer">
                         Arquivo {i + 1}
-                      </a>
+                      </Link>
                     </ButtonFiles>
                   ))}
                 </FilesContainer>
                 {modalPreviewFile && (
-                  <FilesDetails
-                    file={previewFile}
-                    close={setModalPreviewFile}
-                  />
+                  <FilesDetails close={setModalPreviewFile} />
                 )}
                 <IdeaDescription>
                   <ReactMarkdown>{idea?.description}</ReactMarkdown>
@@ -514,15 +495,15 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
                     <ItemDescription key={iField.id}>
                       <TitleDescription>{iField.title}</TitleDescription>
                       <ParagraphIdea>
-                        {iField.type === 'SELECT' ? (
+                        {iField.type === 'SELECT' && iField.options !== 'null' ? (
                           <IdeaDescription>
                             <ReactMarkdown>
                               {
-                                JSON.parse(iField.options).find(
+                                iField.options.find(
                                   i =>
                                     i.value ===
                                     iField?.ideaFieldValues[0]?.value
-                                ).name
+                                )?.name
                               }
                             </ReactMarkdown>
                           </IdeaDescription>
@@ -541,13 +522,14 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
             </InfoContainer>
             <ColumnRigth>
               <Participants>
-                <TitleParticipants>Criador da Iniciativa</TitleParticipants>
+                <TitleParticipants>Criador</TitleParticipants>
                 <ContentParticipants>
                   <ListParticipants>
-                    {idea?.ideaUsers?.map((user, i) => (
-                      <ItemParticipants key={i}>
+                    {idea?.ideaUsers?.map(user => (
+                      <ItemParticipants key={user.id}>
                         {user.type === 'OWNER' ? (
                           <UserCard
+                            owner
                             name={user?.user?.name}
                             area={user?.user?.area.name ?? null}
                             areaColor={user?.user?.area.color ?? null}
@@ -558,24 +540,48 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
                   </ListParticipants>
                 </ContentParticipants>
               </Participants>
-              {idea?.ideaUsers?.some(user => user.type === 'COLLABORATOR') ? (
-                <Participants>
-                  <TitleParticipants>
-                    Participantes da Iniciativa
-                  </TitleParticipants>
-                  <ContentParticipants>
-                    <ListParticipants>
-                      {idea?.ideaUsers?.map((user, i) => (
-                        <ItemParticipants key={i}>
-                          {user.type === 'COLLABORATOR' ? (
-                            <UserCard name={user?.user?.name} />
-                          ) : null}
-                        </ItemParticipants>
-                      ))}
-                    </ListParticipants>
-                  </ContentParticipants>
-                </Participants>
-              ) : null}
+              <Participants>
+                <TitleParticipants>
+                  Participantes
+                  <ContentIcon onClick={() => setIsModalAddUserOpen(true)}>
+                    <AddUserIcon color={colors.primary[styleSlug]} />
+                  </ContentIcon>
+                </TitleParticipants>
+                <ContentParticipants>
+                  <ListParticipants>
+                    {idea?.ideaUsers?.length > 0 ? (
+                      idea?.ideaUsers?.map(ideaUser => {
+                        const viewerOwner = idea?.ideaUsers?.find(
+                          ideaUser =>
+                            ideaUser.userId === user?.id &&
+                            ideaUser.type === 'OWNER'
+                        );
+
+                        const isTheSameUser = ideaUser?.user?.id === user?.id;
+
+                        return (
+                          <ItemParticipants key={user.id}>
+                            {ideaUser.type === 'COLLABORATOR' ? (
+                              <UserCard
+                                ideaId={idea.id}
+                                userId={ideaUser?.user?.id}
+                                status={ideaUser.status}
+                                name={ideaUser?.user?.name}
+                                viewerOwner={!!viewerOwner}
+                                isTheSameUser={isTheSameUser}
+                                area={ideaUser?.user?.area.name ?? null}
+                                areaColor={ideaUser?.user?.area.color ?? null}
+                              />
+                            ) : null}
+                          </ItemParticipants>
+                        );
+                      })
+                    ) : (
+                      <NoParticipants>Nenhum participante</NoParticipants>
+                    )}
+                  </ListParticipants>
+                </ContentParticipants>
+              </Participants>
               <TagTitleWrapper>
                 <TicketTag>
                   <TicketSvg />
@@ -631,8 +637,10 @@ export const PreviewFunnel: React.FC<PreviewProps> = ({
                     <LinkedIdea
                       linkIsOpen
                       linkedIdea={linkedIdea}
-                      hasBorder={false}
                       showCreator
+                      openLinked={() => {
+                        setIsModalLinkIdeasOpen(true);
+                      }}
                     />
                   ))}
                 </>

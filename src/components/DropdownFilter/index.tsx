@@ -14,7 +14,7 @@ import {
   DropdownContentMenu,
   VisibleCheckbox,
   DropdownItemLabel,
-  DropdownTop
+  DropdownTop,
 } from './styles';
 
 interface DropdownItens {
@@ -35,7 +35,7 @@ export const DropdownFilter: React.FC<DropdownProps> = ({
   itemsList,
   selectedItems,
   handleSelect,
-  border
+  border,
 }) => {
   return (
     <DropdownContainer>

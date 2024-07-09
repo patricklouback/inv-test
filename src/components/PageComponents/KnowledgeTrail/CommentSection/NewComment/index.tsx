@@ -12,7 +12,7 @@ export const NewComment: React.FC<{
   userName?: string;
   userImage: string;
   createComment: (data: any) => void;
-}> = ({ userName, userImage, createComment }): JSX.Element => {
+}> = ({ userImage, createComment }): JSX.Element => {
   const [comment, setComment] = useState({
     text: undefined,
     textAreaKey: Date.now(),
@@ -38,7 +38,7 @@ export const NewComment: React.FC<{
     <Content>
       <div>
         <CommentPhoto>
-          <Image img={userImage || '/images/user.png'} />
+          <Image $img={userImage || '/images/user.png'} />
           <InputComment
             key={comment.textAreaKey}
             onChange={event => updateComment(event.target.value)}

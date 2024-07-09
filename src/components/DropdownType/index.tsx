@@ -1,8 +1,6 @@
-import { Campaign } from '@default-types';
-import { useState } from 'react';
 import { ImCheckmark } from 'react-icons/im';
 import { IoMdArrowDropdown } from 'react-icons/io';
-import { RiFilter2Line, RiLightbulbFlashLine } from 'react-icons/ri';
+import { RiFilter2Line } from 'react-icons/ri';
 import {
   Arrow,
   Checkbox,
@@ -64,9 +62,7 @@ export const DropdownType: React.FC<DropdownProps> = ({
                       <ImCheckmark size={16} color="#000" />
                     </VisibleCheckbox>
 
-                    <DropdownItemLabel>
-                      {item}
-                    </DropdownItemLabel>
+                    <DropdownItemLabel>{item}</DropdownItemLabel>
                   </DropdownItem>
                 );
               })}

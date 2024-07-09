@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button<{ selected: boolean }>`
-  font-weight: ${props => props.selected ? 'bold' : 'normal'};
+  font-weight: ${props => (props.selected ? 'bold' : 'normal')};
   width: 100%;
   border: none;
   border-bottom: ${props => (props.selected ? '2px solid black' : 'none')};
@@ -11,7 +11,7 @@ export const Button = styled.button<{ selected: boolean }>`
   font-size: 20px;
   line-height: 24px;
   letter-spacing: 0px;
-  color: ${(props) => props.selected ? props.theme.colors.font : '#B5B5B5'};
+  color: ${props => (props.selected ? props.theme.colors.font : '#B5B5B5')};
   transition: font-weight 0.1s ease-in-out;
 `;
 

@@ -31,25 +31,26 @@ export const InfoUsers: React.FC<InfoUsersParams> = ({ data }) => {
     <Container>
       <ListCard>
         {data.map((item, i) => {
-          return(
-          <ItemCard key={item.id}>
-            <Imagem img={item.image || '/images/user.png'} />
-            <Content>
-              <Rank>{i + 1}˚</Rank>
-              <Name>{item.name}</Name>
-              <List>
-                <Item>
-                  <CardQnt>{item.totalIdeas}</CardQnt>
-                  <span>Iniciativas criadas</span>
-                </Item>
-                <Item>
-                  <CardQnt>{item.totalCollaborations}</CardQnt>
-                  <span>Colaborações</span>
-                </Item>
-              </List>
-            </Content>
-          </ItemCard>
-        )})}
+          return (
+            <ItemCard key={item.id}>
+              <Imagem $img={item.image || '/images/user.png'} />
+              <Content>
+                <Rank>{i + 1}˚</Rank>
+                <Name>{item.name}</Name>
+                <List>
+                  <Item>
+                    <CardQnt>{item.totalIdeas}</CardQnt>
+                    <span>Iniciativas criadas</span>
+                  </Item>
+                  <Item>
+                    <CardQnt>{item.totalCollaborations}</CardQnt>
+                    <span>Colaborações</span>
+                  </Item>
+                </List>
+              </Content>
+            </ItemCard>
+          );
+        })}
       </ListCard>
 
       <ButtonLink

@@ -21,7 +21,7 @@ const stepsDefault: Step[] = [
     ),
     locale: {
       next: (
-        <StepsButton aria-label="next" variant="primary">
+        <StepsButton aria-label="next" $variant="primary">
           Entendi
         </StepsButton>
       ),

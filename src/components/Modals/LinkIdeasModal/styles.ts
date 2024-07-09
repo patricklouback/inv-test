@@ -1,12 +1,12 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-export const Title = styled.h2`
-`;
+export const Title = styled.h2``;
 
 export const SubmitButton = styled.button`
   margin-top: 1rem;
@@ -18,12 +18,12 @@ export const SubmitButton = styled.button`
   border-radius: 8px;
   color: ${({ theme }) => theme.colors.background};
   padding: 16px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   font-weight: 600;
   letter-spacing: 0.7px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryLight};
+    background-color: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   }
 
   &:last-child {
@@ -46,7 +46,6 @@ export const LinkTitleWrapper = styled.div`
 
 export const Subtitle = styled.div`
   margin-bottom: 1rem;
-  
 `;
 
 export const LinkedIdeasContainer = styled.div`
@@ -71,8 +70,7 @@ export const LinkedIdeasContainer = styled.div`
   }
 `;
 
-export const LinkedIdeasWrraper = styled.div`
-`;
+export const LinkedIdeasWrraper = styled.div``;
 
 export const LinkedIdeaCard = styled.div`
   display: flex;
@@ -91,7 +89,7 @@ export interface IsAddingIdeaProps {
 }
 
 export const AddIdeaWrapper = styled.div<IsAddingIdeaProps>`
-  display: ${(props) => props.isAdding ? 'none' : 'flex'};
+  display: ${props => (props.isAdding ? 'none' : 'flex')};
   align-items: center;
   gap: 5px;
   width: 145px;
@@ -99,7 +97,7 @@ export const AddIdeaWrapper = styled.div<IsAddingIdeaProps>`
 `;
 
 export const SearchIdeasWrapper = styled.div<IsAddingIdeaProps>`
-  display: ${(props) => props.isAdding ? 'flex' : 'none'};
+  display: ${props => (props.isAdding ? 'flex' : 'none')};
 `;
 
 export interface IsSearchingIdeaProps {
@@ -107,7 +105,7 @@ export interface IsSearchingIdeaProps {
 }
 
 export const ResultSearcIdeasContainer = styled.div<IsSearchingIdeaProps>`
-  display: ${(props) => props.isSearchingIdea ? 'flex' : 'none'};
+  display: ${props => (props.isSearchingIdea ? 'flex' : 'none')};
   flex-direction: column;
   /* position: absolute; */
   height: 150px;
@@ -127,8 +125,8 @@ export const ResultSearcIdeasContainer = styled.div<IsSearchingIdeaProps>`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -142,7 +140,7 @@ export const IdeaTitleWrapper = styled.div`
 export const IdAndCloseWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content:flex-end;
+  justify-content: flex-end;
   gap: 20px;
 `;
 
@@ -178,14 +176,14 @@ export const InputSearch = styled.input`
   &:disabled {
     color: ${({ theme }) => theme.colors.borders};
   }
-  ::placeholder {
+  &::placeholder {
     font-size: 14px;
     letter-spacing: 0.4px;
     color: ${({ theme }) => theme.colors.fontLight};
     font-weight: normal;
   }
   &:focus {
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -204,4 +202,4 @@ export const PossibleLinkIdeaCard = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.colors.unreadNotification};
   }
-`
+`;

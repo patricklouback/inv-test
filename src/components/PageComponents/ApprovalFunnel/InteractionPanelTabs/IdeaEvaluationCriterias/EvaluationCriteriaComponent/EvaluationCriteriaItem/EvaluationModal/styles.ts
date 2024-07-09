@@ -5,6 +5,8 @@ export const CriteriasWrapper = styled.div`
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  overflow-y: auto;
+  max-height: 500px;
 `;
 
 export const Criteria = styled.div`

@@ -30,7 +30,7 @@ export function TourDetailIdea(): JSX.Element {
           >
             <StepsButton
               aria-label="next"
-              variant="primary"
+              $variant="primary"
               style={{ alignSelf: 'center' }}
               onClick={async () => {
                 await viewedTour(TourId.DETAIL_IDEAS_DEFAULT);

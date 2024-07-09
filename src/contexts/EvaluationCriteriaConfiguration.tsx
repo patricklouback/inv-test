@@ -3,9 +3,10 @@ import { createContext, useCallback, useMemo, useReducer } from 'react';
 import { toast } from 'react-toastify';
 import { api } from 'services/api';
 import { IEvaluationCriteria } from 'interfaces/evaluationCriteria';
+import { EvaluationCriteriaAPI } from 'services/apis/evaluation-criteria';
 import {
   EvaluationCriteriaDefaultValues,
-  EvaluationCriteriaConfigurationReducer
+  EvaluationCriteriaConfigurationReducer,
 } from './reducers/EvaluationCriteriaConfigurationReducer';
 
 interface EvaluationCriteriaPropsData {
@@ -26,7 +27,7 @@ export const EvaluationCriteriaConfigurationContext =
   createContext<EvaluationCriteriaPropsData>({} as EvaluationCriteriaPropsData);
 
 export const EvaluationCriteriaConfigurationProvider: React.FC = ({
-  children
+  children,
 }): JSX.Element => {
   const [dataReducer, dispatch] = useReducer(
     EvaluationCriteriaConfigurationReducer,
@@ -37,16 +38,16 @@ export const EvaluationCriteriaConfigurationProvider: React.FC = ({
     try {
       dispatch({
         type: 'SET_LOADING',
-        loading: true
+        loading: true,
       });
-      const { data } = await api.get('/evaluationcriterias/configuration');
+      const data = await EvaluationCriteriaAPI.getEvaluationCriteriaConfig();
       dispatch({
         type: 'SET_EVALUATION_CRITERIAS',
-        evaluationCriteriasConfig: data
+        evaluationCriteriasConfig: data,
       });
       dispatch({
         type: 'SET_LOADING',
-        loading: false
+        loading: false,
       });
       return data;
     } catch (error) {
@@ -59,7 +60,7 @@ export const EvaluationCriteriaConfigurationProvider: React.FC = ({
     async (id: string, data: IEvaluationCriteria) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.put(`/evaluationcriterias/configuration/${id}`, data);
+        await EvaluationCriteriaAPI.updateEvaluationCriteriaConfig(id, data);
         await getEvaluationCriteriaConfig();
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critério atualizado!');
@@ -78,7 +79,7 @@ export const EvaluationCriteriaConfigurationProvider: React.FC = ({
     async (data: IEvaluationCriteria) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.post(`/evaluationcriterias/configuration`, data);
+        await EvaluationCriteriaAPI.createEvaluationCriteriaConfig(data);
         await getEvaluationCriteriaConfig();
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critério criado!');
@@ -94,7 +95,7 @@ export const EvaluationCriteriaConfigurationProvider: React.FC = ({
   const deleteEvaluationCriteriaConfig = useCallback(async (id: string) => {
     try {
       dispatch({ type: 'SET_LOADING', loading: true });
-      await api.delete(`/evaluationcriterias/configuration/${id}`);
+      await EvaluationCriteriaAPI.deleteEvaluationCriteriaConfig(id);
       await getEvaluationCriteriaConfig();
       dispatch({ type: 'SET_LOADING', loading: false });
       toast.success('Critério deletado!');
@@ -111,14 +112,14 @@ export const EvaluationCriteriaConfigurationProvider: React.FC = ({
       updateEvaluationCriteriaConfig,
       getEvaluationCriteriaConfig,
       createEvaluationCriteriaConfig,
-      deleteEvaluationCriteriaConfig
+      deleteEvaluationCriteriaConfig,
     };
   }, [
     dataReducer,
     updateEvaluationCriteriaConfig,
     getEvaluationCriteriaConfig,
     createEvaluationCriteriaConfig,
-    deleteEvaluationCriteriaConfig
+    deleteEvaluationCriteriaConfig,
   ]);
 
   return (

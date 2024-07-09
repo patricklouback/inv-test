@@ -10,12 +10,9 @@ import FullCheckSvg from '../../../../../../assets/inventta/FullCheck.svg';
 export const PendingMessage: React.FC<{
   idea: Idea;
 }> = ({ idea }): JSX.Element => {
-  const { user, getUser, loading } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   const [isUserPending, setIsUserPending] = useState<boolean>(false);
   const [isCriteriaPending, setIsCriteriaPending] = useState<boolean>(false);
-  useEffect(() => {
-    getUser();
-  }, [idea]);
 
   useEffect(() => {
     const evaluationCriterias = idea.evaluationCriteriasData.filter(

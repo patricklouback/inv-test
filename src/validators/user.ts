@@ -10,22 +10,23 @@ export const yupValidateLogin = Yup.object()
 
 export const yupValidateAddUser = Yup.object()
   .shape({
-    email: Yup.string()
-      .email('Insira um email válido').when('registration', {
-        is: (registration) => !registration,
-        then: Yup.string().optional(),
-        otherwise: Yup.string().optional(),
-      }),
     name: Yup.string().required('Nome é obrigatório'),
-    departamentId: Yup.string().required('Departamento é obrigatório'),
-    areaId: Yup.string().required('Área é obrigatória'),
+    departamentId: Yup.string().optional(),
+    areaId: Yup.string().optional(),
+    isAdmin: Yup.boolean().optional(),
+    isManager: Yup.boolean().optional(),
+    email: Yup.string()
+      .email('Insira um email válido').optional(),
     registration: Yup.string().optional(),
-    password: Yup.string().when('registration', {
-        is: (registration) => !!registration,
-        then: Yup.string().required('Se houver matrícula a redefinição da senha é obrigatória, apague a matrícula para continuar'),
-        otherwise: Yup.string().optional(),
-      }),
-      isAdmin: Yup.boolean().optional(),
-      isManager: Yup.boolean().optional(),
+    password: Yup.string().optional(),
   })
   .required();
+
+
+  export const yupValidateEditUser = Yup.object()
+  .shape({
+    name: Yup.string().required('Nome é obrigatório').min(3, 'Nome deve ter no mínimo 3 caracteres'),
+    email: Yup.string().email('Insira um email válido'),
+    departamentId: Yup.string(),
+    areaId: Yup.string(),
+  })

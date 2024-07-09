@@ -82,7 +82,7 @@ export const CampaingRank: React.FC = (): JSX.Element => {
                       key={item.id}
                     >
                       <ContentCampaingRank className="hover">
-                        <ContentCampaingRankImage img={item.image} />
+                        <ContentCampaingRankImage $img={item.image} />
                         <ContentCampaingRankText>
                           <span>Direcional #{item.sequence}</span>
                           <h2>{item.title}</h2>

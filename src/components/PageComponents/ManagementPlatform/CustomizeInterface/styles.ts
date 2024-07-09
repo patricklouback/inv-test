@@ -53,4 +53,3 @@ export const DropAndSlogan = styled.div`
   display: flex;
   justify-content: center;
 `;
-

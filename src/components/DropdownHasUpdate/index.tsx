@@ -1,8 +1,7 @@
-import { Campaign } from '@default-types';
-import { useState } from 'react';
 import { ImCheckmark } from 'react-icons/im';
 import { IoMdArrowDropdown } from 'react-icons/io';
-import { RiFilter2Line, RiLightbulbFlashLine } from 'react-icons/ri';
+import { RiFilter2Line } from 'react-icons/ri';
+import { FiltersType } from 'interfaces/filters';
 import {
   Arrow,
   Checkbox,
@@ -16,20 +15,21 @@ import {
   DropdownContentMenu,
   VisibleCheckbox,
   DropdownItemLabel,
-  DropdownTop
+  DropdownTop,
 } from './styles';
 
 interface DropdownHasUpdateProps {
-  itemsList: { id: number; title: string }[];
+  itemsList: FiltersType['idea'];
   selectedItems: string[];
-  handleSelect: (id: number) => void;
+  handleSelect: (id: string) => void;
 }
 
 export const DropdownHasUpdate: React.FC<DropdownHasUpdateProps> = ({
   itemsList,
   selectedItems,
-  handleSelect
+  handleSelect,
 }) => {
+
   return (
     <DropdownContainer>
       <DropdownButton>
@@ -48,7 +48,7 @@ export const DropdownHasUpdate: React.FC<DropdownHasUpdateProps> = ({
             <DropdownTitle>Iniciativas</DropdownTitle>
             <Line />
           </DropdownTop>
-          <DropdownItemsContainer>
+          <DropdownItemsContainer maxHeight={itemsList?.length > 5 ? '200px' : 'auto'}>
             {itemsList?.length > 0 &&
               itemsList.map(item => {
                 return (

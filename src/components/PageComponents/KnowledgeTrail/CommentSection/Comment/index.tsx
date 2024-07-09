@@ -45,7 +45,6 @@ export const Comment: React.FC<{
   deleteComment: (commentId: string) => void;
   deleteSubComment: (commentId: string) => void;
 }> = ({
-  userName,
   userImage,
   userIsAdmin,
   userId,
@@ -119,7 +118,7 @@ export const Comment: React.FC<{
       <CommentArea ref={commentRef}>
         <UserAndDate>
           <PhotoAndName>
-            <Image img={commentUserImage || '/images/user.png'} />
+            <Image $img={commentUserImage || '/images/user.png'} />
             <div> {commentUserName} </div>
           </PhotoAndName>
           <CommentDate>{createdAt.toLocaleDateString('pt-BR')}</CommentDate>

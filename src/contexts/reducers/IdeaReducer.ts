@@ -41,7 +41,7 @@ export const IdeaDefaultValues = {
   campaign_filter: [],
   campaignIdForNewIdea: '',
   ideasPerStatus: {
-    onGoing:'',
+    onGoing: '',
     techReview: '',
     refused: '',
   },
@@ -74,13 +74,13 @@ type IdeaAction =
       };
     }
   | {
-    type: 'SET_IDEAS_PER_ROUTE';
-    ideasPerRoute: Array<{
-      routeName: string;
-      ideasAmount: string;
-      color: string;
-    }>;
-  }
+      type: 'SET_IDEAS_PER_ROUTE';
+      ideasPerRoute: Array<{
+        routeName: string;
+        ideasAmount: string;
+        color: string;
+      }>;
+    }
   | { type: 'SET_PAGINATE'; paginate: Paginate };
 
 export const IdeaReducer = (

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 type DivType = React.HTMLAttributes<HTMLDivElement>;
 
@@ -24,13 +25,21 @@ export const InputWrapper = styled.div<InputProps & DivType>`
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
-  gap: ${props => (props.label ? '0.8rem' : '')};
+  gap: ${props => (props.label ? '0.8rem !important' : '')};
   position: relative;
+
 
   #icon_absolute {
     position: absolute;
     top: 1.8rem;
     transform: translate(15px, -48%);
+  }
+
+  .input_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px !important;
   }
 
   #icon_absolute_eye {
@@ -46,8 +55,8 @@ export const InputWrapper = styled.div<InputProps & DivType>`
     height: 1.1rem;
   }
 
-  #icon_absolute_eye:hover {
-    color: #BBBBBB
+  #icon_absolute_eye&:hover {
+    color: #bbbbbb;
   }
 
   input {
@@ -91,21 +100,32 @@ export const InputWrapper = styled.div<InputProps & DivType>`
       color: ${props => props.theme.colors.fontGrey};
     }
     &:focus {
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     }
   }
 `;
 
-export const ErrorText = styled.small`
+export const Label = styled.label`
+  font-size: 1rem;
+  color: #2d3748;
+  font-weight: 500;
+  width: 100%;
+`;
+
+export const ErrorText = styled.span<{ position?: boolean }>`
   color: ${props => props.theme.colors.notification.error};
   font-size: 1rem;
-  margin-top: 0.5rem;
-
   display: flex;
   align-items: center;
-
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
+  /* margin-bottom: 10px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* position: absolute; */
+  /* bottom: -35px; */
+ 
 
   svg {
     margin-right: 10px;

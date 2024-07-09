@@ -16,7 +16,7 @@ export const IconButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  /* :hover {
+  /* &:hover {
     background: ${({ theme }) => theme.colors.grey_hover};
     border-radius: 50%;
   } */

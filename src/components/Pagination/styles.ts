@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Box = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ export const BoxContent = styled.div`
 
 export const Button = styled.button`
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   border: none;
   padding: 12px;
   font-size: 16px;
@@ -26,7 +27,7 @@ export const ButtonPreview = styled.button`
     color: ${({ theme }) => theme.colors.grey};
   }
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   border: none;
   padding: 12px;
   font-size: 16px;

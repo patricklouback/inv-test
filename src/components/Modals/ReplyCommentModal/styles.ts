@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const NotificationContainer = styled.form`
   width: 100%;
@@ -62,7 +63,7 @@ export const SelectUser = styled.button`
 
   padding: 0.5rem;
   border: 0;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
   border-radius: 8px;
   font-size: 0.875rem;

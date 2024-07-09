@@ -1,5 +1,4 @@
-import { ApprovalFunnelContext } from 'contexts/ApprovalFunnel';
-import { DragEventHandler, HTMLAttributes, useContext, useEffect } from 'react';
+import { DragEventHandler, HTMLAttributes } from 'react';
 import { DefaultSection } from '@components/SectionDefault';
 import { RiTrophyLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
@@ -12,7 +11,7 @@ interface ViewFilterProps extends HTMLAttributes<HTMLDivElement> {
   type?: 'funnel';
   onDrop?: DragEventHandler<HTMLDivElement>;
   qnt?: number | string;
-  toggleWasScrolled: () => void;
+  toggleWasScrolled?: () => void;
 }
 
 export const ViewFilter: React.FC<ViewFilterProps> = ({
@@ -21,7 +20,7 @@ export const ViewFilter: React.FC<ViewFilterProps> = ({
   type,
   onDrop,
   qnt,
-  toggleWasScrolled
+  toggleWasScrolled,
 }): JSX.Element => {
   const { colors } = useTheme();
   return (
@@ -38,7 +37,7 @@ export const ViewFilter: React.FC<ViewFilterProps> = ({
           box_icon: !type && <RiTrophyLine color={colors.font} size={20} />,
           title,
           item_right: <QntCampaign>{qnt}</QntCampaign>,
-          small_header: true
+          small_header: true,
         }}
       >
         <Scroll onScroll={toggleWasScrolled}>{children}</Scroll>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Graphs = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ export const RowTwoLeft = styled.div`
 
 export const RowTwoMid = styled.div`
   display: flex;
-  width: 40%
+  width: 40%;
 `;
 
 export const RowThree = styled.div`
@@ -61,5 +61,5 @@ export const RowThreeLeft = styled.div`
 
 export const RowThreeRight = styled.div`
   display: flex;
-  width: 50%
+  width: 50%;
 `;

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 const bounce = keyframes`
   to {
@@ -23,7 +24,7 @@ export const Loading = styled.div`
       width: 1rem;
       height: 1rem;
       margin: 2rem 0.3rem;
-      background: ${({ theme }) => theme.colors.primaryLight};
+      background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
       border-radius: 50%;
       animation: 0.9s ${bounce} infinite alternate;
 

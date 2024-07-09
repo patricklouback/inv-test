@@ -58,10 +58,10 @@ export const Sidebar: React.FC<Sidebar> = ({
           color={active ? colors.background : colors.font}
         />
       </MenuSide>
-      <Container active={active}>
-        <ListItems activeCollapse={false}>
+      <Container $active={active}>
+        <ListItems $activeCollapse={false}>
           <SideItem>
-            <User url={image}>
+            <User $url={image}>
               <div id="image" />
               <Name>{name}</Name>
             </User>

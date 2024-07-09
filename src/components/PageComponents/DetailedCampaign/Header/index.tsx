@@ -9,6 +9,7 @@ import { CampaignContext } from 'contexts/Campaign';
 import { useTheme } from 'styled-components';
 import { useRouter } from 'next/router';
 import Button from '@components/Button';
+import { styleSlug } from 'utils/constants';
 import { Bottom, BoxDate, Container, ContainerButton } from './styles';
 
 export const Header: React.FC = (): JSX.Element => {
@@ -56,8 +57,8 @@ export const Header: React.FC = (): JSX.Element => {
           {showCreateIdeaButton && !isFinished && (
             <Button
               value="Criar iniciativa"
-              background={colors.primaryLight}
-              hover={colors.primary}
+              background={colors.primaryLight[styleSlug]}
+              hover={colors.primary[styleSlug]}
               onClick={handleNewIdea}
               color={colors.background}
             >

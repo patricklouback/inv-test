@@ -88,8 +88,8 @@ export const SectionScoreSetting: React.FC = (): JSX.Element => {
 
   const MAX_POINTS_ARR = [];
 
-  for (let i = 1; i <= 20; i += 1) {
-    MAX_POINTS_ARR.push(i.toString())
+  for (let i = 0; i <= 20; i += 1) {
+    MAX_POINTS_ARR.push(i.toString());
   }
 
   return (
@@ -138,7 +138,8 @@ export const SectionScoreSetting: React.FC = (): JSX.Element => {
                 <WapperTextValue>
                   <Title>Submissão de Iniciativas</Title>
                   <Value>
-                    Contabilizado para o usuário que submeteu iniciativas no sistema.
+                    Contabilizado para o usuário que submeteu iniciativas no
+                    sistema.
                   </Value>
                 </WapperTextValue>
               </ConfigItems>
@@ -164,7 +165,8 @@ export const SectionScoreSetting: React.FC = (): JSX.Element => {
                 <WapperTextValue>
                   <Title>Participação em iniciativas</Title>
                   <Value>
-                    Contabilizado para os usuários que estão inseridos na equipe da iniciativa
+                    Contabilizado para os usuários que estão inseridos na equipe
+                    da iniciativa
                   </Value>
                 </WapperTextValue>
               </ConfigItems>
@@ -190,7 +192,8 @@ export const SectionScoreSetting: React.FC = (): JSX.Element => {
                 <WapperTextValue>
                   <Title>Comentários nas iniciativas</Title>
                   <Value>
-                  Contabilizado para os usuários que interagem com alguma iniciativa
+                    Contabilizado para os usuários que interagem com alguma
+                    iniciativa
                   </Value>
                 </WapperTextValue>
               </ConfigItems>
@@ -218,37 +221,39 @@ export const SectionScoreSetting: React.FC = (): JSX.Element => {
                 <WapperTextValue>
                   <Title>Seleção de Iniciativas</Title>
                   <Value>
-                    Contabilizado para os usuários da equipe da iniciativa selecionada
+                    Contabilizado para os usuários da equipe da iniciativa
+                    selecionada
                   </Value>
                 </WapperTextValue>
               </ConfigItems>
               <ConfigItems>
-                  <form>
-                    <WapperSelect>
-                      <Peso>Peso</Peso>
-                      <select name="" onChange={handleSubmitIdeaImplementWeight}>
-                        {MAX_POINTS_ARR.map(item => {
-                          return (
-                            <option
-                              selected={String(idea_implement_weight) === item}
-                              key={item}
-                              value={item}
-                            >
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </WapperSelect>
-                  </form>
-                  <WapperTextValue>
-                    <Title>Iniciativas em Implementação</Title>
-                    <Value>
-                      Contabilizado para os usuários da equipe da iniciativa em implementação
-                    </Value>
-                  </WapperTextValue>
-                </ConfigItems>
-                <ConfigItems/>
+                <form>
+                  <WapperSelect>
+                    <Peso>Peso</Peso>
+                    <select name="" onChange={handleSubmitIdeaImplementWeight}>
+                      {MAX_POINTS_ARR.map(item => {
+                        return (
+                          <option
+                            selected={String(idea_implement_weight) === item}
+                            key={item}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </WapperSelect>
+                </form>
+                <WapperTextValue>
+                  <Title>Iniciativas em Implementação</Title>
+                  <Value>
+                    Contabilizado para os usuários da equipe da iniciativa em
+                    implementação
+                  </Value>
+                </WapperTextValue>
+              </ConfigItems>
+              <ConfigItems />
             </ScoreRow>
           </ScoreSetting>
           <ResetPointsContainer>

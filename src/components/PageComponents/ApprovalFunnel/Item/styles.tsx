@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div<{
   status?: string;
@@ -14,7 +15,7 @@ export const Container = styled.div<{
   user-select: none;
   cursor: pointer;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
@@ -29,7 +30,7 @@ export const Container = styled.div<{
   flex-direction: column;
   justify-content: space-between;
 
-  ::before {
+  &::before {
     content: '';
     background: ${({ status }) => status};
     height: 24px;
@@ -39,7 +40,7 @@ export const Container = styled.div<{
     left: 0;
   }
 
-  ::after {
+  &::after {
     content: '';
     background: ${({ status }) => status};
     height: 7px;
@@ -103,7 +104,7 @@ export const ItemTag = styled.li<{ background?: string }>`
   justify-content: center;
   align-items: center;
 
-  :nth-child(2) {
+  &:nth-child(2) {
     margin-left: 14px;
   }
 `;
@@ -132,7 +133,7 @@ export const Collapse = styled.div<{ open: boolean }>`
   transition: ease 0.2s;
 
   cursor: pointer;
-  :hover {
+  &:hover {
     background: #0000008b;
 
     svg {
@@ -226,7 +227,7 @@ export const Step = styled.div<DefaultParams>`
   width: 100%;
   height: 4px;
   background-color: ${({ checked, theme }) =>
-    checked ? theme.colors.primary : '#E7E7E7'};
+    checked ? theme.colors.primary[styleSlug] : '#E7E7E7'};
 `;
 
 export const CircleCheck = styled.span<DefaultParams>`
@@ -238,7 +239,7 @@ export const CircleCheck = styled.span<DefaultParams>`
   align-items: center;
   justify-content: center;
   background-color: ${({ checked }) => (checked ? '#4CAF50' : '#FFFF')};
-  ::after {
+  &::after {
     content: '';
     width: 2px;
     height: 5px;
@@ -265,28 +266,17 @@ export const OptionsButton = styled.button`
   background-color: ${({ theme }) => theme.colors.background};
   border: none;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.backgroundGrey};
     border-radius: 2px;
   }
 `;
 
-export const OptionsAvailable = styled.div.attrs<
-  {
-    top: number;
-  },
-  {
-    top: number;
-  }
->(props => {
-  return {
-    top: props.top,
-  };
-})`
+export const OptionsAvailable = styled.div<{ top: number }>`
   position: fixed;
   z-index: 99;
   width: 134px;
-  top: ${props => props.top + 27}px;
+  top: ${({ top }) => top + 27}px;
 `;
 
 export const OptionItem = styled.button`
@@ -301,7 +291,7 @@ export const OptionItem = styled.button`
   box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.1);
   border: 2px solid ${({ theme }) => theme.colors.backgroundGrey};
   background-color: ${({ theme }) => theme.colors.background};
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.backgroundGrey};
   }
   @keyframes load {
@@ -399,12 +389,12 @@ export const Dot = styled.div`
   padding-bottom: 5.3px;
 `;
 
-export const LinksTooltip = styled.div.attrs<
-  { top: number; left: number },
-  { top: number; left: number }
->(props => {
-  return { top: props.top || 0, left: props.left || 0 };
-})`
+interface LinksTooltipProps {
+  top?: number;
+  left?: number;
+}
+
+export const LinksTooltip = styled.div<LinksTooltipProps>`
   visibility: hidden;
   margin-left: 17px;
   text-align: center;

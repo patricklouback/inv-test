@@ -21,8 +21,7 @@ export const Row = styled.div<{ size?: number }>`
   }}
 `;
 
-export const ItemsContainer = styled.div`
-`;
+export const ItemsContainer = styled.div``;
 
 export const ContentItem = styled.div`
   height: auto;
@@ -49,10 +48,10 @@ export const ContainerPreview = styled.div`
 export const Draft = styled.div<{ size?: number }>`
   margin: 0 8px;
   width: 100%;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   ${({ size }) => {
@@ -94,11 +93,12 @@ export const IncludeAreaButton = createGlobalStyle`
   }
 `;
 
-export const UserTypeTooltip = styled.div.attrs<{ top: number, left: number }, { top: number, left: number }>(
-  props => {
-    return { top: props.top || 0, left: props.left || 0 };
-  }
-)`
+export const UserTypeTooltip = styled.div.attrs<
+  { top: number; left: number },
+  { top: number; left: number }
+>(props => {
+  return { top: props.top || 0, left: props.left || 0 };
+})`
   visibility: hidden;
   min-width: 210px;
   margin-left: 17px;

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface StyledComponentProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 export const C = styled.div`
@@ -10,7 +11,7 @@ export const C = styled.div`
 `;
 
 export const SectionBanner = styled.div<StyledComponentProps>`
-  display: ${props => props.isOpen ? 'flex': 'none'};
+  display: ${props => (props.$isOpen ? 'flex' : 'none')};
   align-items: center;
   justify-content: space-between;
   height: 135px;
@@ -79,11 +80,11 @@ export const ActionButtonWrapper = styled.div`
   height: 37px;
   font-weight: 600;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.fontWhite};
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.primaryLight};
+    background-color: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   }
 `;
 
@@ -95,11 +96,12 @@ export const BottomActionButtonWrapper = styled.div`
   height: 37px;
   font-weight: 600;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.terceary};
+  background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.tercearyHover}
+    background-color: ${({ theme }) => theme.colors.tercearyHover};
   }
+  color: ${({theme}) => theme.colors.fontWhite};
 `;
 
 export const ListAndContentContainer = styled.div`
@@ -121,13 +123,15 @@ export const SectionItem = styled.div<{ sectionActive: boolean }>`
   align-items: center;
   gap: 15px;
   border-radius: 5px;
-  padding:10px;
+  padding: 10px;
   font-weight: 500;
-  color: ${({ theme, sectionActive }) => sectionActive? theme.colors.primaryLight : theme.colors.font};
-  background-color: ${({ theme, sectionActive }) => sectionActive? theme.colors.primaryShadow : theme.colors.background};
+  color: ${({ theme, sectionActive }) =>
+    sectionActive ? theme.colors.primaryLight[styleSlug] : theme.colors.font};
+  background-color: ${({ theme, sectionActive }) =>
+    sectionActive ? theme.colors.primaryShadow : theme.colors.background};
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.primaryLight};
+    color: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
     background-color: ${({ theme }) => theme.colors.primaryShadow};
   }
 `;

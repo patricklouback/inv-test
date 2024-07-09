@@ -24,10 +24,10 @@ export const Label = styled.div`
   display: flex;
   align-items: center;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 

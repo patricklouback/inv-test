@@ -178,7 +178,7 @@ export const VideoComponent: React.FC<{
             </div>
             <VideoDescription
               isBold={isToScroll}
-              marginRigth={10}
+              marginRight={10}
               width={186}
               marginLeft={34}
             >
@@ -198,7 +198,7 @@ export const VideoComponent: React.FC<{
           </div>
           <VideoDescription
             isBold={isToScroll}
-            marginRigth={10}
+            marginRight={10}
             width={186}
             marginLeft={34}
           >
@@ -224,7 +224,7 @@ export const VideoComponent: React.FC<{
             </div>
             <VideoDescription
               isBold={isToScroll}
-              marginRigth={10}
+              marginRight={10}
               width={186}
               marginLeft={34}
             >
@@ -244,7 +244,7 @@ export const VideoComponent: React.FC<{
           </div>
           <VideoDescription
             isBold={isToScroll}
-            marginRigth={10}
+            marginRight={10}
             width={186}
             marginLeft={34}
           >

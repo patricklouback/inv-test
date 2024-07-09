@@ -23,12 +23,12 @@ export default function FormLoginMicrosoft({
   const { handleSubmit } = useForm();
 
   return (
-    <FormSendMailWrapper onSubmit={handleSubmit(loginAfterMicrosoftAuthenticate)}>
-
-      <Button {...propsButton} name="login" >
+    <FormSendMailWrapper
+      onSubmit={handleSubmit(loginAfterMicrosoftAuthenticate)}
+    >
+      <Button {...propsButton} name="login">
         Ir para Página Inicial
       </Button>
-
     </FormSendMailWrapper>
   );
 }

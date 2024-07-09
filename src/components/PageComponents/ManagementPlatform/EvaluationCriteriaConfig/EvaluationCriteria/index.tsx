@@ -85,7 +85,7 @@ export const EvaluationCriteria: React.FC<EvaluationCriteriaProps> = ({
           <DisclaimerAndFilterWrapper>
             <EvaluationCriteriaDisclaimer marginTop={hideToggle ? '0' : '20'} />
             <FilteredEvaluationCriteria
-              marginTop={hideToggle ? '10' : '24'}
+              marginTop={hideToggle ? 10 : 24}
               setFiltered={setFilteredevaluationCriterias}
               evaluationCriterias={evaluationCriterias}
             />
@@ -122,7 +122,7 @@ export const EvaluationCriteria: React.FC<EvaluationCriteriaProps> = ({
               evaluationCriteriaDescription=""
               evaluationCriteriaStep="ANALYZE"
               evaluationCriteriaWeight={1}
-              index={evaluationCriterias.length + 1}
+              index={evaluationCriterias.length}
               isCreating={isCreating}
               setIsCreating={setIsCreating}
               updateEvaluationCriteria={updateEvaluationCriteria}

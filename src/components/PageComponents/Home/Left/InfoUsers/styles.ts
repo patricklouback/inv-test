@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ParamsItems {
-  img: string;
+  $img: string;
 }
 
 export const Container = styled.div`
@@ -60,7 +61,7 @@ export const ItemCard = styled.li`
 export const Imagem = styled.div<ParamsItems>`
   width: 100%;
   height: 136px;
-  background-image: url(${({ img }) => `${img}`});
+  background-image: url(${({ $img }) => $img});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -89,7 +90,7 @@ export const Name = styled.h3`
 export const Rank = styled.div`
   position: absolute;
   top: -40px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #fff;
 
   font-family: ${({ theme }) => theme.font.primary};
@@ -166,7 +167,7 @@ export const CardQnt = styled.span`
   height: 100%;
   display: grid;
   place-items: center;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   font-size: 12px;
   border-radius: 8px;
 `;

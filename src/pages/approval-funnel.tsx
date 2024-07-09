@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import { ApprovalFunnelPage } from '@components/PageComponents/ApprovalFunnel';
 import { ApprovalFunnelProvider } from 'contexts/ApprovalFunnel';
 import { CampaignProvider } from 'contexts/Campaign';
@@ -10,8 +11,21 @@ import { IdeaTagProvider } from 'contexts/IdeaTags';
 import { ProcessActivityProvider } from 'contexts/ProcessActivity';
 import { BannersProvider } from 'contexts/Banners';
 import { HistoryItensProvider } from 'contexts/History';
+import { serverApi } from 'services/api';
+import { IdeaTag } from 'interfaces/idea';
+import { FiltersType } from 'interfaces/filters';
 
-export default function ApprovalFunnel(): JSX.Element {
+interface ApprovalFunnelProps {
+  ideasTags: IdeaTag[];
+  filters: FiltersType;
+}
+
+export default function ApprovalFunnel({
+  ideasTags,
+  filters,
+}: ApprovalFunnelProps) {
+  console.log(filters);
+
   return (
     <ApprovalFunnelProvider>
       <IdeaStepProvider>
@@ -23,7 +37,10 @@ export default function ApprovalFunnel(): JSX.Element {
                   <IdeaTagProvider>
                     <BannersProvider>
                       <HistoryItensProvider>
-                        <ApprovalFunnelPage />
+                        <ApprovalFunnelPage
+                          ideasTags={ideasTags}
+                          filters={filters}
+                        />
                       </HistoryItensProvider>
                     </BannersProvider>
                   </IdeaTagProvider>
@@ -38,9 +55,35 @@ export default function ApprovalFunnel(): JSX.Element {
 }
 
 export const getServerSideProps = withSSRAuth(
-  async () => {
+  async ctx => {
+    const getIdeasTags = async (): Promise<IdeaTag[]> => {
+      try {
+        const response = await serverApi(ctx.req).get(`/ideas/ideaTag`);
+        return response.data?.ideaTags || [];
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    };
+    const getFilters = async (): Promise<FiltersType> => {
+      try {
+        const {
+          data: { filters },
+        } = await serverApi(ctx.req).get('/ideas/kanban-filters');
+        return filters;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const ideasTags = await getIdeasTags();
+    const filters = await getFilters();
+
     return {
-      props: {},
+      props: {
+        ideasTags,
+        filters,
+      },
     };
   },
   {

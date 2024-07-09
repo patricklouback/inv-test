@@ -3,13 +3,14 @@ import { format } from 'date-fns';
 import { IdeaComment } from 'interfaces/idea';
 import { HTMLAttributes, useCallback, useEffect, useState } from 'react';
 import { FiDownload } from 'react-icons/fi';
+import Link from 'next/link';
 import {
   ChipCommentType,
   FooterComment,
   HeaderComment,
   ItemComment,
   LeftHeaderComment,
-  Input
+  Input,
 } from './styles';
 
 interface CommentEditingProps extends HTMLAttributes<HTMLDivElement> {
@@ -26,13 +27,10 @@ export function CommentEditing({
 }: CommentEditingProps): JSX.Element {
   const [commentEdited, setCommentEdited] = useState(comment.message);
 
-  const handleChange = useCallback(
-    async (event) => {
-      setCommentEdited(event.target.value);
-      commentToParentComponent(event.target.value);
-    },
-    []
-  )
+  const handleChange = useCallback(async event => {
+    setCommentEdited(event.target.value);
+    commentToParentComponent(event.target.value);
+  }, []);
 
   return (
     <ItemComment key={comment.id} {...rest}>
@@ -49,23 +47,21 @@ export function CommentEditing({
           </span>
         </LeftHeaderComment>
       </HeaderComment>
-      <Input 
+      <Input
         placeholder={comment.message}
-        onChange={event =>
-          handleChange(event)
-        }
+        onChange={event => handleChange(event)}
         value={commentEdited}
       />
       <FooterComment>
         {comment.ideaCommentFiles?.length > 0 && (
-          <a
+          <Link
             href={comment.ideaCommentFiles[0].url}
             target="_blank"
             rel="noreferrer"
           >
             <FiDownload />
             Abrir {comment.ideaCommentFiles[0].originalName}
-          </a>
+          </Link>
         )}
       </FooterComment>
     </ItemComment>

@@ -1,18 +1,18 @@
-import { Banner } from "interfaces/banners";
-import { BannerContainer } from "./styles";
+import { Banner } from 'interfaces/banners';
+import { BannerContainer } from './styles';
 
 interface BannerComponentProps {
-    banner?: Banner;
-    children?: React.ReactNode;
+  banner?: Banner;
+  children?: React.ReactNode;
 }
 
 export const BannerComponent: React.FC<BannerComponentProps> = ({
-    banner,
-    children,
+  banner,
+  children,
 }): JSX.Element => {
-    return (
-        <BannerContainer backgroundImage={banner.backgroundImage}>
-            {children}
-        </BannerContainer>
-    )
-}
+  return (
+    <BannerContainer backgroundImage={banner.backgroundImage}>
+      {children}
+    </BannerContainer>
+  );
+};

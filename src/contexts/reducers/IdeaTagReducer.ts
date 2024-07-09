@@ -9,14 +9,13 @@ interface IdeaTagProps {
 export const IdeaTagDefaultValues = {
   loading: false,
   allIdeaTags: [],
-  filteredIdeaTags: []
+  filteredIdeaTags: [],
 };
 
 type IdeaTagAction =
   | { type: 'SET_LOADING'; loading: boolean }
   | { type: 'SET_IDEA_TAGS'; allIdeaTags: IdeaTag[] }
-  | { type: 'SET_FILTERED_IDEA_TAGS'; filteredIdeaTags: FilteredIdeaTags[] }
-
+  | { type: 'SET_FILTERED_IDEA_TAGS'; filteredIdeaTags: FilteredIdeaTags[] };
 
 export const IdeaTagReducer = (
   state: IdeaTagProps,

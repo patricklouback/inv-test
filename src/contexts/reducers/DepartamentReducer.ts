@@ -5,9 +5,9 @@ interface DepartamentProps {
   departament: Departament;
 }
 
-type DepartamentActions = 
-  | { type: 'SET_DEPARTAMENTS'; departaments: Departament[] } 
-  | { type: 'SET_DEPARTAMENT'; departament: Departament};
+type DepartamentActions =
+  | { type: 'SET_DEPARTAMENTS'; departaments: Departament[] }
+  | { type: 'SET_DEPARTAMENT'; departament: Departament };
 
 export const DepartamentDefaultValues = {
   departaments: [],

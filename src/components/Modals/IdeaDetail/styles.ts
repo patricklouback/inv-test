@@ -1,5 +1,6 @@
 import { MentionsInput } from 'react-mentions';
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 // MODAL
 
@@ -15,10 +16,10 @@ export const StyledMentionsInput = styled(MentionsInput)`
     padding: 24px 1rem;
     border: 0;
     outline: 0;
-  
+
     -moz-box-shadow: none;
     box-shadow: none;
-  
+
     max-width: 100%;
   }
 `;
@@ -41,9 +42,9 @@ export const FadeLine = styled.div`
 
   background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
 `;
 
@@ -62,8 +63,8 @@ export const Content = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 
   @media (max-height: 1080px) {

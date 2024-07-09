@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { MentionsInput } from 'react-mentions';
+import { styleSlug } from 'utils/constants';
 
 interface StepProps {
   selected: boolean;
@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   position: relative;
 
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -62,8 +62,8 @@ export const ListSteps = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 
@@ -144,8 +144,8 @@ export const RhombusHistoryIcon = styled.div`
   right: 0;
   width: 20px;
   height: 20px;
-  background-color: #67D1C4;
-  border-color: #1D8177;
+  background-color: #67d1c4;
+  border-color: #1d8177;
   border-width: 3px;
   border-radius: 17%;
   border-style: solid;
@@ -186,11 +186,11 @@ export const HistoryWrapper = styled.div`
 export const RhombusHistoryComponent = styled.button`
   width: 95px;
   padding: 8px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   font-size: 0.9rem;
   font-weight: 600;
   border: 2px solid;
-  border-color:${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   border-radius: 8px;
   background-color: transparent;
 `;
@@ -204,7 +204,7 @@ export const IconCollapse = styled.div<StepProps>`
   justify-content: center;
   align-items: center;
   background: ${({ theme, selected }) =>
-    selected ? theme.colors.primary : theme.colors.font};
+    selected ? theme.colors.primary[styleSlug] : theme.colors.font};
   border-radius: 6px;
   bottom: -3px;
 
@@ -248,7 +248,7 @@ export const Header = styled.header``;
 export const Title = styled.div`
   width: 100%;
   height: 52px;
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.background};
 
   display: flex;
@@ -306,7 +306,7 @@ export const ItemActivity = styled.li`
     align-items: center;
   }
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
@@ -325,7 +325,6 @@ export const ItemActivity = styled.li`
   }
 `;
 
-
 export const KanbanActions = styled.div`
   display: flex;
   flex: 1;
@@ -337,7 +336,7 @@ export const KanbanActions = styled.div`
     width: auto;
     font-weight: 500;
 
-    :first-child {
+    &:first-child {
       background-color: ${({ theme }) => theme.colors.font};
     }
 

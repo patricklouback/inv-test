@@ -15,7 +15,7 @@ interface TextareaParams
   cols?: number;
   rows?: number;
   register?: UseFormRegister<FieldValues>;
-  registerOptions?: Record<string, string>
+  registerOptions?: Record<string, string>;
   mark?: boolean;
   errors?: FieldErrors;
 }

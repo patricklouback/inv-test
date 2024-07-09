@@ -9,6 +9,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { RiTrophyLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
+import { slug, styleSlug } from 'utils/constants';
 import { CommentSection } from './CommentSection';
 import { ProgressBar } from './ProgressBar';
 import { TextExplanation } from './TextExplanation';
@@ -29,7 +30,6 @@ import {
 export const KnowledgeTrailPage: React.FC = (): JSX.Element => {
   const { colors } = useTheme();
   const {
-    allVideos,
     getAllVideos,
     updateVideoWatchedStatus,
     updateLikes,
@@ -52,7 +52,7 @@ export const KnowledgeTrailPage: React.FC = (): JSX.Element => {
   const [isBannerActive, setIsBannerActive] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
   const isCommonUser = !user?.isAdmin && !user?.isManager;
 
   function getVideoIdFromQuery(): number | undefined {
@@ -239,7 +239,7 @@ export const KnowledgeTrailPage: React.FC = (): JSX.Element => {
           </DefaultSection>
         </Container>
         {isTrial && !isCommonUser ? (
-          <SectionBanner isOpen={isBannerActive}>
+          <SectionBanner $isOpen={isBannerActive}>
             {bannersList && bannersList.length > 0 && (
               <BannerComponent banner={bannersList[0]}>
                 <AllContent>
@@ -250,7 +250,9 @@ export const KnowledgeTrailPage: React.FC = (): JSX.Element => {
                   <CloseButtonWrapper onClick={() => closeBanner()}>
                     <IoMdClose
                       size={25}
-                      color={isHovered ? colors.primaryLight : colors.font}
+                      color={
+                        isHovered ? colors.primaryLight[styleSlug] : colors.font
+                      }
                       onMouseEnter={() => setIsHovered(true)}
                       onMouseLeave={() => setIsHovered(false)}
                     />

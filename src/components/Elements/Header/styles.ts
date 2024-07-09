@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface UserLoggedInfoProps {
-  logged?: boolean;
+  $logged?: boolean;
 }
 
 export const HeaderWrapper = styled.header`
   width: 100vw;
   display: flex;
   height: 5.5rem;
-  background-color: ${({ theme }) => theme.colors.secondaryLight};
+  background-color: ${({ theme }) => theme.colors.secondaryLight[styleSlug]};
   justify-content: space-around;
   align-items: center;
   position: relative;
@@ -24,16 +25,16 @@ export const HeaderWrapper = styled.header`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 `;
 
 export const HeaderContent = styled.div<UserLoggedInfoProps>`
   display: flex;
-  justify-content: ${({ logged }) => (logged ? 'space-between' : 'center')};
+  justify-content: ${({ $logged }) => $logged && 'space-between'};
   align-items: center;
   height: 100%;
   width: 100%;
@@ -44,7 +45,7 @@ export const HeaderContent = styled.div<UserLoggedInfoProps>`
     flex-direction: column;
     align-items: center;
     margin-left: 20rem;
-    
+
     @media (max-width: 1000px) {
       margin-left: 6rem;
     }
@@ -72,7 +73,7 @@ export const HeaderContent = styled.div<UserLoggedInfoProps>`
   }
 `;
 
-export const UserInfo = styled.div<{ image: string }>`
+export const UserInfo = styled.div<{ $image: string }>`
   display: flex;
   align-items: center;
   width: 100%;

@@ -5,7 +5,7 @@ import { AdmContext, ICreateUserDTO } from 'contexts/Adm';
 import { Area } from 'interfaces/areas';
 import { Departament } from 'interfaces/departament';
 import { UserUpdate } from 'interfaces/user';
-import { SetStateAction, useCallback, useContext, useEffect } from 'react';
+import { SetStateAction, useCallback, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
@@ -42,6 +42,8 @@ export function UpdateUsers({
   user,
 }: UpdateUsersProps): JSX.Element {
   const { getUsers, editUser } = useContext(AdmContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     formState: { errors },
     register,
@@ -50,10 +52,61 @@ export function UpdateUsers({
     watch,
   } = useForm({
     resolver: yupResolver(yupValidateAddUser),
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      registration: user.registration ?? '',
+      areaId: user.areaId ?? '',
+      departamentId: user.departamentId ?? '',
+      isAdmin: user.isAdmin,
+      isManager: user.isManager,
+      password: '',
+    },
   });
 
   const handleSubmitUser = useCallback(
     async values => {
+      const hasEmail = values.email !== '';
+      const hasRegistration = values.registration !== '';
+      const hasPassword = values.password !== '';
+
+      const emptyArea =
+        values.areaId === '' ||
+        values.areaId === null ||
+        values.areaId === undefined;
+
+      const emptyDept =
+        values.departamentId === '' ||
+        values.departamentId === null ||
+        values.departamentId === undefined;
+
+      if (!hasEmail && !hasRegistration) {
+        toast.warning(
+          'Insira um email ou matrícula para poder enviar as alterações'
+        );
+        return;
+      }
+
+      if (!hasPassword && hasRegistration) {
+        toast.warning(
+          'Se houver matrícula a redefinição da senha é obrigatória, apague a matrícula para continuar, ou redefina a senha.'
+        );
+        return;
+      }
+
+      if (emptyArea) {
+        toast.warning('Selecione uma área para poder enviar as alterações');
+        return;
+      }
+
+      if (emptyDept) {
+        toast.warning(
+          'Selecione um departamento para poder enviar as alterações'
+        );
+        return;
+      }
+      setIsLoading(true);
+
       const data: ICreateUserDTO = {
         name: values.name,
         areaId: values.areaId,
@@ -65,9 +118,15 @@ export function UpdateUsers({
         isAdmin: values.isAdmin,
         isManager: values.isManager,
       };
-      await editUser(user.id, data);
-      await getUsers();
-      setIsModalUpdateOpen(false);
+      try {
+        await editUser(user.id, data);
+        await getUsers();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+        setIsModalUpdateOpen(false);
+      }
     },
     [editUser, setIsModalUpdateOpen, getUsers, user]
   );
@@ -84,31 +143,6 @@ export function UpdateUsers({
     },
     [watch, setValue]
   );
-
-  const handleSubmitButtonClick = useCallback(() => {
-    const checkArea = watch('areaId');
-    const checkDept = watch('departamentId');
-
-    if (checkArea === null || checkArea === '') {
-      toast.warning('Selecione uma área para poder enviar as alterações');
-    }
-
-    if (checkDept === null || checkDept === '') {
-      toast.warning(
-        'Selecione um departamento para poder enviar as alterações'
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    setValue('name', user.name);
-    setValue('email', user.email);
-    setValue('registration', user.registration);
-    setValue('areaId', user.areaId);
-    setValue('departamentId', user.departamentId);
-    setValue('isAdmin', user.isAdmin);
-    setValue('isManager', user.isManager);
-  }, [setValue, user]);
 
   return (
     <ModalUpdate>
@@ -136,33 +170,33 @@ export function UpdateUsers({
         <div>
           <Label>Nome</Label>
           <Input
-            errors={errors}
-            register={register}
             name="name"
             placeholder="Nome"
+            {...register('name')}
+            error={errors?.name?.message}
           />
           <Label>Email</Label>
           <Input
-            errors={errors}
-            register={register}
             name="email"
             placeholder="Email"
+            {...register('email')}
+            error={errors?.email?.message}
           />
           <Label>Matrícula</Label>
           <Input
-            errors={errors}
-            register={register}
             name="registration"
             placeholder="Matrícula"
+            {...register('registration')}
+            error={errors?.registration?.message}
           />
 
           <Label>Senha Temporária</Label>
           <Input
-            errors={errors}
-            register={register}
             name="password"
-            placeholder="******"
             type="password"
+            placeholder="******"
+            {...register('password')}
+            error={errors?.password?.message}
           />
           <Label>Área / Unidade do Negócio</Label>
           <Select name="areaId" {...register('areaId')}>
@@ -218,12 +252,8 @@ export function UpdateUsers({
           </UserType>
         </div>
 
-        <ButtonAction
-          id="green"
-          type="submit"
-          onClick={handleSubmitButtonClick}
-        >
-          <span>Editar Usuários</span>
+        <ButtonAction id="green" type="submit" disabled={isLoading}>
+          <span>{isLoading ? 'Salvando...' : 'Editar Usuários'}</span>
         </ButtonAction>
       </Form>
     </ModalUpdate>

@@ -27,14 +27,14 @@ export const CommentPhoto = styled.div`
   justify-content: space-between;
 `;
 
-export const Image = styled.div<{ img?: string }>`
+export const Image = styled.div<{ $img?: string }>`
   height: 36px;
   min-width: 36px;
 
   border-radius: 8px;
   border: 2px solid rgba(255, 255, 255, 0.4);
 
-  background-image: url(${({ img }) => img});
+  background-image: url(${({ $img }) => $img});
   background-position: center;
   background-repeat: no-repeat;
   background-size: 36px;

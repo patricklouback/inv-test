@@ -11,21 +11,24 @@ interface UserProps {
     createdIdeas: string;
     comments: string;
     likes: string;
-  }>
+  }>;
 }
 
 type UserActions =
   | { type: 'SET_LOADING'; loading: boolean }
   | { type: 'SET_USER'; user: User }
-  | { type: 'SET_ENGAGEMENT_RANKING'; engagementRanking: Array<{
-      rank: string;
-      name: string;
-      image: string;
-      points: string;
-      createdIdeas: string;
-      comments: string;
-      likes: string;
-    }> };
+  | {
+      type: 'SET_ENGAGEMENT_RANKING';
+      engagementRanking: Array<{
+        rank: string;
+        name: string;
+        image: string;
+        points: string;
+        createdIdeas: string;
+        comments: string;
+        likes: string;
+      }>;
+    };
 
 export const UserDefaultValues = {
   loading: false,

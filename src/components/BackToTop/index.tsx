@@ -7,7 +7,7 @@ export const BackToTop: React.FC = (): JSX.Element => {
   const scrollToTop = async (): Promise<void> => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -33,7 +33,7 @@ export const BackToTop: React.FC = (): JSX.Element => {
 
   return (
     <Base display={display} onClick={scrollToTop}>
-      <ButtonBack doAnimation>Voltar ao topo</ButtonBack>
+      <ButtonBack $doAnimation>Voltar ao topo</ButtonBack>
     </Base>
   );
 };

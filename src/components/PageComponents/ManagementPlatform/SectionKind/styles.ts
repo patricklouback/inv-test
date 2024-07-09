@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ISectionKind } from '.';
 
 export const Sec = styled.div<ISectionKind>`
-  display: ${({ section, kind }) => section === kind ? 'block' : 'none'}; 
+  display: ${({ section, kind }) => (section === kind ? 'block' : 'none')};
   max-width: 100%;
   border: 2px solid ${({ theme }) => theme.colors.backgroundGrey};
   border-radius: 16px;

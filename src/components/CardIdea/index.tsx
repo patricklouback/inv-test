@@ -136,7 +136,7 @@ export const CardIdeia: React.FC<CardIdeaProps> = ({
           </AddProcessActivity>
         </ButtonWrapper>
       )}
-      <Container width={name.length * 10} background={background}>
+      <Container $width={name.length * 10} $background={background}>
         {icon !== undefined ? (
           <CardIconComponent background={backgroundIcon} shadow={false}>
             {icon}

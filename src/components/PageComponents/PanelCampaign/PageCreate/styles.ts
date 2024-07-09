@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const FooterButtons = styled.div`
   display: flex;
@@ -33,8 +34,8 @@ export const FooterButtons = styled.div`
     background-color: ${({ theme }) => theme.colors.font};
   }
   button.send {
-    border: 2px solid ${({ theme }) => theme.colors.terceary};
-    background-color: ${({ theme }) => theme.colors.terceary};
+    border: 2px solid ${({ theme }) => theme.colors.terceary[styleSlug]};
+    background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   }
 
   @media screen and (max-width: 515px) {

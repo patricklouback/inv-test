@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ScrollableList = styled.div`
   display: flex;
@@ -6,7 +7,7 @@ export const ScrollableList = styled.div`
   overflow-y: hidden;
   padding-bottom: 15px;
   max-width: 1100px;
-  
+
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #f5f5f5;
@@ -20,8 +21,8 @@ export const ScrollableList = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -74,7 +75,7 @@ export const WapperRotate = styled.div<{ status?: boolean }>`
     status &&
     css`
       transform: rotateZ(0deg);
-      background: ${({ theme }) => theme.colors.primaryLight};
+      background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
     `}
 `;
 
@@ -141,7 +142,7 @@ export const StepActivities = styled.div`
 export const Header = styled.div`
   width: 100%;
   height: 52px;
-  background: #48009b;
+  background: ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #ffffff;
   display: flex;
   -webkit-box-align: center;
@@ -201,11 +202,11 @@ export const ItemActivity = styled.li`
     align-items: center;
   }
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -230,10 +231,10 @@ export const HistoryWrapper = styled.div`
 export const RhombusHistoryComponent = styled.button`
   width: 100%;
   padding: 8px 16px 8px 16px;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary[styleSlug]};
   font-weight: 600;
   border: 2px solid;
-  border-color: ${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary[styleSlug]};
   border-radius: 8px;
   background-color: transparent;
 `;

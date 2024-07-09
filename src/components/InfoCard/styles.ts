@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export interface ItemProps {
-    hasIcon: boolean;
+  $hasIcon: boolean;
 }
 
 export const Item = styled.li<ItemProps>`
@@ -21,8 +21,8 @@ export const Item = styled.li<ItemProps>`
   position: relative;
   border-radius: 8px;
 
-  ${({ hasIcon }) =>
-    hasIcon &&
+  ${({ $hasIcon }) =>
+    $hasIcon &&
     css`
       &::after {
         content: '';

@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 import { createContext, useCallback, useMemo, useReducer } from 'react';
 import { toast } from 'react-toastify';
-import { api } from 'services/api';
 import { IEvaluationCriteria } from 'interfaces/evaluationCriteria';
+import { EvaluationCriteriaAPI } from 'services/apis/evaluation-criteria';
 import {
   EvaluationCriteriaDefaultValues,
   EvaluationCriteriaCampaignReducer,
@@ -46,9 +46,10 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
           type: 'SET_LOADING',
           loading: true,
         });
-        const { data } = await api.get(
-          `/evaluationcriterias/campaign/all/${campaignId}`
-        );
+        const data =
+          await EvaluationCriteriaAPI.getAllEvaluationCriteriaByCampaign(
+            campaignId
+          );
         dispatch({
           type: 'SET_EVALUATION_CRITERIAS',
           evaluationCriteriasCampaign: data,
@@ -70,7 +71,7 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
     async (id: string, data: IEvaluationCriteria) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.put(`/evaluationcriterias/campaign/${id}`, data);
+        await EvaluationCriteriaAPI.updateEvaluationCriteriaCampaign(id, data);
         await getEvaluationCriteriaCampaign(data.campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critério atualizado!');
@@ -89,7 +90,7 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
     async (data: IEvaluationCriteria) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.post(`/evaluationcriterias/campaign`, data);
+        await EvaluationCriteriaAPI.createEvaluationCriteriaCampaign(data);
         await getEvaluationCriteriaCampaign(data.campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critério criado!');
@@ -106,7 +107,7 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
     async (id: string, campaignId: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.delete(`/evaluationcriterias/campaign/${id}`);
+        await EvaluationCriteriaAPI.deleteEvaluationCriteriaCampaign(id);
         await getEvaluationCriteriaCampaign(campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critério deletado!');
@@ -123,7 +124,9 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
     async (campaignId: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.post(`/evaluationcriterias/import-template/${campaignId}`);
+        await EvaluationCriteriaAPI.importEvaluationCriteriaTemplate(
+          campaignId
+        );
         await getEvaluationCriteriaCampaign(campaignId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Critérios importados!');
@@ -143,7 +146,7 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
       getEvaluationCriteriaCampaign,
       createEvaluationCriteriaCampaign,
       deleteEvaluationCriteriaCampaign,
-      importEvaluationCriteriaTemplate
+      importEvaluationCriteriaTemplate,
     };
   }, [
     dataReducer,
@@ -151,7 +154,7 @@ export const EvaluationCriteriaCampaignProvider: React.FC = ({
     getEvaluationCriteriaCampaign,
     createEvaluationCriteriaCampaign,
     deleteEvaluationCriteriaCampaign,
-    importEvaluationCriteriaTemplate
+    importEvaluationCriteriaTemplate,
   ]);
 
   return (

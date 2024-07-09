@@ -11,6 +11,6 @@ export const yupValidateCampaign = Yup.object()
     description: Yup.string().required('Descrição é obrigatória'),
     summary: Yup.string()
       .max(160, 'Tamanho máximo de 160 caracteres')
-      .required('Resumo é obrigatório')
+      .required('Resumo é obrigatório'),
   })
   .required();

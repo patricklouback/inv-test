@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const T = styled.span<{ background: string }>`
+export const T = styled.span<{ $background: string }>`
   padding: 6px 21px;
-  background: ${({ background }) => background};
+  background: ${({ $background }) => $background};
   font-weight: bold;
   border-radius: 8px;
   color: #fff;
@@ -17,5 +17,5 @@ interface TagProps {
 }
 
 export const Tag: React.FC<TagProps> = ({ value, background }): JSX.Element => (
-  <T background={background}>{value}</T>
+  <T $background={background}>{value}</T>
 );

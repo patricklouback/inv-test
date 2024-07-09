@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 interface WarningTagTextProps {
-    size: string;
+  size: string;
 }
 
 interface WarningTagContainerProps {
-    margin: string;
+  margin: string;
 }
 
 export const WarningTagContainer = styled.li<WarningTagContainerProps>`
-  margin: ${(props) => props.margin};
+  margin: ${props => props.margin};
   border-radius: 8px;
   height: 26px;
 
@@ -32,7 +32,7 @@ export const WarningTagMiddle = styled.div`
 
 export const WarningTagText = styled.div<WarningTagTextProps>`
   color: #ec3137;
-  font-size: ${(props) => props.size};
+  font-size: ${props => props.size};
   font-weight: 500;
   letter-spacing: 0.4px;
 `;

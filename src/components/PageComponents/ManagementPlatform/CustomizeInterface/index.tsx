@@ -21,8 +21,12 @@ import {
 
 export const SectionCustomizeInterface: React.FC = (): JSX.Element => {
   const { colors } = useTheme();
-  const { editOrganizationSlogan, editLogoOrganization, slogan, company_terms } =
-    useContext(ConfigContext);
+  const {
+    editOrganizationSlogan,
+    editLogoOrganization,
+    slogan,
+    company_terms,
+  } = useContext(ConfigContext);
   const [row, setRow] = useState(true);
   const [sloganState, setSlogan] = useState('');
   const [file, setFile] = useState({
@@ -54,7 +58,7 @@ export const SectionCustomizeInterface: React.FC = (): JSX.Element => {
   }, [slogan, company_terms]);
 
   const handleFilesChange = (files: File[]): void => {
-    setFile({ name: files[0]?.name, fileData: files[0] })
+    setFile({ name: files[0]?.name, fileData: files[0] });
   };
 
   return (

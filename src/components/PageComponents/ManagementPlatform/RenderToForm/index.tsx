@@ -2,7 +2,7 @@
 import { SelectOption } from '@components/SelectOption';
 import { ConfigContext } from 'contexts/ConfigContext';
 import slugify from 'slugify';
-import { Draggable } from 'react-beautiful-dnd'
+import { Draggable } from 'react-beautiful-dnd';
 import { IdeaField } from 'interfaces/idea';
 import { useTheme } from 'styled-components';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { FiCheck, FiEdit2, FiPlus, FiTrash } from 'react-icons/fi';
 import { MdDragIndicator } from 'react-icons/md';
+import { styleSlug } from 'utils/constants';
 import {
   ToForm,
   DragIndicatorContainer,
@@ -70,8 +71,8 @@ const ObligatorinessOptions = [
   {
     name: 'Opcional',
     value: 'OPTIONAL',
-  }
-]
+  },
+];
 
 export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
   ideaField,
@@ -87,7 +88,9 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
   const [isEditable, setIsEditable] = useState(false);
   const [optionEditable, setOptionEditable] = useState('');
   const [ideaFieldBase, setIdeaFieldBase] = useState<IdeaField>();
-  const [ideaFieldOptions, setIdeaFieldOptions] = useState/* <Options[]> */([]);
+  const [ideaFieldOptions, setIdeaFieldOptions] = useState(
+    /* <Options[]> */ []
+  );
   const {
     deleteIdeaField,
     getDefaultIdeaFields,
@@ -97,9 +100,12 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
     createIdeaFieldForCampaign,
   } = useContext(ConfigContext);
 
-  const handleChangeideaFieldState = useCallback((newState: IdeaField[]): void => {
-    changeIdeaFieldState(newState);
-  }, [changeIdeaFieldState]);
+  const handleChangeideaFieldState = useCallback(
+    (newState: IdeaField[]): void => {
+      changeIdeaFieldState(newState);
+    },
+    [changeIdeaFieldState]
+  );
 
   const handleDeleteItem = useCallback(async () => {
     if (isCreate) {
@@ -108,15 +114,15 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
 
     if (campaignId) {
       await deleteIdeaField(ideaField.id);
-      
+
       const result = await getCampaignIdeaFields(campaignId);
-      
+
       handleChangeideaFieldState(result);
     } else {
       await deleteIdeaField(ideaField.id);
-      
+
       const result = await getDefaultIdeaFields();
-      
+
       handleChangeideaFieldState(result);
     }
   }, [
@@ -172,13 +178,13 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
       ...ideaFieldBase,
       options: JSON.stringify(formatIdeaFieldOptions),
     });
-    
+
     setIsEditable(false);
-    
-    const result = !campaignId 
-      ? await getDefaultIdeaFields() 
+
+    const result = !campaignId
+      ? await getDefaultIdeaFields()
       : await getCampaignIdeaFields(campaignId);
-    
+
     handleChangeideaFieldState(result);
   }, [
     updateIdeaField,
@@ -188,7 +194,7 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
     ideaFieldBase,
     ideaFieldOptions,
     ideaField.id,
-    campaignId
+    campaignId,
   ]);
 
   const handleCreateIdeaField = useCallback(async () => {
@@ -200,23 +206,26 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
         replacement: '-',
       }),
     }));
-    
+
     if (campaignId) {
-      await createIdeaFieldForCampaign({
-        ...ideaFieldBase,
-        name: slugify(ideaFieldBase.title, {
-          lower: true,
-          trim: true,
-          replacement: '-',
-        }),
-        options: JSON.stringify(formatIdeaFieldOptions),
-      }, campaignId)
-      
+      await createIdeaFieldForCampaign(
+        {
+          ...ideaFieldBase,
+          name: slugify(ideaFieldBase.title, {
+            lower: true,
+            trim: true,
+            replacement: '-',
+          }),
+          options: JSON.stringify(formatIdeaFieldOptions),
+        },
+        campaignId
+      );
+
       setAddField(false);
       setIsEditable(false);
-      
+
       const result = await getCampaignIdeaFields(campaignId);
-      
+
       handleChangeideaFieldState(result);
     } else {
       await createIdeaField({
@@ -233,7 +242,7 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
       setIsEditable(false);
 
       const result = await getDefaultIdeaFields();
-      
+
       handleChangeideaFieldState(result);
     }
   }, [
@@ -261,13 +270,21 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
     }
   }, [ideaField, isCreate]);
   return (
-    <Draggable draggableId={ideaField.id} index={index} isDragDisabled={!dragable}>
-      {(provided) => {
+    <Draggable
+      draggableId={ideaField.id}
+      index={index}
+      isDragDisabled={!dragable}
+    >
+      {provided => {
         return (
-          <InputWrapper {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+          <InputWrapper
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
             <ToForm>
               <DragIndicatorContainer>
-                <MdDragIndicator size={35} color={colors.primary} />
+                <MdDragIndicator size={35} color={colors.primary[styleSlug]} />
               </DragIndicatorContainer>
               <Index>{index + 1}.</Index>
               <Content>
@@ -318,21 +335,19 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
                     {isEditable ? (
                       <IconButton
                         onClick={
-                          isCreate ? handleCreateIdeaField : handleUpdateIdeaField
+                          isCreate
+                            ? handleCreateIdeaField
+                            : handleUpdateIdeaField
                         }
                       >
                         <FiCheck size={20} />
                       </IconButton>
                     ) : (
-                      <IconButton
-                        onClick={() => setIsEditable(true)}
-                      >
+                      <IconButton onClick={() => setIsEditable(true)}>
                         <FiEdit2 size={20} />
                       </IconButton>
                     )}
-                    <IconButton
-                      onClick={handleDeleteItem}
-                    >
+                    <IconButton onClick={handleDeleteItem}>
                       <FiTrash size={20} />
                     </IconButton>
                   </Actions>
@@ -400,7 +415,7 @@ export const RenderToForm: React.FC<RenderFormCampaignProps> = ({
               </Draft>
             )}
           </InputWrapper>
-        )
+        );
       }}
     </Draggable>
   );

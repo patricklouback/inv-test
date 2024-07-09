@@ -67,7 +67,7 @@ export const CampaingRecent: React.FC = (): JSX.Element => {
                   onClick={() => handleNewIdea(campaign.id)}
                 >
                   <CampaignCardImg
-                    img={
+                    $img={
                       campaign.image
                         ? campaign.image
                         : 'https://via.placeholder.com/390x250'

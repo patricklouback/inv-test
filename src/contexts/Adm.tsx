@@ -10,7 +10,7 @@ interface UsersLoadParams {
   offset?: number;
   search?: string;
   page?: number;
-  orderColumn?: 'createdAt';
+  orderColumn?: 'createdAt' | 'name' | 'email' | 'registration';
   orderOrientation?: 'asc' | 'desc';
   departamentIds?: string;
   areaIds?: string;
@@ -52,10 +52,6 @@ export const ProviderAdm: React.FC = ({ children }): JSX.Element => {
         const { data } = await api.get('/users/list', {
           params,
         });
-        if (data.users.length === 0) {
-          toast.info('Lista de usúarios vazia!');
-          return;
-        }
 
         dispatch({ type: 'SET_USERS', users: data.users });
         dispatch({ type: 'SET_PAGINATE', paginate: data.paginate });
@@ -96,10 +92,17 @@ export const ProviderAdm: React.FC = ({ children }): JSX.Element => {
   );
 
   const importCSV = useCallback(
-    async (file: any) => {
+    async (file: File) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.post('/users/csv', file);
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const { data } = await api.post('/users/csv', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         await getUsers();
         if (data.uploadUsersResult.length > 0) {
           dispatch({ type: 'SET_LOADING', loading: false });
@@ -120,8 +123,6 @@ export const ProviderAdm: React.FC = ({ children }): JSX.Element => {
     [dispatch, getUsers]
   );
 
-
-  
   const downloadReport = useCallback(async () => {
     try {
       const response = await api.get('/users/sessions/generate-report', {
@@ -135,12 +136,10 @@ export const ProviderAdm: React.FC = ({ children }): JSX.Element => {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message || 'Erro ao gerar relatório'
-      );
+      toast.error(error?.response?.data?.message || 'Erro ao gerar relatório');
     }
   }, []);
-    
+
   const createUser = useCallback(async (data: User) => {
     try {
       await api.post('/users/user', data);
@@ -162,7 +161,15 @@ export const ProviderAdm: React.FC = ({ children }): JSX.Element => {
       getUsers,
       downloadReport,
     };
-  }, [dataReducer, importCSV, createUser, editUser, getUsers, deleteUser,downloadReport]);
+  }, [
+    dataReducer,
+    importCSV,
+    createUser,
+    editUser,
+    getUsers,
+    deleteUser,
+    downloadReport,
+  ]);
 
   return (
     <AdmContext.Provider value={AuthDataValue}>{children}</AdmContext.Provider>

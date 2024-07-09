@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   padding: 30px 0;
@@ -27,7 +28,7 @@ export const CustomArrowLeft = styled.div`
   cursor: pointer;
   position: absolute;
   background: ${({ theme }) => theme.colors.secondary};
-  :hover {
+  &:hover {
     opacity: 1;
   }
   transition: 0.4s ease;
@@ -41,12 +42,12 @@ export const CustomArrowLeft = styled.div`
   border-radius: 0px 4px 4px 0px;
 
   svg path {
-    color: ${({ theme }) => theme.colors.terceary};
+    color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   }
 `;
 
 export const CustomArrowRight = styled.div`
-  :hover {
+  &:hover {
     opacity: 1;
   }
   transition: 0.4s ease;
@@ -64,7 +65,7 @@ export const CustomArrowRight = styled.div`
   right: 0;
 
   svg path {
-    color: ${({ theme }) => theme.colors.terceary};
+    color: ${({ theme }) => theme.colors.terceary[styleSlug]};
   }
 `;
 

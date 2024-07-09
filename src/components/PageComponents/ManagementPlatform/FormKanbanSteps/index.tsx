@@ -3,15 +3,11 @@ import { KanbanStep } from 'interfaces/idea';
 import { ConfigContext } from 'contexts/ConfigContext';
 import { useContext, useEffect, useState } from 'react';
 import Collapsible from 'react-collapsible';
-import { GrSteps } from "react-icons/gr";
+import { GrSteps } from 'react-icons/gr';
 import { useTheme } from 'styled-components';
 import { RenderHeader } from '../RenderHeader';
 import { RenderToKanbanSteps } from '../RenderToKanbanSteps';
-import {
-  Content,
-  FormKanbanStep,
-  Section,
-} from './styles';
+import { Content, FormKanbanStep, Section } from './styles';
 
 export const SectionKanbanSteps: React.FC = (): JSX.Element => {
   const { colors } = useTheme();
@@ -20,16 +16,15 @@ export const SectionKanbanSteps: React.FC = (): JSX.Element => {
   const [row, setRow] = useState(true);
   const [kanbanStepsState, setKanbanStepsState] = useState<KanbanStep[]>([]);
 
-
   const changeKanbanStepsState = (newState: KanbanStep[]): void => {
     setKanbanStepsState(newState);
-  }
+  };
 
   useEffect(() => {
     const loadKanbanSteps = async (): Promise<void> => {
       const result = await getKanbanSteps();
       setKanbanStepsState(result);
-    }
+    };
     loadKanbanSteps();
   }, [getKanbanSteps]);
 
@@ -50,13 +45,18 @@ export const SectionKanbanSteps: React.FC = (): JSX.Element => {
         onClose={() => setRow(false)}
       >
         <Content>
-        {kanbanStepsState?.length > 0 && (
-          <FormKanbanStep>
-            {kanbanStepsState.map((item, index) => (
-              <RenderToKanbanSteps kanbanStep={item} index={index} key={item.id} changeKanbanStepState={changeKanbanStepsState} />
-            ))}
-          </FormKanbanStep>
-        )}
+          {kanbanStepsState?.length > 0 && (
+            <FormKanbanStep>
+              {kanbanStepsState.map((item, index) => (
+                <RenderToKanbanSteps
+                  kanbanStep={item}
+                  index={index}
+                  key={item.id}
+                  changeKanbanStepState={changeKanbanStepsState}
+                />
+              ))}
+            </FormKanbanStep>
+          )}
         </Content>
       </Collapsible>
     </Section>

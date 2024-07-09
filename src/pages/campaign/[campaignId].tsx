@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
 import { withSSRAuth } from 'utils/withSSRAuth';
 
-function EditCampaignPage(): JSX.Element {
+function EditCampaignPage() {
   const { query } = useRouter();
   const { getCampaign } = useContext(CampaignContext);
 
@@ -22,7 +22,7 @@ function EditCampaignPage(): JSX.Element {
   return <PanelCampaign manageCampaign campaignId={String(query.campaignId)} />;
 }
 
-export default function EditCampaign(): JSX.Element {
+export default function EditCampaign() {
   return (
     <CampaignProvider>
       <BannersProvider>

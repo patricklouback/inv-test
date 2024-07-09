@@ -4,7 +4,6 @@ import { EvaluationCriteriasData } from './evaluationCriteriasData ';
 import { ProcessActivity } from './processActivity';
 import { User } from './user';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface IdeaFieldValue {
   id?: string;
   ideaId?: string;
@@ -32,12 +31,21 @@ export interface IdeaField {
   obligatoriness: 'MANDATORY' | 'OPTIONAL';
 }
 
+export enum IdeaUserStatus {
+  DEFAULT = 'DEFAULT',
+  INVITED = 'INVITED',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+  EXCLUDED = 'EXCLUDED',
+}
+
 export interface IdeaUser {
   id: string;
   userId: string;
   ideaId: string;
   type: 'OWNER' | 'COLLABORATOR';
   user: User;
+  status: IdeaUserStatus;
 }
 
 export interface IdeaStepItem {
@@ -64,6 +72,14 @@ export interface IdeaLikes {
   ideaId: string;
 }
 
+export interface Tag {
+  name: string;
+  color: string;
+  textColor: string;
+  checked?: boolean;
+  id: string;
+}
+
 export interface IdeaTag {
   id: string;
   checked: boolean;
@@ -72,12 +88,6 @@ export interface IdeaTag {
   ideaId: string;
 }
 
-export interface Tag {
-  name: string;
-  color: string;
-  textColor: string;
-  id: string;
-}
 export interface FilteredIdeaTags {
   id: string;
   checked: boolean;
@@ -100,6 +110,41 @@ export type IdeaKanbanStatus =
   | 'APPROVED'
   | 'AGENT_REVIEW'
   | 'PAUSED';
+
+export interface KanbanStep {
+  id: string;
+  title: string;
+  sequence: number;
+  ideas?: Idea[];
+  ideaLinks?: IdeaLink[];
+}
+
+export interface IdeaComment {
+  id: string;
+  ideaId: string;
+  idea: Idea;
+  isInternalComment: boolean;
+  type: string;
+  userId: string;
+  user: User;
+  targetUser: User;
+  message: string;
+  createdAt: Date;
+  ideaCommentFiles?: Array<{
+    originalName: string;
+    url: string;
+  }>;
+}
+
+export interface HistoryItens {
+  id: string;
+  date: string;
+  title: string;
+  description: string;
+  ideaId: string;
+  userId: string;
+  user: User;
+}
 
 export interface Idea {
   id: string;
@@ -131,35 +176,11 @@ export interface Idea {
   directApprovals: DirectApproval[];
   directApprovalsUsers: User[];
   secondaryLinks: Idea[];
+  historyItem?: HistoryItens;
 }
 
 export interface KanbanObject {
   [x: string]: [x: Idea];
-}
-
-export interface KanbanStep {
-  id: string;
-  title: string;
-  sequence: number;
-  ideas?: Idea[];
-  ideaLinks?: IdeaLink[];
-}
-
-export interface IdeaComment {
-  id: string;
-  ideaId: string;
-  idea: Idea;
-  isInternalComment: boolean;
-  type: string;
-  userId: string;
-  user: User;
-  targetUser: User;
-  message: string;
-  createdAt: Date;
-  ideaCommentFiles?: Array<{
-    originalName: string;
-    url: string;
-  }>;
 }
 
 export interface IdeaCommentCreateForm {

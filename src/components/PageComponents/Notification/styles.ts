@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   width: 100%;
@@ -22,8 +23,8 @@ export const ListNotifications = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 
   .campaigns-sekeleton {
@@ -31,12 +32,12 @@ export const ListNotifications = styled.ul`
     width: 100%;
     border-bottom: 1px solid ${({ theme }) => theme.colors.blueBorders};
 
-    :first-child {
+    &:first-child {
       border-top-right-radius: 8px;
       border-top-left-radius: 8px;
     }
 
-    :last-child {
+    &:last-child {
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
     }
@@ -50,28 +51,31 @@ export const Items = styled.button<{ read: boolean }>`
   justify-content: start;
   gap: 10px;
   align-items: center;
-  background: ${props => props.read ? ({ theme }) => theme.colors.greyLight : ({ theme }) => theme.colors.unreadNotification};
+  background: ${props =>
+    props.read
+      ? ({ theme }) => theme.colors.greyLight
+      : ({ theme }) => theme.colors.unreadNotification};
   padding: 0 38px;
   cursor: pointer;
   transition: 0.2s ease-out;
 
   border: 1px solid ${({ theme }) => theme.colors.blueBorders};
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.fontLight};
   }
 
-  :first-child {
+  &:first-child {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
   }
 
-  :last-child {
+  &:last-child {
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
   }
 
-  :hover a {
+  &:hover a {
     color: ${({ theme }) => theme.colors.background};
   }
 `;
@@ -80,7 +84,7 @@ export const BadgeNotification = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.terceary};
+  background-color: ${({ theme }) => theme.colors.terceary[styleSlug]};
 `;
 
 export const ReadMessages = styled.button`
@@ -91,7 +95,7 @@ export const ReadMessages = styled.button`
   border-radius: 8px;
   transition: background-color 0.2s;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.grey};
   }
 `;
@@ -137,7 +141,7 @@ export const ItemImageUser = styled.div<{ images_users: string }>`
   height: 32px;
   border: 1px solid ${({ theme }) => theme.colors.background};
 
-  :first-child {
+  &:first-child {
     margin-left: 0px;
   }
 

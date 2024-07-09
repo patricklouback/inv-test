@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface ContentProps extends React.HTMLAttributes<HTMLDivElement> {
   size: 'lg' | 'md' | 'sm';
@@ -13,7 +14,7 @@ interface PProps extends React.HTMLAttributes<HTMLParagraphElement> {
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: 'primary' | 'secondary';
+  $variant: 'primary' | 'secondary';
 }
 
 export const ContentTourHome = styled.div<ContentProps>`
@@ -95,7 +96,7 @@ export const StartButton = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 16px 32px;
   border-radius: 12px;
-  border: 1px solid #47009a;
+  border: 1px solid ${({theme}) => theme.colors.primary[styleSlug]};
 
   //Typograph
   font-size: 16px;
@@ -109,22 +110,22 @@ export const StartButton = styled.button<ButtonProps>`
 
   &:hover,
   &:focus {
-    background-color: #9d28f0;
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
     color: #ffffff;
   }
 
   ${props =>
-    props.variant === 'primary' &&
+    props.$variant === 'primary' &&
     css`
-      background-color: #47009a;
+      background-color: ${({theme}) => theme.colors.primary[styleSlug]};
       color: #ffffff;
     `}
 
   ${props =>
-    props.variant === 'secondary' &&
+    props.$variant === 'secondary' &&
     css`
       background-color: transparent;
-      color: #47009a;
+      color: ${({theme}) => theme.colors.primary[styleSlug]};
     `}
 `;
 
@@ -133,8 +134,8 @@ export const StepsButton = styled.button<ButtonProps>`
   cursor: pointer;
   padding: 8px 32px;
   border-radius: 16px;
-  background-color: #9d28f0;
-  border: 1px solid #9d28f0;
+  background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+  border: 1px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   color: #ffffff;
 
   //Typograph
@@ -150,6 +151,6 @@ export const StepsButton = styled.button<ButtonProps>`
   &:hover,
   &:focus {
     background-color: transparent;
-    color: #9d28f0;
+    color: ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;

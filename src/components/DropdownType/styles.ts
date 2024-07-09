@@ -1,17 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const DropdownContainer = styled.div`
   position: relative;
   display: block;
-
-  z-index: 100;
 
   #arrow-icon {
     transition: 0.4s ease;
     transform: rotateZ(0deg);
   }
 
-  :hover {
+  &:hover {
     #content {
       display: flex;
     }
@@ -27,6 +26,8 @@ export const DropdownContent = styled.div`
   position: absolute;
   top: 100%;
   right: 0;
+  z-index: 50;
+
 `;
 
 export const DropdownContentMenu = styled.div`
@@ -50,7 +51,7 @@ export const DropdownContentMenu = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-  ::before {
+  &::before {
     content: '';
     position: absolute;
     top: -11px;
@@ -101,7 +102,7 @@ export const DropdownButton = styled.button`
   max-width: 157px;
   min-height: 36px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   border: #525556 2px solid;
   color: #525556;
@@ -110,7 +111,7 @@ export const DropdownButton = styled.button`
 
 export const DropdownItemsContainer = styled.div`
   position: relative;
-  
+
   padding-top: 6px;
   margin-left: 15px;
 
@@ -119,7 +120,7 @@ export const DropdownItemsContainer = styled.div`
   align-items: flex-start;
   flex-direction: column;
   gap: 16px;
-  
+
   overflow-y: auto;
 
   &::-webkit-scrollbar-track {
@@ -133,11 +134,10 @@ export const DropdownItemsContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
-
 `;
 
 export const DropdownItem = styled.div`
@@ -162,8 +162,8 @@ export const Arrow = styled.div`
 `;
 
 export const Line = styled.hr`
-  border-top: 2px solid #9d28f0;
-  background: #9d28f0;
+  border-top: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
+  background: ${({ theme }) => theme.colors.primaryLight[styleSlug]};
 `;
 
 export const Checkbox = styled.input`
@@ -181,7 +181,7 @@ export const VisibleCheckbox = styled.label<{ checked?: boolean }>`
   height: 21px;
   width: 21px;
   background-color: #fff;
-  border: 1px solid #9d28f0;
+  border: 1px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   border-radius: 4px;
 
   svg {

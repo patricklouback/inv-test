@@ -51,7 +51,7 @@ export interface Campaign {
   campaignRank?: CampaignRank[];
   campaignAreas?: CampaignArea[];
   campaignFields: CampaignField[];
-  usingCriteria?: boolean
+  usingCriteria?: boolean;
 }
 
 export interface TopCampaigns extends Campaign {

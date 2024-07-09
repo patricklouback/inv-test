@@ -85,7 +85,7 @@ export const PreviewFile = styled.div`
     border-radius: 0.5rem;
     font-weight: 600;
 
-    :hover {
+    &:hover {
       cursor: pointer;
     }
   }

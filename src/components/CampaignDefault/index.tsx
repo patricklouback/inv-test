@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useContext } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import ReactMarkdown from 'react-markdown';
 import {
   ButtonLink,
   CampaingImage,
@@ -52,7 +53,7 @@ export const ArticlesCampaingsComponent: React.FC<ArticleCampaingsParams> = ({
         <Link
           href={`/campaign/detailed-campaign/?campaignId=${campaignData?.id}`}
         >
-          <CampaingImage img={campaignData?.image} imgFilter={isFinished} />
+          <CampaingImage $img={campaignData?.image} imgFilter={isFinished} />
         </Link>
         {showCreateIdeaButton && !isFinished && (
           <ButtonLink onClick={handleNewIdea} className={`carrossel-${index}`}>
@@ -71,7 +72,9 @@ export const ArticlesCampaingsComponent: React.FC<ArticleCampaingsParams> = ({
                 {isFinished && <Tag>Não aceita novas iniciativas</Tag>}
                 <h2>{campaignData?.title}</h2>
               </div>
-              {!!campaignData?.summary && <p>{campaignData?.summary}</p>}
+              <ReactMarkdown className='markdown'>
+                {!!campaignData?.summary && campaignData?.summary}
+              </ReactMarkdown>
             </CampaingText>
           </div>
         </Link>

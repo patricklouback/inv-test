@@ -8,6 +8,7 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from 'react-icons/hi';
 import Skeleton from 'react-loading-skeleton';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { slug } from 'utils/constants';
 import {
   ActionButtonWrapper,
   BannCont,
@@ -59,7 +60,7 @@ export const HomePageBanners: React.FC = (): JSX.Element => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const isTrial = process.env.NEXT_PUBLIC_CLIENT === 'trial';
+  const isTrial = slug === 'trial';
 
   const actionButton = useCallback((index: number) => {
     switch (index) {

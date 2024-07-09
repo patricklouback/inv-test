@@ -9,19 +9,9 @@ import { LayoutContainer, Loading } from './styles';
 export function LayoutApp({ children }): JSX.Element {
   const router = useRouter();
   const { asPath } = useRouter();
-  const { token, user, loading } = useContext(AuthContext);
+  const { token, loading, logout } = useContext(AuthContext);
 
   const isNotPublicPath = asPath !== '/login' && asPath !== '/change-password';
-
-  const paramsHeader = {
-    hasUserInfo: true,
-    isAdmin: user?.isAdmin,
-    isManager: user?.isManager,
-    data: {
-      name: user?.name,
-      image: user?.image,
-    },
-  };
 
   async function sendUnloadRequest(): Promise<void> {
     try {
@@ -36,6 +26,16 @@ export function LayoutApp({ children }): JSX.Element {
       await api.post('/users/sessions/register-page', { currentURL: url });
     } catch (error) {
       console.error('Erro ao enviar a URL da página para o backend:', error);
+      const errorMessage = error.response?.data?.message;
+      const isTokenInvalid =
+        errorMessage === 'Token inválido faça login novamente.';
+
+      if (typeof window !== 'undefined') {
+        if (window.location.pathname !== '/login' && isTokenInvalid) {
+          router.push('/login');
+          logout();
+        }
+      }
     }
   }
 
@@ -62,7 +62,7 @@ export function LayoutApp({ children }): JSX.Element {
     </Loading>
   ) : (
     <>
-      {token && isNotPublicPath && <Header {...paramsHeader} />}
+      {token && isNotPublicPath && <Header />}
       <LayoutContainer>{children}</LayoutContainer>
       {token && isNotPublicPath && <Footer />}
     </>

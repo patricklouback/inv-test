@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TooltipComponent = styled.div<{textWidth, centralizeText}>`
+export const TooltipComponent = styled.div<{ textWidth; centralizeText }>`
   visibility: hidden;
   min-width: 210px;
   text-align: center;
@@ -14,9 +14,10 @@ export const TooltipComponent = styled.div<{textWidth, centralizeText}>`
   max-width: 501px;
   top: auto;
   opacity: 0;
-  width: ${({textWidth}) => `${textWidth}px` || 'auto'};
+  width: ${({ textWidth }) => `${textWidth}px` || 'auto'};
   transition: visibility 0s linear 300ms, opacity 300ms;
-  transform: ${({centralizeText}) => (centralizeText ? 'translateX(-50%)' : 'auto')};
+  transform: ${({ centralizeText }) =>
+    centralizeText ? 'translateX(-50%)' : 'auto'};
   /* transform: translateX(-50%); */
 `;
 

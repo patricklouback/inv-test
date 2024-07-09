@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const RouteGraphContainer = styled.div`
-    display: flex;
+  display: flex;
 `;
 
 export const GraphContainer = styled.div`
@@ -20,7 +20,6 @@ export const GraphFilterBar = styled.div`
   justify-content: space-between;
   margin-bottom: 2rem;
 `;
-
 
 export const TitleFilterBar = styled.div`
   width: auto;

@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { createContext, useCallback, useMemo, useReducer } from 'react';
 import { toast } from 'react-toastify';
 import { api } from 'services/api';
+import { EvaluationCriteriaAPI } from 'services/apis/evaluation-criteria';
 import { IdeaDefaultValues, IdeaReducer } from './reducers/IdeaReducer';
 
 interface CountProps {
@@ -29,6 +30,29 @@ interface IdeaLoadParams {
   type?: string;
   kanbanSteps?: string;
   hasUpdate?: string;
+}
+
+export enum InviteAction {
+  INVITE = 'INVITE',
+  EXCLUDE = 'EXCLUDE',
+}
+
+export interface InviteUsersToIdeaRequest {
+  receiverIds: string[];
+  ideaId: string;
+  message: string;
+  action?: InviteAction;
+}
+
+export enum ReplyInviteAction {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+}
+
+export interface ReplyInviteRequest {
+  ideaId: string;
+  message?: string;
+  action?: ReplyInviteAction;
 }
 
 interface IdeaPropsData {
@@ -74,10 +98,13 @@ interface IdeaPropsData {
   handleCleanIdea: () => void;
   likeIdea: (idea: Idea) => Promise<void>;
   getAvailableIdeaUsers: (
-    search: string,
-    actualUser: string
+    search: string
   ) => Promise<Pick<User, 'id' | 'name'>[]>;
   getIdeasUser: (params?: IdeaLoadParams) => Promise<Idea[]>;
+  inviteUsersToIdea: (params: InviteUsersToIdeaRequest) => Promise<void>;
+  excludeUsersFromIdea: (params: InviteUsersToIdeaRequest) => Promise<void>;
+  acceptInvite: (params: ReplyInviteRequest) => Promise<void>;
+  rejectInvite: (params: ReplyInviteRequest) => Promise<void>;
   getFilterCampaign: () => Promise<void>;
   setIdeaCampaignId: (campaignId: string) => void;
   updateIdeaKanbanStatus: (
@@ -146,6 +173,7 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
 
         return idea;
       } catch (error) {
+        dispatch({ type: 'SET_LOADING', loading: false });
         toast.error(
           'Há campos obrigatórios não preenchidos. Favor preencher! 3'
         );
@@ -212,11 +240,14 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
     async (ideaId: string, data: string) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        await api.put(`/ideas/change-campaign/${ideaId}`, data);
+        await api.put(`/ideas/change-campaign/${ideaId}`, {
+          campaignId: data,
+        });
         await viewIdea(ideaId);
         dispatch({ type: 'SET_LOADING', loading: false });
         toast.success('Sucesso ao atualizar a direcional da iniciativa');
       } catch (err) {
+        console.log(err);
         toast.error(
           err?.response?.data?.message ||
             'Erro ao atualizar sua iniciativa, por favor revise seus campos!'
@@ -227,10 +258,14 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
   );
 
   const updateIdeaComplete = useCallback(
-    async (ideaId: string, formData: any) => {
+    async (ideaId: string, formData: FormData) => {
       try {
         dispatch({ type: 'SET_LOADING', loading: true });
-        const { data } = await api.patch(`/ideas/idea/${ideaId}`, formData);
+        const { data } = await api.patch(`/ideas/idea/${ideaId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         dispatch({ type: 'SET_LOADING', loading: false });
 
         const ideaStatus = formData.get('status');
@@ -330,6 +365,92 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
     }
   }, []);
 
+  const inviteUsersToIdea = useCallback(
+    async ({ receiverIds, ideaId, message }: InviteUsersToIdeaRequest) => {
+      try {
+        const { data: responseData } = await api.post(
+          '/ideas/idea-users/invite-users-to-idea',
+          {
+            receiverIds,
+            ideaId,
+            message,
+            action: InviteAction.INVITE,
+          }
+        );
+        getIdeasUser({ ideaId });
+        toast.success('Participantes convidados com sucesso');
+        return responseData.ideaUsers;
+      } catch (error) {
+        toast.error('Erro ao setar usuários da iniciativa');
+        return [];
+      }
+    },
+    []
+  );
+
+  const excludeUsersFromIdea = useCallback(
+    async ({ receiverIds, ideaId, message }: InviteUsersToIdeaRequest) => {
+      try {
+        const { data: responseData } = await api.post(
+          '/ideas/idea-users/invite-users-to-idea',
+          {
+            receiverIds,
+            ideaId,
+            message,
+            action: InviteAction.EXCLUDE,
+          }
+        );
+        viewIdea(ideaId);
+        toast.success('Participantes convidados com sucesso');
+        return responseData.ideaUsers;
+      } catch (error) {
+        toast.error('Erro ao setar usuários da iniciativa');
+        return [];
+      }
+    },
+    []
+  );
+
+  const acceptInvite = useCallback(async ({ ideaId }: ReplyInviteRequest) => {
+    try {
+      const { data: responseData } = await api.post(
+        '/ideas/idea-users/reply-invite',
+        {
+          ideaId,
+          action: ReplyInviteAction.ACCEPT,
+        }
+      );
+      getIdeasUser({ ideaId });
+      toast.success('Convite aceito com sucesso');
+      return responseData;
+    } catch (error) {
+      toast.error('Erro ao aceitar o convite');
+      return null;
+    }
+  }, []);
+
+  const rejectInvite = useCallback(
+    async ({ ideaId, message }: ReplyInviteRequest) => {
+      try {
+        const { data: responseData } = await api.post(
+          '/ideas/idea-users/reply-invite',
+          {
+            ideaId,
+            message,
+            action: ReplyInviteAction.REJECT,
+          }
+        );
+        getIdeasUser({ ideaId });
+        toast.success('Convite rejeitado com sucesso');
+        return responseData;
+      } catch (error) {
+        toast.error('Erro ao rejeitar o convite');
+        return null;
+      }
+    },
+    []
+  );
+
   const getLast6Ideas = useCallback(async () => {
     try {
       const {
@@ -345,26 +466,21 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
     }
   }, []);
 
-  const getAvailableIdeaUsers = useCallback(
-    async (
-      search: string,
-      actualUser: string
-    ): Promise<Pick<User, 'id' | 'name'>[]> => {
-      try {
-        const { data: responseData } = await api.get('/ideas/idea-users', {
-          params: {
-            search,
-            actualUser,
-          },
-        });
-        return responseData.ideaUsers;
-      } catch (error) {
-        toast.error('Erro ao buscar ideias dos usuários');
-        return [];
-      }
-    },
-    []
-  );
+  const getAvailableIdeaUsers = async (
+    search: string
+  ): Promise<Pick<User, 'id' | 'name'>[]> => {
+    try {
+      const { data: responseData } = await api.get('/ideas/idea-users', {
+        params: {
+          search,
+        },
+      });
+      return responseData.ideaUsers;
+    } catch (error) {
+      toast.error('Erro ao buscar ideias dos usuários');
+      return [];
+    }
+  };
 
   const getIdeaFieldsForIdeaForm = useCallback(async (campaignId: string) => {
     try {
@@ -392,7 +508,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
           ideas: responseData.ideas,
         });
       } catch (error) {
-        toast.error('Error');
+        console.error('Error', error);
+        // toast.error('Error');
       }
     },
     [dispatch]
@@ -408,7 +525,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
       });
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (error) {
-      toast.error('Error');
+      console.error('Error', error);
+      // toast.error('Error');
     }
   }, [dispatch]);
 
@@ -426,7 +544,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
         });
         return responseData.ideas;
       } catch (error) {
-        toast.error('Error');
+        console.error('Error', error);
+        // toast.error('Error');
       }
     },
     [dispatch]
@@ -446,7 +565,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
         });
         return responseData.ideas;
       } catch (error) {
-        toast.error('Error');
+        console.error('Error', error);
+        // toast.error('Error');
       }
     },
     [dispatch]
@@ -491,7 +611,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
           ideas: responseData.ideas,
         });
       } catch (error) {
-        toast.error('Error');
+        console.error('Error', error);
+        // toast.error('Error');
       }
     },
     [dispatch]
@@ -513,7 +634,8 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
 
       dispatch({ type: 'SET_LOADING', loading: false });
     } catch (error) {
-      toast.error('Error');
+      console.error('Error', error);
+      // toast.error('Error');
     }
   }, []);
 
@@ -665,9 +787,9 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
       try {
         await Promise.all(
           evaluationCriterias.map(async evaluationCriteria => {
-            await api.put(
-              `/evaluationcriterias/idea/${evaluationCriteria.id}`,
-              { rate: evaluationCriteria.criteriaRate }
+            await EvaluationCriteriaAPI.updateIdeaEvaluationCriteria(
+              evaluationCriteria.id,
+              evaluationCriteria.criteriaRate
             );
           })
         );
@@ -741,6 +863,10 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
       getIdeaFieldsForIdeaForm,
       updateIdeaEvaluationCriteria,
       createDirectApproval,
+      inviteUsersToIdea,
+      excludeUsersFromIdea,
+      acceptInvite,
+      rejectInvite,
     };
   }, [
     dataReducer,
@@ -776,6 +902,10 @@ export const IdeaProvider: React.FC = ({ children }): JSX.Element => {
     getIdeaFieldsForIdeaForm,
     updateIdeaEvaluationCriteria,
     createDirectApproval,
+    inviteUsersToIdea,
+    excludeUsersFromIdea,
+    acceptInvite,
+    rejectInvite,
   ]);
 
   return (

@@ -1,5 +1,5 @@
-import { TSection } from "..";
-import { Sec, Title, Subtitle } from "./styles";
+import { TSection } from '..';
+import { Sec, Title, Subtitle } from './styles';
 
 export interface ISectionKind {
   section: TSection;
@@ -8,18 +8,18 @@ export interface ISectionKind {
   subtitle?: string;
   children?: React.ReactNode;
 }
-export const SectionKind = ({ 
-  section, 
-  title, 
-  subtitle, 
-  children, 
-  kind 
+export const SectionKind = ({
+  section,
+  title,
+  subtitle,
+  children,
+  kind,
 }: ISectionKind): JSX.Element => {
   return (
     <Sec section={section} kind={kind}>
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
-      { children }
+      {children}
     </Sec>
   );
 };

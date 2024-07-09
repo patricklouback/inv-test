@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 interface StepCardButtonProps {
   selected?: boolean;
@@ -38,7 +39,7 @@ export const StepCardButtonWrapper = styled.button<StepCardButtonProps>`
       `}
     color: ${({ theme }) => theme.colors.background};
     background-color: ${({ theme, selected }) =>
-      selected ? theme.colors.primaryLight : theme.colors.font};
+      selected ? theme.colors.primaryLight[styleSlug] : theme.colors.font};
 
     transition: transform 0.2s;
   }

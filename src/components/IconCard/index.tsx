@@ -18,11 +18,9 @@ export const CardIconComponent: React.FC<CardIconParams> = ({
   children,
 }): JSX.Element => {
   return (
-    <Container background={background} shadow={shadow}>
+    <Container $background={background} $shadow={shadow}>
       {link ? (
-        <Link href={link}>
-          <a>{children}</a>
-        </Link>
+        <Link href={link}>{children}</Link>
       ) : (
         <button name={name} type="button" onClick={onClick}>
           {children}

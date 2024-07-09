@@ -41,22 +41,22 @@ export const TitleFilterBar = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
 `;
 
 export const AverageTimeWrapper = styled.div`
-    border-width: 1px;
-    border-style: solid;
-    border-color: ${({ theme }) => theme.colors.grey};
-    border-radius: 10px;
-    padding: 8px 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ theme }) => theme.colors.grey};
+  border-radius: 10px;
+  padding: 8px 20px;
 `;
 
 export const AverageTime = styled.span`
-    font-weight: 600;
-    font-size: 2rem;
-    margin-left: 5px;
-    margin-right: 5px;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-left: 5px;
+  margin-right: 5px;
 `;

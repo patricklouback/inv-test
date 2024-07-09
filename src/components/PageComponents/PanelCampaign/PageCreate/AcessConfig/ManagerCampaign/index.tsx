@@ -68,7 +68,7 @@ export const ManagerCampaign: React.FC = (): JSX.Element => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearchQueryChange = useCallback(
-    debounce((search: string) => onSearchManagers(search), 1000),
+    debounce((search: string) => onSearchManagers(search), 300),
     []
   );
 

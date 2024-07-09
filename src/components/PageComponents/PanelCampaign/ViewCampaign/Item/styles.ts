@@ -4,7 +4,7 @@ export const Container = styled.div<{ status?: string }>`
   width: 100%;
   margin: 8px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
@@ -19,7 +19,7 @@ export const Container = styled.div<{ status?: string }>`
   flex-direction: column;
   justify-content: space-between;
 
-  ::before {
+  &::before {
     content: '';
     background: ${({ status }) => status};
     height: 7px;
@@ -29,7 +29,7 @@ export const Container = styled.div<{ status?: string }>`
     left: 0;
   }
 
-  ::after {
+  &::after {
     content: '';
     background: ${({ status }) => status};
     height: 7px;
@@ -94,8 +94,8 @@ export const ListTag = styled.ul`
   row-gap: 0;
 `;
 
-export const ItemTag = styled.li<{ background?: string }>`
-  background: ${({ background }) => background};
+export const ItemTag = styled.li<{ $background?: string }>`
+  background: ${({ $background }) => $background};
   padding: 0.4rem;
   border-radius: 16px;
   color: ${({ theme }) => theme.colors.background};

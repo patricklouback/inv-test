@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ContainerInputs = styled.div`
   margin-top: 40px;
@@ -28,11 +29,11 @@ export const Input = styled.input`
 
   margin: 8px 0;
 
-  :first-child {
+  &:first-child {
     margin-top: 0;
   }
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -44,7 +45,7 @@ export const Input = styled.input`
     color: ${props => props.theme.colors.fontGrey};
   }
   &:focus {
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -76,7 +77,7 @@ export const ButtonAdd = styled.button`
 
   transition: 0.3s ease;
 
-  :hover {
+  &:hover {
     color: ${({ theme }) => theme.colors.font};
   }
 `;

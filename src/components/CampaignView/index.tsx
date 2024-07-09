@@ -13,7 +13,7 @@ export const CampaingView: React.FC<ArticleCampaingsParams> = ({
 }): JSX.Element => {
   return (
     <Container>
-      <CampaingImage img={imagem} />
+      <CampaingImage $img={imagem} />
       <div className="fade-line" />
       <CampaingText>
         <div>

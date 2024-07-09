@@ -153,17 +153,15 @@ export const ItemIdea: React.FC<ItemIdeaProps> = ({
 
             <ButtonsContainer>
               <Link href={`/idea/${item.id}`}>
-                <a>
-                  <ButtonView
-                    type="button"
-                    onClick={() => updateNewIdeaChanges(item)}
-                    className={`eye-details-${normalizeString(
-                      KANBAN_STATUS[getStatus(item)]
-                    )}`}
-                  >
-                    <AiOutlineEye color={colors.background} size={22} />
-                  </ButtonView>
-                </a>
+                <ButtonView
+                  type="button"
+                  onClick={() => updateNewIdeaChanges(item)}
+                  className={`eye-details-${normalizeString(
+                    KANBAN_STATUS[getStatus(item)]
+                  )}`}
+                >
+                  <AiOutlineEye color={colors.background} size={22} />
+                </ButtonView>
               </Link>
               <LinksWrapper>
                 <Links
@@ -174,30 +172,26 @@ export const ItemIdea: React.FC<ItemIdeaProps> = ({
               </LinksWrapper>
               {item.status === 'DRAFT' && (
                 <Link href={`/idea/manage/${item.campaignId}`}>
-                  <a>
-                    <ButtonEdit
-                      type="button"
-                      onClick={() => handleEditIdea(item)}
-                    >
-                      <AiOutlineEdit color={colors.background} size={22} />
-                    </ButtonEdit>
-                  </a>
+                  <ButtonEdit
+                    type="button"
+                    onClick={() => handleEditIdea(item)}
+                  >
+                    <AiOutlineEdit color={colors.background} size={22} />
+                  </ButtonEdit>
                 </Link>
               )}
               {item.status === 'PUBLISHED' &&
                 item.kanbanStatus === 'OWNER_REVIEW' && (
                   <Link href={`/idea/manage/${item.campaignId}`}>
-                    <a>
-                      <ButtonEdit
-                        type="button"
-                        onClick={() => handleEditIdea(item)}
-                        className={`edit-idea-details-${normalizeString(
-                          KANBAN_STATUS[getStatus(item)]
-                        )}`}
-                      >
-                        <AiOutlineEdit color={colors.background} size={22} />
-                      </ButtonEdit>
-                    </a>
+                    <ButtonEdit
+                      type="button"
+                      onClick={() => handleEditIdea(item)}
+                      className={`edit-idea-details-${normalizeString(
+                        KANBAN_STATUS[getStatus(item)]
+                      )}`}
+                    >
+                      <AiOutlineEdit color={colors.background} size={22} />
+                    </ButtonEdit>
                   </Link>
                 )}
             </ButtonsContainer>
@@ -279,6 +273,9 @@ export const ItemIdea: React.FC<ItemIdeaProps> = ({
         <ProgressBar>
           {item.ideaSteps.map((ideaStep, index) => (
             <ItemProcessBar>
+              {item.ideaSteps.length !== index + 1 && (
+                <Line completed={ideaStep.completed} />
+              )}
               <Gate>
                 {index === 0 ? (
                   <FirstGateTitle>{ideaStep.title}</FirstGateTitle>
@@ -293,9 +290,6 @@ export const ItemIdea: React.FC<ItemIdeaProps> = ({
                   )}
                 </CircleGate>
               </Gate>
-              {item.ideaSteps.length !== index + 1 && (
-                <Line completed={ideaStep.completed} />
-              )}
             </ItemProcessBar>
           ))}
         </ProgressBar>

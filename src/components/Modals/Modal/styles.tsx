@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
-export const Container = styled.div<{ zIndex: number }>`
+export const Container = styled.div<{ $zIndex: number }>`
   display: flex;
   align-items: center;
   position: fixed;
@@ -8,7 +9,7 @@ export const Container = styled.div<{ zIndex: number }>`
   height: 100%;
   top: 0;
   left: 0;
-  z-index: ${({ zIndex }) => zIndex};
+  z-index: ${({ $zIndex }) => $zIndex};
 
   background: #6d6d6ddf;
 `;
@@ -30,9 +31,10 @@ export const Content = styled.div<{ width; height }>`
   max-width: ${({ width }) => (width ? `${width}` : '1000px')};
   width: 100%;
   margin: 0 auto;
-  transform: translateY(25px);
+  position: relative;
   border-radius: 24px;
   padding: 20px;
+  z-index: 1;
 
   ${({ height }) => {
     if (height === 'auto') {
@@ -51,6 +53,23 @@ export const Content = styled.div<{ width; height }>`
       `;
     }
   }}
+
+  .fade-line {
+    &:first-child {
+      top: 0;
+    }
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+
+    background: ${({ theme }) => `linear-gradient(
+      90deg,
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
+    );`};
+  }
 `;
 
 export const ModalHeader = styled.div`
@@ -59,6 +78,7 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
   /* margin: 8px 8px 8px 8px; */
   margin-bottom: 20px;
+  width: 100%;
 `;
 
 export const Title = styled.div`

@@ -671,6 +671,9 @@ export function ConditionsAndTermsModal({
 
       mustShowTerms = acceptedDate < ninetyDaysAgo || acceptedDate > today;
     }
+
+    if (acceptTerms === null) return;
+
     setIsOpenState(mustShowTerms);
   }, [
     getGlobalConfigs,

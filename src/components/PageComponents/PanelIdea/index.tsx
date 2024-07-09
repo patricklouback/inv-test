@@ -63,6 +63,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
     setSelectedIdea,
     updateIdeaComplete,
     getIdeaFieldsForIdeaForm,
+    loading
   } = useContext(IdeaContext);
 
   const { size } = useContext(ListenSizeContext);
@@ -78,12 +79,11 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-  const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit, setValue, getValues, reset } = useForm();
 
   const handleFilesChange = (files: File[]): any => {
     setUploadedFiles(files);
+    setValue('files', files[0]);
   };
 
   const handleSave = useCallback(
@@ -129,10 +129,9 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
 
   const submitForm = useCallback(
     async values => {
-      setLoading(true);
+      // setLoading(true);
       // Get all fields values inside a formData (both: Save and Publishe actions)
       const formData = new FormData();
-      // console.log(ideaFieldsForm)
 
       for (const key in values) {
         if (key === 'field') {
@@ -168,7 +167,6 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
           toast.error(
             'Há campos obrigatórios não preenchidos. Favor preencher. 2'
           );
-          // console.log(ideaFieldsForm)
           return;
         }
         if (
@@ -183,9 +181,10 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
       formData.append('ideaFields', JSON.stringify(ideaFieldsForm));
       formData.append('ideaUsers', JSON.stringify(ideaUsers.map(u => u.id)));
 
-      for (const f of uploadedFiles) {
-        console.log(f)
-        formData.append('files', f);
+      if (!uploadedFiles) {
+        for (const f of uploadedFiles) {
+          formData.append('files', f);
+        }
       }
 
       // This if to give users points when idea was saved and not published at first time
@@ -203,7 +202,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
         formData.append('kanbanStatus', 'WAITING');
         await handlePublish(formData);
       }
-      setLoading(false);
+      // setLoading(false);
     },
     [
       query.campaignId,
@@ -236,8 +235,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
 
   const handleSearchUsers = useCallback(
     async (search: string) => {
-      const actualUser = localStorage.getItem('emailLogin');
-      const users = await getAvailableIdeaUsers(search, actualUser);
+      const users = await getAvailableIdeaUsers(search);
 
       const serialized = users
         .map(e => {
@@ -359,12 +357,8 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (selectedIdea) {
       const { title, description, ideaUsers } = selectedIdea;
-
-      if (title) {
-        setValue('title', title);
-      }
-
-      if (description) setValue('description', description);
+      setValue('title', title);
+      setValue('description', description);
 
       if (ideaUsers?.length > 0) {
         const ideaUsersCollaborators = ideaUsers?.filter(
@@ -415,7 +409,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
                 </ItemIdea>
                 <ItemIdea size={size}>
                   <ContentSimpleComponent
-                    title="Participantes da iniciativa"
+                    title="Outros participantes da iniciativa"
                     description="Pessoas envolvidas na criação ou execução"
                   >
                     <>
@@ -456,6 +450,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
                       register={register}
                       name="description"
                       rows={8}
+                      value={getValues('description')}
                       placeholder="Digite aqui a descrição da sua iniciativa"
                       onChange={e => setValue('description', e.target.value)}
                       mark
@@ -487,7 +482,13 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
                                         name: 'Selecione',
                                         value: '',
                                       },
-                                      ...JSON.parse(ideaField.options),
+                                      ...(typeof JSON.parse(
+                                        ideaField.options
+                                      ) === 'string'
+                                        ? JSON.parse(
+                                            JSON.parse(ideaField.options)
+                                          )
+                                        : JSON.parse(ideaField.options)),
                                     ]}
                                     value={
                                       ideaField?.ideaFieldValues?.length > 0
@@ -533,7 +534,7 @@ export const PanelIdeaPage: React.FC = (): JSX.Element => {
                 <ItemIdea>
                   <ContentSimpleComponent
                     title="Arquivos"
-                    description="Há algum documento que ajude a demonstrar essaa inciativa? Adicione o material aqui."
+                    description="Há algum documento que ajude a demonstrar essa iniciativa? Adicione o material aqui."
                   >
                     <DropFileComponent
                       name="files"

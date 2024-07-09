@@ -97,7 +97,7 @@ export function TourFunnelStepOne(): JSX.Element {
           ),
           locale: {
             next: (
-              <StepsButton aria-label="next" variant="primary">
+              <StepsButton aria-label="next" $variant="primary">
                 Seguir
               </StepsButton>
             ),

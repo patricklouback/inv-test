@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Container = styled.div`
   height: 68px;
@@ -23,7 +24,7 @@ export const EvaluateButton = styled.button`
   height: 34px;
   border-radius: 8px;
   gap: 8px;
-  background: #47009a;
+  background: ${({theme}) => theme.colors.primary[styleSlug]};
   color: ${({ theme }) => theme.colors.fontWhite};
   font-family: Montserrat;
   font-size: 14px;

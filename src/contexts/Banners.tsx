@@ -40,7 +40,8 @@ export const BannersProvider: React.FC = ({ children }): JSX.Element => {
           bannersList: responseData.bannersList,
         });
       } catch (error) {
-        toast.error('Erro ao buscar banners');
+        console.error('Erro ao buscar banners', error);
+        // toast.error('Erro ao buscar banners');
       }
     },
     [dispatch]

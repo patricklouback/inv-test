@@ -34,7 +34,7 @@ export const BoxIcons = styled.div`
   display: flex;
   flex-direction: row-reverse;
 
-  svg :nth-child(2) {
+  svg:nth-child(2) {
     transform: translateX(3px);
   }
 `;
@@ -65,7 +65,7 @@ export const Options = styled.div`
 
   z-index: 20;
 
-  ::before {
+  &::before {
     content: '';
     z-index: 20px;
     position: absolute;
@@ -88,7 +88,7 @@ export const Item = styled.li`
   padding: 18px;
   cursor: pointer;
 
-  :hover {
+  &:hover {
     background: ${({ theme }) => theme.colors.greyLight};
   }
 

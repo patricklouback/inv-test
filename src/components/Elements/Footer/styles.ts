@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const FooterWrapper = styled.footer`
   width: 100vw;
   display: flex;
   height: 48px;
-  background-color: ${({ theme }) => theme.colors.secondaryLight};
+  background-color: ${({ theme }) => theme.colors.secondaryLight[styleSlug]};
   justify-content: center;
   align-items: center;
   position: relative;
@@ -17,14 +18,14 @@ export const FooterWrapper = styled.footer`
 
     background: ${({ theme }) => `linear-gradient(
       90deg,
-      ${theme.colors.primaryLight} 20.87%,
-      ${theme.colors.primary} 52.62%,
-      ${theme.colors.terceary} 83.37%
+      ${theme.colors.primaryLight[styleSlug]} 20.87%,
+      ${theme.colors.primary[styleSlug]} 52.62%,
+      ${theme.colors.terceary[styleSlug]} 83.37%
     );`};
   }
 
   div.footer-svg {
-    margin-left: 42%
+    margin-left: 42%;
   }
 `;
 

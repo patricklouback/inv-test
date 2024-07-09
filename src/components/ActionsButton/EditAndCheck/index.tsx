@@ -11,7 +11,7 @@ interface EditAndCheckProps extends SelectHTMLAttributes<HTMLSelectElement> {
 export function EditAndCheck({
   isEditing,
   setIsEditing,
-  handleCheck
+  handleCheck,
 }: EditAndCheckProps): JSX.Element {
   return (
     <EditAndCheckWrapper>

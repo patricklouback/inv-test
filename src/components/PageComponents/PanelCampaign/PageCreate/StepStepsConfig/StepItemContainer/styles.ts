@@ -26,7 +26,7 @@ export const StepItemContainerWrapper = styled.div`
     border: 0;
     border-radius: 0.5rem;
     transition: background-color 1s;
-    :hover {
+    &:hover {
       background-color: ${({ theme }) => theme.colors.grey};
     }
   }

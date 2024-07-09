@@ -9,10 +9,9 @@ import {
   AiOutlineEye,
   AiOutlineThunderbolt,
   AiOutlineCaretDown,
-  AiOutlineCaretRight
+  AiOutlineCaretRight,
 } from 'react-icons/ai';
 import { RiFileEditLine, RiSendPlaneLine } from 'react-icons/ri';
-import { FiSearch } from 'react-icons/fi';
 import { translateStep } from '../translate';
 import {
   CardItem,
@@ -28,7 +27,7 @@ import {
   ItemValueStep,
   ItemValueTitle,
   KanbanStatus,
-  KanbanStatusText
+  KanbanStatusText,
 } from './styles';
 
 interface ItemRowProps {
@@ -40,7 +39,7 @@ interface ItemRowProps {
 export const ItemRowComponent = ({
   item,
   handleOpenIdea,
-  handleOpenSendModalIdea
+  handleOpenSendModalIdea,
 }: ItemRowProps): JSX.Element => {
   const { colors } = useTheme();
   const { listLinkedIdeas, kanbanSteps } = useContext(ApprovalFunnelContext);
@@ -118,7 +117,7 @@ export const ItemRowComponent = ({
         result = 'gray';
     }
     return result;
-  }, [])
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -131,7 +130,7 @@ export const ItemRowComponent = ({
       <ItemRow key={item.id}>
         <IdeaId className="id">
           <IdWrapper>
-            {linkedIdeasState.length > 0 && (
+            {linkedIdeasState?.length > 0 && (
               <DownIconWrapper onClick={() => setLinkIsOpen(!linkIsOpen)}>
                 <AiOutlineCaretRight
                   style={
@@ -148,34 +147,19 @@ export const ItemRowComponent = ({
             {`#${getSequenceNumber(item.sequence)}`}
           </IdWrapper>
         </IdeaId>
-        <ItemValue>
-          <div style={{ paddingLeft: '0.7rem' }}>
-            <CardIconComponent background={colors.background}>
-              {item.processActivity?.name ? (
-                <RiFileEditLine color={colors.red} size={20} />
-              ) : (
-                <FiSearch size={20} />
-              )}
-            </CardIconComponent>
-          </div>
-        </ItemValue>
-        <ItemValueTitle className="title">
-          {item.title}
-        </ItemValueTitle>
+        <ItemValueTitle className="title">{item.title}</ItemValueTitle>
         <ItemValueCampaign>{item?.campaign?.title}</ItemValueCampaign>
         <ItemValueDate className="date">
           {handleFormateDate(item?.createdAt)}
         </ItemValueDate>
         <ItemValueStep>
-        {kanbanSteps.length > 0 && (
-          <CardItem color={colorSetter(item.kanbanStep)}>
-            <span>
-              {
-                `${item.newKanbanStep?.sequence}/4 - ${item.newKanbanStep?.title}`
-              }
-            </span>
-          </CardItem>
-        )}
+          {kanbanSteps.length > 0 && (
+            <CardItem color={colorSetter(item.kanbanStep)}>
+              <span>
+                {`${item?.newKanbanStep?.sequence || 1}/4 - ${item?.newKanbanStep?.title || "Triagem"}`}
+              </span>
+            </CardItem>
+          )}
         </ItemValueStep>
         <ItemValueStatus>
           <KanbanStatus type={getStatus(item)}>
@@ -187,11 +171,6 @@ export const ItemRowComponent = ({
         <ItemValue>
           <div className="actions">
             <AiOutlineEye size={26} onClick={() => handleOpenIdea(item.id)} />
-            <RiSendPlaneLine
-              size={24}
-              onClick={() => handleOpenSendModalIdea(item.id)}
-              style={{ cursor: 'pointer' }}
-            />
           </div>
         </ItemValue>
       </ItemRow>

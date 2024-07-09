@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Content = styled.div`
   margin: 0;
   display: flex;
   flex-direction: column;
   flex: 1;
+  position: relative;
 `;
 
 export const PageHeader = styled.div`
@@ -82,14 +84,14 @@ export const InputSearch = styled.input`
   &:disabled {
     color: ${({ theme }) => theme.colors.borders};
   }
-  ::placeholder {
+  &::placeholder {
     font-size: 14px;
     letter-spacing: 0.4px;
     color: ${({ theme }) => theme.colors.fontLight};
     font-weight: normal;
   }
   &:focus {
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -124,10 +126,10 @@ export const Filter = styled.div`
   min-width: 220px;
   position: relative;
 
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
 
@@ -181,7 +183,7 @@ export const VisibleCheckbox = styled.label<{ checked: boolean }>`
   width: 21px;
   height: 21px;
   border-radius: 4px;
-  border: 1.4px solid #47009a;
+  border: 1.4px solid ${({theme}) => theme.colors.primary[styleSlug]};
   background: #fff;
   display: flex;
   justify-content: center;
@@ -215,7 +217,7 @@ export const ToggleFilters = styled.div`
 `;
 
 export const Balloon = styled.div`
-  ::after {
+  &::after {
     content: '';
     position: absolute;
     left: 20%;
@@ -238,7 +240,7 @@ export const WapperTitleFilter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryLight[styleSlug]};
   margin-bottom: 5px;
 
   strong {
@@ -247,23 +249,23 @@ export const WapperTitleFilter = styled.div`
   }
 `;
 
-export const ButtonAction = styled.button<{ backgr?: string }>`
+export const ButtonAction = styled.button<{ $backgr?: string }>`
   width: 100%;
   height: 56px;
   border: none;
   border-radius: 8px;
   outline: none;
   margin: 0 8px;
-  :first-child {
+  &:first-child {
     margin-left: 0;
   }
-  :last-child {
+  &:last-child {
     margin-right: 0;
   }
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${({ backgr }) => backgr};
+  background: ${({ $backgr }) => $backgr};
   color: ${({ theme }) => theme.colors.background};
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -298,8 +300,8 @@ export const TableContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 4px;
   }
 
@@ -350,6 +352,7 @@ export const ImgUser = styled.img`
 export const ItemHeader = styled.th`
   padding: 1rem 0;
   text-align: left;
+
 
   @media screen and (max-width: 635px) {
     :last-child {
@@ -437,10 +440,10 @@ export const ModalEditUser = styled.div<{ img?: string }>`
           margin: 6px 0;
           display: flex;
           flex-direction: column;
-          :first-child {
+          &:first-child {
             margin-top: 0;
           }
-          :last-child {
+          &:last-child {
             margin-bottom: 0;
           }
           span {
@@ -462,14 +465,14 @@ export const ModalEditUser = styled.div<{ img?: string }>`
             &:disabled {
               color: ${({ theme }) => theme.colors.borders};
             }
-            ::placeholder {
+            &::placeholder {
               font-size: 14px;
               letter-spacing: 0.4px;
               color: ${({ theme }) => theme.colors.fontLight};
               font-weight: normal;
             }
             &:focus {
-              border: 2px solid ${({ theme }) => theme.colors.primary};
+              border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
             }
           }
         }
@@ -500,9 +503,12 @@ export const TotalIdeas = styled.div`
 `;
 
 export const DownloadAndSearchContainer = styled.div`
-  display: flex;
   width: 100%;
-  justify-content: end;
+  display: flex;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 `;
 
 export const TableBottom = styled.div`

@@ -22,7 +22,7 @@ export const AddButton = styled.button`
   font-size: 14px;
   transition: 0.4s ease;
 
-  :hover {
+  &:hover {
     color: ${({ theme }) => theme.colors.font};
   }
 
@@ -40,15 +40,15 @@ export const ButtonAction = styled.button`
   border: none;
   background: none;
   margin-left: 8px;
-  :hover #edit {
+  &:hover #edit {
     color: ${({ theme }) => theme.colors.blue};
   }
 
-  :hover #x {
+  &:hover #x {
     color: ${({ theme }) => theme.colors.red};
   }
 
-  :hover #check {
+  &:hover #check {
     color: ${({ theme }) => theme.colors.greenLive};
   }
 

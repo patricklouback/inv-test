@@ -38,32 +38,46 @@ export const DropFileComponent: React.FC<DropFileProps> = ({
   const [preview, setPreview] = useState<string>('');
   const [extension, setExtension] = useState<string>('');
   const [verifyBlob, setVerifyBlob] = useState<boolean>(false);
-  const { getRootProps, getInputProps, acceptedFiles, isDragAccept, fileRejections } =
-  useDropzone({maxFiles});
+  const {
+    getRootProps,
+    getInputProps,
+    acceptedFiles,
+    isDragAccept,
+    fileRejections,
+  } = useDropzone({ maxFiles });
 
   const verifyIfIsImage = (extension): boolean => {
     let result;
-    switch(extension) {
-      case '.png' : result = true;
+    switch (extension) {
+      case '.png':
+        result = true;
         break;
-      case '.jpg' : result = true;
+      case '.jpg':
+        result = true;
         break;
-      case 'jpeg' : result= true;
+      case 'jpeg':
+        result = true;
         break;
-      default: result = false;
+      default:
+        result = false;
     }
     return result;
-  }
+  };
 
   useEffect(() => {
     onFilesChange(acceptedFiles);
     if (acceptedFiles.length > 0) {
       setPreview(URL.createObjectURL(acceptedFiles[0]));
       setVerifyBlob(true);
-      setExtension(acceptedFiles[0].name.substring(acceptedFiles[0].name.length - 4));
+      setExtension(
+        acceptedFiles[0].name.substring(acceptedFiles[0].name.length - 4)
+      );
     }
     if (fileRejections.length > 0) {
-      toast.error(`O limite de arquivos permitido para envio é ${maxFiles}. Selecione novamente dentro do limite`, {autoClose: 7000})
+      toast.error(
+        `O limite de arquivos permitido para envio é ${maxFiles}. Selecione novamente dentro do limite`,
+        { autoClose: 7000 }
+      );
     }
   }, [acceptedFiles]);
 
@@ -96,22 +110,31 @@ export const DropFileComponent: React.FC<DropFileProps> = ({
           )}
           {preview && verifyBlob && (
             <FilePreviewContainer>
-              {acceptedFiles.length === 1 && acceptedFiles[0] 
-                ? verifyIfIsImage(extension) 
-                  ? <PreviewImage preview={preview} title="preview" /> 
-                  : <ul>
-                      {acceptedFiles.map((file) => (
-                        <li key={file.name}>{file.name}</li>
-                      ))}
-                    </ul>
-                : <ul>
-                    {acceptedFiles.map((file) => (
+              {acceptedFiles.length === 1 && acceptedFiles[0] ? (
+                verifyIfIsImage(extension) ? (
+                  <PreviewImage preview={preview} title="preview" />
+                ) : (
+                  <ul>
+                    {acceptedFiles.map(file => (
                       <li key={file.name}>{file.name}</li>
                     ))}
                   </ul>
-              }
-              <RemoveFileButton type='button' onClick={() => {setPreview(''); setVerifyBlob(true)}}>
-                <CgFileRemove size={20}/>
+                )
+              ) : (
+                <ul>
+                  {acceptedFiles.map(file => (
+                    <li key={file.name}>{file.name}</li>
+                  ))}
+                </ul>
+              )}
+              <RemoveFileButton
+                type="button"
+                onClick={() => {
+                  setPreview('');
+                  setVerifyBlob(true);
+                }}
+              >
+                <CgFileRemove size={20} />
                 <p>Remover Arquivos</p>
               </RemoveFileButton>
             </FilePreviewContainer>

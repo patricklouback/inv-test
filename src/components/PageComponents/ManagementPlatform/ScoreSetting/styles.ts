@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Section = styled.section``;
 
@@ -50,7 +51,7 @@ export const WapperSelect = styled.div`
       color: ${props => props.theme.colors.borders};
     }
     &:focus {
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     }
   }
 `;

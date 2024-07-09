@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const Section = styled.section`
   margin: 30px 0;
@@ -32,7 +33,7 @@ export const TextInput = styled.input`
   padding-left: 10px;
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -46,7 +47,7 @@ export const AreaTextInput = styled.input`
   padding-left: 10px;
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 
@@ -59,7 +60,7 @@ export const ColorInput = styled.input`
   font-size: 1rem;
   &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
   }
 `;
 

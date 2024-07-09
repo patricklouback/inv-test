@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -33,7 +34,7 @@ const GlobalStyles = createGlobalStyle`
   .custom-dot--active {
     .react-multi-carousel-dot--active {
       button {
-        background: ${({ theme }) => theme.colors.primary};
+        background: ${({ theme }) => theme.colors.primary[styleSlug]};
       }
     }
     li  {
@@ -108,7 +109,7 @@ const GlobalStyles = createGlobalStyle`
       color: ${props => props.theme.colors.disabled};
     }
     &:focus {
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid ${props => props.theme.colors.primary[styleSlug]};
     }
   }
 
@@ -132,8 +133,8 @@ const GlobalStyles = createGlobalStyle`
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: ${({ theme }) => theme.colors.primary};
-      border: 2px solid ${({ theme }) => theme.colors.primary};
+      background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
+      border: 2px solid ${({ theme }) => theme.colors.primary[styleSlug]};
     }
 
     &:focus{
@@ -161,6 +162,30 @@ const GlobalStyles = createGlobalStyle`
     background-color: white;
     padding: 1.5rem 2rem;
     border-radius: 40px;
+    &:focus{
+      outline: none;
+    }
+  }
+
+  .react-modal-invite-idea{
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    background-color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    &:focus{
+      outline: none;
+    }
+  }
+
+  .react-modal-profile-user{
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: 12px;
     &:focus{
       outline: none;
     }
@@ -203,6 +228,12 @@ const GlobalStyles = createGlobalStyle`
     &:focus{
       outline: none;
     }
+  }
+
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 `;

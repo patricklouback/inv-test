@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import { styleSlug } from 'utils/constants';
 
 export const ConditionsAndTermsForm = styled.form<{ showTerms }>`
-  display: ${({ showTerms }) =>
-    showTerms ? "flex" : "none"
-  };
+  display: ${({ showTerms }) => (showTerms ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   > div {
@@ -12,7 +11,7 @@ export const ConditionsAndTermsForm = styled.form<{ showTerms }>`
     overflow-y: scroll;
     max-height: 500px;
     border-width: 1px;
-    border-color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary[styleSlug]};
     border-style: solid;
     border-radius: 5px;
   }
@@ -21,7 +20,7 @@ export const ConditionsAndTermsForm = styled.form<{ showTerms }>`
   }
 
   > div::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary[styleSlug]};
     border-radius: 5px;
   }
 `;
@@ -48,11 +47,11 @@ export const ConditionsAndTermsContent = styled.div`
 `;
 
 export const CheckboxLabel = styled.span`
-    border: none;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    > label {
-        display: flex;
-        gap: 8px;
-    }
+  border: none;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  > label {
+    display: flex;
+    gap: 8px;
+  }
 `;

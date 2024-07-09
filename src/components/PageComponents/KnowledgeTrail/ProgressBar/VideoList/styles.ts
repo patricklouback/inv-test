@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const List = styled.ul`
   position: relative;
-  /* ::before {
+  /* &::before {
     content: '';
     position: absolute;
     bottom: 0;

@@ -53,7 +53,11 @@ export const IdeaCommentProvider: React.FC = ({ children }): JSX.Element => {
   const createIdeaComment = useCallback(
     async (form: FormData, toastMessage = true) => {
       try {
-        const { data } = await api.post('/ideas/idea-comments', form, {});
+        const { data } = await api.post('/ideas/idea-comments', form, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
         const newComments = [data.comment, ...dataReducer.ideaComments];
         dispatch({ type: 'SET_IDEA_COMMENTS', ideaComments: newComments });
@@ -105,7 +109,7 @@ export const IdeaCommentProvider: React.FC = ({ children }): JSX.Element => {
             if (ideasComments.length === 0) {
               ideasComments = responseData.ideaComments;
             } else {
-              ideasComments.concat(responseData.ideaComments);
+              ideasComments = ideasComments.concat(responseData.ideaComments);
             }
           })
         );
@@ -123,10 +127,13 @@ export const IdeaCommentProvider: React.FC = ({ children }): JSX.Element => {
 
   const getPossibleMentionUsers = useCallback(async (ideaId: string) => {
     try {
-      const possibleMentionUsers = await api.get(`/users/mentions/${ideaId}`);
+      const { data: possibleMentionUsers } = await api.get(
+        `/users/mentions/${ideaId}`
+      );
       return possibleMentionUsers;
     } catch (error) {
       toast.error('Erro ao buscar as menções dos usuários');
+      return [];
     }
   }, []);
 

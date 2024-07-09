@@ -14,7 +14,7 @@ interface IdeaChangePropsData {
   loading: boolean;
   getIdeaChanges: (ideaId: string) => Promise<void>;
   updateIdeaChange: (id: string) => Promise<void>;
-  getAllIdeaChangesForUser: () => Promise<any>
+  getAllIdeaChangesForUser: () => Promise<any>;
 }
 
 export const IdeaChangeContext = createContext<IdeaChangePropsData>(
@@ -30,55 +30,50 @@ export const IdeaChangeProvider: React.FC = ({ children }): JSX.Element => {
   const getIdeaChanges = useCallback(
     async (ideaId: string) => {
       try {
-        const { data } = await api.get(
-          `/ideas/idea-changes/${ideaId}`,
-        );
+        const { data } = await api.get(`/ideas/idea-changes/${ideaId}`);
         dispatch({
           type: 'SET_IDEA_CHANGES',
           ideaChanges: data.ideaChangesList,
         });
       } catch (error) {
-        toast.error('Error');
+        console.error('Error', error);
+        // toast.error('Error');
       }
     },
     [dispatch]
   );
 
-  const getAllIdeaChangesForUser = useCallback(
-    async (): Promise<any> => {
-      try {
-        const { data } = await api.get(
-          `/ideas/idea-changes`,
-        );
-        dispatch({
-          type: 'SET_IDEA_CHANGES_FOR_USER',
-          ideaChangesForUser: data.ideaChangesForUserList ,
-        });
-        return data.ideaChangesForUserList
-      } catch (error) {
-        toast.error('Error');
-      }
-    },
-    [dispatch]
-  );
+  const getAllIdeaChangesForUser = useCallback(async (): Promise<any> => {
+    try {
+      const { data } = await api.get(`/ideas/idea-changes`);
+      dispatch({
+        type: 'SET_IDEA_CHANGES_FOR_USER',
+        ideaChangesForUser: data.ideaChangesForUserList,
+      });
+      return data.ideaChangesForUserList;
+    } catch (error) {
+      console.error('Error', error);
+      // toast.error('Error');
+    }
+  }, [dispatch]);
 
-  const updateIdeaChange = useCallback(
-    async (id: string) => {
-      try {
-        const { data } = await api.put(`/ideas/idea-changes/${id}`);
-        return data.ideaChangeUpdate;
-      } catch (error) {
-        toast.error('Erro ao alterar status de visualização das alterações da iniciativa.');
-      }
-    }, []
-  )
+  const updateIdeaChange = useCallback(async (id: string) => {
+    try {
+      const { data } = await api.put(`/ideas/idea-changes/${id}`);
+      return data.ideaChangeUpdate;
+    } catch (error) {
+      toast.error(
+        'Erro ao alterar status de visualização das alterações da iniciativa.'
+      );
+    }
+  }, []);
 
   const IdeaChangeDataValue = useMemo(() => {
     return {
       ...dataReducer,
       updateIdeaChange,
       getIdeaChanges,
-      getAllIdeaChangesForUser
+      getAllIdeaChangesForUser,
     };
   }, [dataReducer, updateIdeaChange, getIdeaChanges, getAllIdeaChangesForUser]);
 
